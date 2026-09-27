@@ -1,0 +1,112 @@
+/*
+ * Design tokens from the Claude Design handoff (design/README.md), as the
+ * Tailwind theme. Tailwind's default palette, radii, shadows and breakpoints
+ * are cleared, so only these tokens exist as utilities (bg-surface,
+ * rounded-card, md:…). Anything off-system needs an arbitrary value, which
+ * stands out in review.
+ *
+ * Colors use light-dark(), so each is defined once. html[data-theme] (set by
+ * the pre-paint script) picks the side; without JS it follows the OS.
+ */
+@theme {
+  /* Color */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-bg: light-dark(#f7f2ea, #16120e);
+  --color-surface: light-dark(#fffbf5, #201a15);
+  --color-sunken: light-dark(#efe7db, #2a231c);
+  --color-line: light-dark(#e3d8c8, #362d25);
+  --color-ink: light-dark(#231c15, #f4ece0);
+  --color-ink2: light-dark(#5e5246, #b9ac9b);
+  --color-ink3: light-dark(#3a3027, #e6dccd);
+  --color-accent: light-dark(#c4461c, #ff8a5b);
+  --color-field: light-dark(#c4461c, #ff8a5b);
+  --color-field-deep: light-dark(#a93a14, #f2774a);
+  --color-on-field: light-dark(#fff6ec, #16120e);
+  --color-field-btn-ink: light-dark(#231c15, #f4ece0);
+  --color-btn: light-dark(#231c15, #f4ece0);
+  --color-btn-ink: light-dark(#fffbf5, #16120e);
+  --color-green: light-dark(#2f5a3a, #8fcb9c);
+  --color-green-tint: light-dark(#e1ebdd, #1e3324);
+  --color-green-dot: light-dark(#3f7a4a, #2f7a45);
+  --color-metric: #8fcb9c;
+  --color-dark-card: light-dark(#231c15, #2a231c);
+  --color-dark-card-ink: light-dark(#f7f2ea, #f4ece0);
+  --color-dark-card-2: light-dark(#d9cdbc, #b9ac9b);
+  --color-c-accent: #ff8a5b;
+  --color-draft-bg: light-dark(#fbeadf, #3a2418);
+  --color-draft-ink: light-dark(#6e2a10, #ffc9ae);
+  --color-stripe: light-dark(#e8dfd1, #332a22);
+  --color-overlay: light-dark(rgb(35 28 21 / 0.45), rgb(0 0 0 / 0.6));
+  --color-logo-planet: light-dark(#c4461c, #ff8a5b);
+  --color-logo-outline: light-dark(#2a1f18, #16120e);
+  --color-logo-ring: light-dark(#2a1f18, #f4ece0);
+  --color-logo-moon: light-dark(#3f7a4a, #8fcb9c);
+
+  /* Radius */
+  --radius-*: initial;
+  --radius-pill: 999px;
+  --radius-field: 28px;
+  --radius-card: 20px;
+  --radius-outcome: 18px;
+  --radius-tile: 16px;
+  --radius-box: 12px;
+
+  /* Elevation: floating layers only */
+  --shadow-*: initial;
+  --shadow-dialog: 0 24px 60px rgb(0 0 0 / 0.35);
+  --shadow-menu: 0 20px 50px rgb(0 0 0 / 0.3);
+  --shadow-toast: 0 12px 30px rgb(0 0 0 / 0.25);
+
+  /* Layout: one breakpoint (900px), plus a hero step at 1180px */
+  --breakpoint-*: initial;
+  --breakpoint-md: 900px;
+  --breakpoint-lg: 1180px;
+  --container-page: 1240px;
+
+  /*
+   * Type scale from design/README.md › Typography. Tailwind's default sizes are
+   * cleared because each carries a line height; the design uses the browser's
+   * `normal` except where a role specifies one.
+   */
+  --text-*: initial;
+  --text-xs: 12px;
+  --text-caption: 13px;
+  --text-sm: 14px;
+  --text-ui: 15px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-footer-title: 26px;
+  --text-footer-title--letter-spacing: -0.02em;
+  --text-hero: 120px;
+  --text-hero--line-height: 0.9;
+  --text-hero--letter-spacing: -0.045em;
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Every border in the design is 1.5px unless a class says otherwise. */
+  --default-border-width: 1.5px;
+}
+
+/* Tokens that point at runtime variables: Astro's font stacks and the responsive gutters. */
+@theme inline {
+  /* Astro's Fonts API includes metric-matched fallbacks in these stacks. */
+  --font-display: var(--font-bricolage);
+  --font-text: var(--font-atkinson);
+  --spacing-gutter: var(--gutter);
+  --spacing-gutter-sm: var(--gutter-sm);
+}
+
+/* `dark:` follows the resolved theme attribute, not just the OS. */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme]), :root:not([data-theme]) *) {
+      @slot;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+---
+/**
+ * An on/off switch (role="switch"), upgraded by the <pm-switch> custom element
+ * (./pmSwitch.ts). Attributes such as `id` go on the host element, and the
+ * `checked` attribute is the switch's state:
+ *
+ *   import { Switch } from './Switch';
+ *   <Switch label="Motion" id="motion-switch" />
+ *
+ *   const el = document.getElementById('motion-switch')!;
+ *   motion.subscribe((on) => el.toggleAttribute('checked', on));
+ *   el.addEventListener('change', () => motion.set(el.hasAttribute('checked')));
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'div'> {
+  label: string;
+  checked?: boolean;
+}
+
+const { label, checked = false, class: className, ...attrs } = Astro.props;
+---
+
+{/* Astro only treats `checked` as boolean on native inputs, so omit it rather than render checked="false". */}
+<pm-switch class:list={['block', className]} checked={checked || undefined} {...attrs}>
+  <button
+    class="group relative flex items-center gap-2.5 text-sm text-ink2 before:absolute before:inset-x-0 before:-inset-y-2.25"
+    type="button"
+    role="switch"
+    aria-checked={checked ? 'true' : 'false'}
+  >
+    <span>{label}</span>
+    <span
+      class="relative h-6.5 w-11 rounded-pill bg-line transition-colors duration-150 group-aria-checked:bg-btn"
+      aria-hidden="true"
+    >
+      <span class="absolute top-0.75 left-0.75 size-5 rounded-full bg-surface transition-[left] duration-150 group-aria-checked:left-5.25"></span>
+    </span>
+  </button>
+</pm-switch>
+
+<script>
+  import './pmSwitch';
+</script>

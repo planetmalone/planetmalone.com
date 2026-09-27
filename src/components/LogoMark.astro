@@ -1,0 +1,31 @@
+---
+interface Props {
+  size: number;
+  /** Unique per instance, because the SVG filter needs an id. */
+  id: string;
+  class?: string;
+}
+
+const { size, id, class: className } = Astro.props;
+const filterId = `logo-rough-${id}`;
+---
+
+<svg class={className} viewBox="0 0 64 64" width={size} height={size} aria-hidden="true" focusable="false">
+  <defs>
+    <filter id={filterId} x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" scale="2.6"></feDisplacementMap>
+    </filter>
+  </defs>
+  <g filter={`url(#${filterId})`} stroke-linecap="round" fill="none">
+    <circle cx="32" cy="32" r="17" class="fill-logo-planet stroke-logo-outline" stroke-width="2.4"></circle>
+    <path
+      d="M20 26 C26 24 30 28 36 26 M22 38 C28 36 34 40 42 37"
+      class="stroke-logo-outline opacity-(--logo-texture)"
+      stroke-width="2"
+    ></path>
+    <path d="M8 40 C4 34 20 24 34 20 C48 16 60 18 58 24" class="stroke-logo-ring" stroke-width="2.4"></path>
+    <path d="M58 24 C56 30 44 36 30 40 C18 44 10 44 8 40" class="stroke-logo-ring" stroke-width="2.4"></path>
+    <circle cx="54" cy="12" r="3.2" class="fill-logo-moon stroke-logo-outline" stroke-width="2"></circle>
+  </g>
+</svg>

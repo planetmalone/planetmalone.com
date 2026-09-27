@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Atkinson+Hyperlegible+Next:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F2EA;--surface:#FFFBF5;--sunken:#EFE7DB;--line:#E3D8C8;--ink:#231C15;--ink2:#5E5246;--ink3:#3A3027;--accent:#C4461C;--field:#C4461C;--field-deep:#A93A14;--on-field:#FFF6EC;--field-btn-ink:#231C15;--btn:#231C15;--btn-ink:#FFFBF5;--green:#2F5A3A;--green-tint:#E1EBDD;--green-dot:#3F7A4A;--metric:#8FCB9C;--dark-card:#231C15;--dark-card-ink:#F7F2EA;--dark-card-2:#D9CDBC;--c-accent:#FF8A5B;--draft-bg:#FBEADF;--draft-ink:#6E2A10;--stripe:#E8DFD1;--overlay:rgba(35,28,21,.45)}
+html,body{margin:0}body{font-family:'Atkinson Hyperlegible Next',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}a:hover{color:var(--ink)}button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+html.pm-theme::view-transition-old(root),html.pm-theme::view-transition-new(root){animation:none;mix-blend-mode:normal}
+@media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+@media print{[data-noprint]{display:none!important}body{background:#fff!important}}
+</style>
+</helmet>
+
+<a href="#main" data-noprint style="position:absolute;left:-9999px;top:8px;z-index:50;background:var(--btn);color:var(--btn-ink);padding:10px 16px;border-radius:999px;font-weight:700" style-focus="left:16px">Skip to content</a>
+
+<header data-noprint style="position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line)">
+<div style="max-width:1240px;margin:0 auto;padding:10px {{ gutter }};display:flex;align-items:center;justify-content:space-between;gap:12px;box-sizing:border-box">
+<a href="#/" aria-label="Planet Malone home" style="display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);min-height:44px"><sc-if value="{{ logoLight }}" hint-placeholder-val="{{ true }}"><img src="assets/logo-mark-green.svg" alt="" style="width:32px"></sc-if><sc-if value="{{ logoDark }}" hint-placeholder-val="{{ false }}"><img src="assets/logo-mark-dark.svg" alt="" style="width:32px"></sc-if><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:18px;letter-spacing:-0.02em">planet malone</span></a>
+<div style="display:flex;gap:8px;align-items:center">
+<sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}"><nav aria-label="Pages" style="display:flex;gap:4px;margin-right:6px;font-size:15px;font-weight:600">
+<sc-for list="{{ pageLinks }}" as="p" hint-placeholder-count="4"><a href="{{ p.href }}" aria-current="{{ p.current }}" style="color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px;background:{{ p.bg }}" style-hover="background:var(--sunken)">{{ p.label }}</a></sc-for>
+</nav></sc-if>
+<button onClick="{{ openPal }}" aria-label="Open command palette" style="display:flex;gap:8px;align-items:center;background:transparent;border:1.5px solid var(--line);border-radius:999px;padding:0 14px;height:44px;font-size:14px;color:var(--ink2)" style-hover="border-color:var(--ink)"><b style="color:var(--ink)">⌘K</b><sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}"><span>Search or do a thing</span></sc-if></button>
+<button ref="{{ themeRef }}" onClick="{{ toggleTheme }}" aria-label="{{ themeLabel }}" title="{{ themeLabel }}" style="width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;padding:0" style-hover="border-color:var(--ink)"><sc-if value="{{ logoLight }}" hint-placeholder-val="{{ true }}"><img src="assets/logo-mark-green.svg" alt="" style="width:28px;transition:transform 300ms cubic-bezier(.4,0,.2,1);transform:{{ planetFlip }}"></sc-if><sc-if value="{{ logoDark }}" hint-placeholder-val="{{ false }}"><img src="assets/logo-mark-dark.svg" alt="" style="width:28px;transition:transform 300ms cubic-bezier(.4,0,.2,1);transform:{{ planetFlip }}"></sc-if></button>
+<sc-if value="{{ isMob }}" hint-placeholder-val="{{ false }}"><button onClick="{{ toggleMenu }}" aria-expanded="{{ menu }}" style="height:44px;padding:0 14px;border-radius:999px;border:1.5px solid var(--line);background:transparent;font-weight:700;font-size:14px">Menu</button></sc-if>
+</div></div></header>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main id="main" tabindex="-1" style="outline:none">
+<section aria-label="Introduction" style="max-width:1240px;margin:0 auto;padding:16px {{ gutterSm }} 0;box-sizing:border-box;display:grid;gap:20px">
+<div style="background:var(--field);color:var(--on-field);border-radius:28px;padding:{{ fieldPad }};min-height:{{ fieldMinH }};position:relative;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box">
+<sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}">
+<div aria-hidden="true" style="position:absolute;right:-40px;bottom:-110px;width:580px;height:580px;border-radius:50%;background:var(--field-deep)"></div>
+<div aria-hidden="true" style="position:absolute;right:-150px;bottom:130px;width:820px;height:170px;border:2px solid var(--on-field);border-radius:50%;transform:rotate(-14deg);opacity:.45"></div>
+<div style="position:absolute;right:{{ avRight }};bottom:0;width:{{ avW }}">
+<sc-if value="{{ avDefault }}" hint-placeholder-val="{{ true }}"><img src="assets/illos/illo-wave.png" alt="Illustrated Sean waving" style="width:100%;display:block"></sc-if>
+<sc-if value="{{ avSleepy }}" hint-placeholder-val="{{ false }}"><img src="assets/illos/illo-night.png" alt="Illustrated Sean in a striped nightcap and sleep mask, laughing" style="width:100%;display:block"></sc-if>
+<sc-if value="{{ avEgg }}" hint-placeholder-val="{{ false }}"><img src="assets/illos/illo-confused.png" alt="Illustrated Sean scratching his head, confused" style="width:100%;display:block"></sc-if>
+</div></sc-if>
+<sc-if value="{{ isMob }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:flex-end;margin-bottom:-8px">
+<sc-if value="{{ avDefault }}" hint-placeholder-val="{{ true }}"><img src="assets/illos/illo-wave.png" alt="Illustrated Sean waving" style="width:132px"></sc-if>
+<sc-if value="{{ avSleepy }}" hint-placeholder-val="{{ false }}"><img src="assets/illos/illo-night.png" alt="Illustrated Sean in a striped nightcap and sleep mask, laughing" style="width:132px"></sc-if>
+<sc-if value="{{ avEgg }}" hint-placeholder-val="{{ false }}"><img src="assets/illos/illo-confused.png" alt="Illustrated Sean scratching his head, confused" style="width:132px"></sc-if>
+</div></sc-if>
+<div style="margin-top:auto;max-width:{{ heroTextMax }};display:grid;gap:20px;position:relative">
+<span style="display:flex;gap:8px;align-items:center;background:var(--on-field);color:var(--field-btn-ink);border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px;width:max-content;max-width:100%;box-sizing:border-box"><span style="width:8px;height:8px;border-radius:50%;background:var(--green-dot);flex:none"></span>Open to Staff / Principal FE and FE Manager roles · Remote</span>
+<h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:{{ nameSize }};line-height:.9;letter-spacing:-0.045em">Sean Malone</h1>
+<p style="margin:0;font-size:{{ leadSize }};line-height:1.4;text-wrap:pretty">Frontend engineer and engineering leader. I build design systems and frontend platforms that let whole teams ship faster, and I've done it from both the IC chair and the manager's chair.</p>
+<div style="display:grid;grid-template-columns:{{ btnCols }};gap:10px">
+<button onClick="{{ pdf }}" style="background:var(--on-field);color:var(--field-btn-ink);border:0;border-radius:999px;min-height:46px;padding:0 20px;font-weight:700">Résumé · Staff</button>
+<button onClick="{{ pdf }}" style="background:var(--on-field);color:var(--field-btn-ink);border:0;border-radius:999px;min-height:46px;padding:0 20px;font-weight:700">Résumé · EM</button>
+<button onClick="{{ copyEmail }}" style="background:transparent;color:var(--on-field);border:1.5px solid var(--on-field);border-radius:999px;min-height:46px;padding:0 20px;font-weight:700">{{ copyLabel }}</button>
+<a href="https://linkedin.com/in/malonesean" style="border:1.5px solid var(--on-field);color:var(--on-field);border-radius:999px;min-height:46px;padding:0 20px;font-weight:700;display:grid;place-items:center;text-decoration:none;box-sizing:border-box">LinkedIn ↗</a>
+</div></div></div>
+<div style="display:grid;grid-template-columns:{{ proofCols }};gap:20px;padding:4px {{ proofPad }} 8px;font-variant-numeric:tabular-nums;align-items:center">
+<div><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.02em">18+ years</div><div style="color:var(--ink2)">in tech</div></div>
+<div><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.02em">Teams up to 50+</div><div style="color:var(--ink2)">people led</div></div>
+<div><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.02em">4 design systems</div><div style="color:var(--ink2)">built · 2 design-system teams managed</div></div>
+<div style="font-size:14px;color:var(--ink2);text-align:{{ timeAlign }}">Dallas–Fort Worth · Central Time<br><span style="color:var(--ink);font-weight:700">Local time on Planet Malone: {{ ctTime }}</span></div>
+</div></section>
+
+<div style="max-width:1240px;margin:0 auto;padding:72px {{ gutter }} 0;box-sizing:border-box;display:grid;grid-template-columns:{{ bodyCols }};gap:64px">
+<sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}">
+<aside data-noprint style="position:sticky;top:96px;align-self:start;display:grid;gap:28px">
+<nav aria-label="Sections" style="display:grid;gap:4px;font-size:14px;font-weight:600;letter-spacing:.02em">
+<sc-for list="{{ sectionsNav }}" as="s" hint-placeholder-count="7"><button onClick="{{ s.go }}" aria-current="{{ s.current }}" style="display:flex;gap:12px;align-items:center;background:none;border:0;padding:6px 0;text-align:left;color:{{ s.color }}" style-hover="color:var(--ink)"><span style="height:2px;width:{{ s.bar }};background:{{ s.barColor }};transition:width 200ms cubic-bezier(.4,0,.2,1)"></span>{{ s.label }}</button></sc-for>
+</nav>
+<div style="display:grid;gap:8px">
+<button onClick="{{ pdf }}" style="background:var(--btn);color:var(--btn-ink);border:0;border-radius:999px;min-height:42px;font-weight:700;font-size:14px">Résumé · Staff</button>
+<button onClick="{{ pdf }}" style="background:var(--btn);color:var(--btn-ink);border:0;border-radius:999px;min-height:42px;font-weight:700;font-size:14px">Résumé · EM</button>
+<button onClick="{{ copyEmail }}" style="background:transparent;border:1.5px solid var(--ink);border-radius:999px;min-height:42px;font-weight:700;font-size:14px">{{ copyLabelShort }}</button>
+</div>
+</aside></sc-if>
+
+<div style="display:flex;flex-direction:column;gap:96px;min-width:0">
+<section id="impact" style="display:grid;gap:24px;scroll-margin-top:90px">
+<h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:36px;letter-spacing:-0.03em">Selected impact</h2>
+<div style="display:grid;grid-template-columns:{{ cols2 }};gap:18px">
+<sc-for list="{{ cases }}" as="c" hint-placeholder-count="4">
+<a href="{{ c.href }}" style="background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:var(--ink);transition:border-color 150ms" style-hover="border-color:var(--accent)">
+<span style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ c.tags }}" as="t"><span style="background:var(--sunken);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:600">{{ t }}</span></sc-for></span>
+<span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:24px;line-height:1.12;letter-spacing:-0.02em;text-wrap:pretty;view-transition-name:{{ c.vt }}">{{ c.title }}</span>
+<span style="font-size:14px;color:var(--ink2)">{{ c.org }}</span>
+<span style="font-size:16px;line-height:1.5;color:var(--ink3);text-wrap:pretty">{{ c.summary }}</span>
+<span style="margin-top:auto;padding-top:14px;border-top:1.5px dashed var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-weight:700;font-variant-numeric:tabular-nums;color:var(--green)">{{ c.metric }}</span><span style="color:var(--accent);font-weight:700;font-size:15px;white-space:nowrap">Read →</span></span>
+</a>
+</sc-for>
+</div></section>
+
+<section id="lead" style="display:grid;gap:24px;scroll-margin-top:90px">
+<h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:36px;letter-spacing:-0.03em">How I lead</h2>
+<div style="display:grid;grid-template-columns:{{ cols2 }};gap:40px">
+<sc-for list="{{ lead }}" as="col" hint-placeholder-count="2">
+<div style="display:grid;gap:18px;align-content:start"><div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">{{ col.head }}</div>
+<sc-for list="{{ col.items }}" as="it"><div style="display:grid;gap:4px"><div style="font-weight:700;font-size:18px">{{ it.t }}</div><div style="color:var(--ink2);line-height:1.5">{{ it.d }}</div></div></sc-for></div>
+</sc-for>
+</div></section>
+
+<section id="experience" style="display:grid;gap:24px;scroll-margin-top:90px">
+<h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:36px;letter-spacing:-0.03em">Experience</h2>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px;font-weight:600">
+<span style="font-size:13px;color:var(--ink2);font-weight:400">The scenic route:</span>
+<sc-for list="{{ route }}" as="st" hint-placeholder-count="5"><span style="display:flex;gap:8px;align-items:center"><span aria-current="{{ st.current }}" style="border:1.5px solid {{ st.bd }};background:{{ st.bg }};color:{{ st.fg }};border-radius:999px;padding:5px 12px;transition:background-color 200ms,color 200ms,border-color 200ms">{{ st.label }}</span><sc-if value="{{ st.arrow }}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="color:var(--accent)">→</span></sc-if></span></sc-for>
+</div>
+<ol style="list-style:none;margin:0;padding:0;display:grid;gap:10px">
+<sc-for list="{{ roles }}" as="r" hint-placeholder-count="9">
+<li style="background:var(--surface);border:1.5px solid {{ r.bd }};border-radius:16px;transition:border-color 150ms" style-hover="border-color:var(--accent)">
+<button onClick="{{ r.toggle }}" aria-expanded="{{ r.open }}" style="width:100%;background:none;border:0;text-align:left;padding:18px 20px;display:grid;grid-template-columns:{{ roleCols }};gap:18px;align-items:start;border-radius:16px">
+<span style="display:{{ deskBlock }};font-size:14px;color:var(--ink2);font-variant-numeric:tabular-nums;padding-top:3px">{{ r.dates }}</span>
+<span style="display:grid;gap:4px"><span style="display:{{ mobBlock }};font-size:13px;color:var(--ink2);font-variant-numeric:tabular-nums">{{ r.dates }}</span><span style="font-weight:700;font-size:18px">{{ r.title }}<span style="color:var(--ink2);font-weight:400">{{ r.at }}</span></span><span style="color:var(--ink2);line-height:1.45;font-size:15px">{{ r.scope }}</span></span>
+<span aria-hidden="true" style="width:28px;height:28px;border-radius:50%;border:1.5px solid {{ r.signBd }};background:{{ r.signBg }};color:{{ r.signFg }};display:grid;place-items:center;font-weight:700">{{ r.sign }}</span>
+</button>
+<sc-if value="{{ r.open }}" hint-placeholder-val="{{ false }}">
+<div style="padding:{{ winsPad }};display:grid;gap:14px">
+<ul style="margin:0;padding-left:18px;display:grid;gap:6px;line-height:1.5"><sc-for list="{{ r.wins }}" as="w"><li>{{ w }}</li></sc-for></ul>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ r.chips }}" as="ch"><span style="border:1.5px solid var(--line);border-radius:999px;padding:2px 10px;font-size:13px">{{ ch }}</span></sc-for></div>
+<sc-if value="{{ r.hasAside }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:var(--accent);font-style:italic">{{ r.aside }}</div></sc-if>
+<sc-if value="{{ r.hasCase }}" hint-placeholder-val="{{ false }}"><a href="{{ r.caseHref }}" style="font-weight:700;font-size:15px">Read the case study →</a></sc-if>
+</div></sc-if>
+</li>
+</sc-for>
+</ol>
+<div style="display:grid;grid-template-columns:{{ cols2 }};gap:18px;font-size:15px;line-height:1.5">
+<div><b>B.S. Computer Science</b>, UT Dallas, 2013<br><span style="color:var(--ink2)">4.0 GPA · Summa Cum Laude</span></div>
+<div><b>Dallas Area Habitat for Humanity</b>, 2014 – present<br><span style="color:var(--ink2)">Volunteer. Has framed two homes.</span></div>
+</div></section>
+
+<section id="built" style="display:grid;gap:20px;scroll-margin-top:90px">
+<h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:36px;letter-spacing:-0.03em">Things I've built and written</h2>
+<div style="display:grid;border-top:1.5px solid var(--ink)">
+<sc-for list="{{ built }}" as="b" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:{{ builtCols }};gap:6px 20px;padding:16px 0;border-bottom:1.5px solid var(--line);align-items:baseline"><span style="font-weight:700;font-size:17px">{{ b.name }}</span><span style="color:var(--ink2);font-size:15px;line-height:1.45">{{ b.desc }}</span><span style="font-size:13px;color:var(--accent);font-weight:700;text-align:{{ builtAlign }}">{{ b.kind }}</span></div>
+</sc-for></div>
+<div style="font-size:14px;color:var(--ink2)">Talks and posts will land here. Currently in draft, which is where most talks live.</div>
+</section>
+
+<section id="skills" style="display:grid;gap:22px;scroll-margin-top:90px">
+<h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:36px;letter-spacing:-0.03em">Skills</h2>
+<sc-for list="{{ skills }}" as="g" hint-placeholder-count="3">
+<div style="display:grid;grid-template-columns:{{ skillCols }};gap:12px 20px;align-items:baseline;padding-bottom:18px;border-bottom:1.5px solid var(--line)"><div style="font-weight:700">{{ g.label }}</div><div style="display:flex;gap:8px;flex-wrap:wrap"><sc-for list="{{ g.items }}" as="i"><span style="background:var(--sunken);border-radius:999px;padding:5px 12px;font-size:14px">{{ i }}</span></sc-for></div></div>
+</sc-for></section>
+
+<section id="about" style="display:grid;gap:22px;scroll-margin-top:90px">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+<h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:36px;letter-spacing:-0.03em">About</h2>
+<div role="radiogroup" aria-label="Bio length" style="display:flex;gap:4px;background:var(--sunken);border-radius:999px;padding:4px;max-width:100%;overflow:auto">
+<sc-for list="{{ bioOpts }}" as="o" hint-placeholder-count="4"><button role="radio" aria-checked="{{ o.on }}" onClick="{{ o.pick }}" style="border:0;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:700;white-space:nowrap;background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button></sc-for>
+</div></div>
+<div style="display:grid;grid-template-columns:{{ aboutCols }};gap:28px">
+<div aria-live="polite" style="display:grid;gap:14px;font-size:18px;line-height:1.6;align-content:start">
+<sc-if value="{{ bioIsList }}" hint-placeholder-val="{{ false }}"><ul style="margin:0;padding-left:20px;display:grid;gap:8px"><sc-for list="{{ bioParas }}" as="p"><li>{{ p }}</li></sc-for></ul></sc-if>
+<sc-if value="{{ bioIsProse }}" hint-placeholder-val="{{ true }}"><sc-for list="{{ bioParas }}" as="p" hint-placeholder-count="1"><p style="margin:0;text-wrap:pretty">{{ p }}</p></sc-for></sc-if>
+</div>
+<div style="background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:22px;display:grid;gap:12px;align-content:start;font-variant-numeric:tabular-nums">
+<div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">Population of Planet Malone</div>
+<div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:64px;line-height:1;letter-spacing:-0.04em">12</div>
+<div style="display:grid;grid-template-columns:1fr auto;row-gap:6px;font-size:15px"><span>Humans</span><b>4</b><span>Cats</span><b>3</b><span>Dogs</span><b>2</b><span>Mice</span><b>2</b><span>Bearded dragon</span><b>1</b></div>
+<div style="font-size:13px;color:var(--ink2)">Census conducted by the bearded dragon, who counted himself twice.</div>
+</div></div>
+<div style="display:grid;grid-template-columns:{{ hobbyCols }};gap:14px">
+<sc-for list="{{ hobbies }}" as="h" hint-placeholder-count="4"><figure style="margin:0;display:grid;gap:8px"><div role="img" aria-label="{{ h.ph }}" style="aspect-ratio:4/3;border-radius:14px;background:repeating-linear-gradient(135deg,var(--sunken) 0 10px,var(--stripe) 10px 20px);display:grid;place-items:center;font-size:12px;color:var(--ink2);text-align:center;padding:8px">{{ h.ph }}</div><figcaption style="font-size:14px;line-height:1.4"><b>{{ h.name }}</b> {{ h.cap }}</figcaption></figure></sc-for>
+</div></section>
+
+<section id="contact" style="display:grid;gap:22px;background:var(--dark-card);color:var(--dark-card-ink);border-radius:28px;padding:{{ contactPad }};scroll-margin-top:90px">
+<h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:56px;letter-spacing:-0.04em;line-height:1">Say hello<span style="color:var(--c-accent)">.</span></h2>
+<p style="margin:0;font-size:18px;line-height:1.5;max-width:560px;color:var(--dark-card-2)">Staff / Principal Frontend or Frontend Engineering Manager, remote, Central Time. I reply within a day or two.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><span style="font-size:22px;font-weight:700;word-break:break-all">sean@planetmalone.com</span><button onClick="{{ copyEmail }}" style="background:var(--c-accent);color:#231C15;border:0;border-radius:999px;min-height:44px;padding:0 18px;font-weight:700">{{ copyLabelShort }}</button></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;font-weight:700;font-size:15px">
+<a href="https://linkedin.com/in/malonesean" style="color:var(--dark-card-ink);text-decoration:none;border:1.5px solid #5A4C3F;border-radius:999px;padding:10px 16px" style-hover="border-color:var(--c-accent)">LinkedIn ↗</a>
+<a href="https://github.com/planetmalone" style="color:var(--dark-card-ink);text-decoration:none;border:1.5px solid #5A4C3F;border-radius:999px;padding:10px 16px" style-hover="border-color:var(--c-accent)">GitHub ↗</a>
+<button onClick="{{ pdf }}" style="background:none;color:var(--dark-card-ink);border:1.5px solid #5A4C3F;border-radius:999px;padding:10px 16px;font-weight:700" style-hover="border-color:var(--c-accent)">Résumé · Staff (PDF, Sep 2026)</button>
+<button onClick="{{ pdf }}" style="background:none;color:var(--dark-card-ink);border:1.5px solid #5A4C3F;border-radius:999px;padding:10px 16px;font-weight:700" style-hover="border-color:var(--c-accent)">Résumé · EM (PDF, Sep 2026)</button>
+</div></section>
+</div></div>
+</main>
+</sc-if>
+
+<sc-if value="{{ isCase }}" hint-placeholder-val="{{ false }}">
+<main id="main" tabindex="-1" style="outline:none;max-width:1240px;margin:0 auto;padding:20px {{ gutterSm }} 96px;box-sizing:border-box">
+<a href="#/" style="display:inline-flex;min-height:44px;align-items:center;font-weight:700;color:var(--ink);text-decoration:none;padding:0 {{ backPad }}" style-hover="color:var(--accent)">← Back to Planet Malone</a>
+<header style="margin-top:8px;background:var(--surface);border:1.5px solid var(--line);border-radius:28px;padding:{{ caseHeadPad }};display:grid;gap:20px">
+<div style="display:flex;gap:6px"><sc-for list="{{ cs.tags }}" as="t" hint-placeholder-count="2"><span style="background:var(--sunken);border-radius:999px;padding:4px 12px;font-size:14px;font-weight:600">{{ t }}</span></sc-for></div>
+<h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:{{ caseH1 }};line-height:.98;letter-spacing:-0.045em;max-width:1000px;text-wrap:balance;view-transition-name:{{ cs.vt }}">{{ cs.title }}</h1>
+<div style="display:grid;grid-template-columns:{{ metaCols }};gap:16px 40px;padding-top:20px;border-top:1.5px solid var(--line);font-size:15px"><sc-for list="{{ cs.meta }}" as="m" hint-placeholder-count="4"><div><div style="color:var(--ink2)">{{ m.k }}</div><b>{{ m.v }}</b></div></sc-for></div>
+</header>
+<div style="display:grid;grid-template-columns:{{ caseCols }};gap:72px;padding:{{ caseBodyPad }}">
+<nav aria-label="On this page" style="position:sticky;top:96px;align-self:start;display:{{ deskGrid }};gap:6px;font-size:14px;font-weight:600">
+<span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin-bottom:6px">On this page</span>
+<sc-for list="{{ caseNav }}" as="n" hint-placeholder-count="6"><button onClick="{{ n.go }}" style="background:none;border:0;padding:5px 0;text-align:left;color:var(--ink2)" style-hover="color:var(--ink)">{{ n.label }}</button></sc-for>
+</nav>
+<article style="display:grid;gap:52px;font-size:18px;line-height:1.65;max-width:760px">
+<section id="cs-context" style="display:grid;gap:12px;scroll-margin-top:90px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">Context</h2><p style="margin:0;text-wrap:pretty">{{ cs.context }}</p><p style="margin:0;padding:14px 18px;background:var(--draft-bg);border-radius:12px;font-size:15px;color:var(--draft-ink)">{{ cs.contextDraft }}</p></section>
+<section id="cs-role" style="display:grid;gap:12px;scroll-margin-top:90px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">My role and scope</h2><ul style="margin:0;padding-left:22px;display:grid;gap:6px"><sc-for list="{{ cs.scope }}" as="s" hint-placeholder-count="3"><li>{{ s }}</li></sc-for></ul></section>
+<section id="cs-decisions" style="display:grid;gap:16px;scroll-margin-top:90px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">Key decisions and trade-offs</h2>
+<div style="display:grid;grid-template-columns:{{ cols2 }};gap:14px;font-size:16px;line-height:1.5"><sc-for list="{{ cs.cards }}" as="d" hint-placeholder-count="2"><div style="background:var(--surface);border:1.5px solid {{ d.bd }};border-radius:16px;padding:20px;display:grid;gap:8px;align-content:start"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">{{ d.label }}</div><b style="font-size:18px">{{ d.title }}</b><span style="color:var(--ink2)">{{ d.body }}</span></div></sc-for></div>
+<p style="margin:0;padding:14px 18px;background:var(--draft-bg);border-radius:12px;font-size:15px;color:var(--draft-ink)">{{ cs.decisionDraft }}</p></section>
+<section id="cs-people" style="display:grid;gap:12px;scroll-margin-top:90px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">How I brought people along</h2><p style="margin:0;text-wrap:pretty">{{ cs.people }}</p>
+<sc-if value="{{ cs.hasQuote }}" hint-placeholder-val="{{ false }}"><blockquote style="margin:8px 0 0;padding:0;display:grid;gap:10px"><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;line-height:1.15;letter-spacing:-0.02em">{{ cs.quote }}</span><span style="font-size:15px;color:var(--ink2)">{{ cs.quoteBy }}</span></blockquote></sc-if>
+<sc-if value="{{ cs.hasPeopleDraft }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:14px 18px;background:var(--draft-bg);border-radius:12px;font-size:15px;color:var(--draft-ink)">{{ cs.peopleDraft }}</p></sc-if></section>
+<section id="cs-outcomes" style="display:grid;gap:16px;scroll-margin-top:90px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">Outcomes</h2>
+<div style="display:grid;grid-template-columns:{{ cols3 }};gap:14px;font-variant-numeric:tabular-nums"><sc-for list="{{ cs.outcomes }}" as="o" hint-placeholder-count="3"><div style="background:var(--dark-card);color:var(--dark-card-ink);border-radius:18px;padding:22px;display:grid;gap:6px;align-content:start"><span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:36px;line-height:1;letter-spacing:-0.03em;color:var(--metric)">{{ o.big }}</span><span style="font-size:15px;color:var(--dark-card-2)">{{ o.small }}</span></div></sc-for></div></section>
+<section id="cs-different" style="display:grid;gap:12px;scroll-margin-top:90px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">What I'd do differently</h2><p style="margin:0;padding:14px 18px;background:var(--draft-bg);border-radius:12px;font-size:15px;color:var(--draft-ink)">Draft: your reflection goes here. Two or three sentences, specific.</p></section>
+<div data-noprint style="display:grid;grid-template-columns:{{ cols2 }};gap:14px;padding-top:28px;border-top:1.5px solid var(--line);font-size:16px">
+<a href="{{ csPrev.href }}" style="color:var(--ink);text-decoration:none;border:1.5px solid var(--line);border-radius:16px;padding:16px" style-hover="border-color:var(--accent)"><div style="color:var(--ink2);font-size:14px">← Previous</div><b>{{ csPrev.title }}</b></a>
+<a href="{{ csNext.href }}" style="color:var(--ink);text-decoration:none;border:1.5px solid var(--line);border-radius:16px;padding:16px;text-align:right" style-hover="border-color:var(--accent)"><div style="color:var(--ink2);font-size:14px">Next →</div><b>{{ csNext.title }}</b></a>
+</div></article></div></main>
+</sc-if>
+
+<sc-if value="{{ isNow }}" hint-placeholder-val="{{ false }}">
+<main id="main" tabindex="-1" style="outline:none;max-width:820px;margin:0 auto;padding:56px {{ gutter }} 96px;box-sizing:border-box;display:grid;gap:36px">
+<div style="display:grid;gap:14px"><img src="assets/illos/illo-busy.png" alt="Illustrated Sean in glasses, typing on a laptop" style="width:280px;max-width:100%"><h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:72px;letter-spacing:-0.045em;line-height:.95">Now</h1>
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:15px;color:var(--ink2)"><span style="background:var(--btn);color:var(--btn-ink);border-radius:999px;padding:4px 12px;font-weight:700;font-variant-numeric:tabular-nums">Sep 25, 2026</span>What's happening on Planet Malone this month.</div></div>
+<div style="display:grid;border-top:1.5px solid var(--ink)">
+<sc-for list="{{ now }}" as="r" hint-placeholder-count="5"><div style="display:grid;grid-template-columns:{{ rowCols }};gap:8px 24px;padding:22px 0;border-bottom:1.5px solid var(--line)"><b style="font-size:17px">{{ r.k }}</b><div style="display:grid;gap:10px"><sc-if value="{{ r.hasV }}" hint-placeholder-val="{{ true }}"><div style="font-size:18px;line-height:1.6">{{ r.v }}</div></sc-if><sc-if value="{{ r.hasDraft }}" hint-placeholder-val="{{ false }}"><div style="padding:12px 14px;background:var(--draft-bg);border-radius:12px;font-size:15px;color:var(--draft-ink)">{{ r.draft }}</div></sc-if></div></div></sc-for>
+</div>
+<div style="font-size:14px;color:var(--ink2)">A /now page. If this date is more than three months old, assume I'm doing roughly the same thing, only more tired.</div>
+</main></sc-if>
+
+<sc-if value="{{ isUses }}" hint-placeholder-val="{{ false }}">
+<main id="main" tabindex="-1" style="outline:none;max-width:1040px;margin:0 auto;padding:56px {{ gutter }} 96px;box-sizing:border-box;display:grid;gap:36px">
+<div style="display:grid;gap:14px"><h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:72px;letter-spacing:-0.045em;line-height:.95">Uses</h1><p style="margin:0;font-size:19px;line-height:1.5;color:var(--ink3)">The tools on my desk and in the garage. No affiliate links.</p></div>
+<div style="display:grid;grid-template-columns:{{ cols2 }};gap:20px">
+<sc-for list="{{ uses }}" as="g" hint-placeholder-count="4"><section style="background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:24px;display:grid;gap:14px;align-content:start"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:24px;letter-spacing:-0.02em">{{ g.title }}</h2><div style="display:grid"><sc-for list="{{ g.items }}" as="i"><div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:10px 0;border-top:1.5px solid var(--sunken);font-size:16px"><span><b>{{ i.name }}</b> <span style="color:var(--ink2)">{{ i.note }}</span></span><span style="font-size:12px;font-weight:700;color:var(--accent);align-self:center">{{ i.flag }}</span></div></sc-for></div></section></sc-for>
+</div></main></sc-if>
+
+<sc-if value="{{ isColophon }}" hint-placeholder-val="{{ false }}">
+<main id="main" tabindex="-1" style="outline:none;max-width:1040px;margin:0 auto;padding:56px {{ gutter }} 96px;box-sizing:border-box;display:grid;gap:36px">
+<div style="display:grid;gap:14px"><h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:72px;letter-spacing:-0.045em;line-height:.95">Colophon</h1><p style="margin:0;font-size:19px;line-height:1.5;color:var(--ink3)">How Planet Malone is built, and the budgets it's held to. v. 1.0.</p></div>
+<div style="display:grid;grid-template-columns:{{ cols4 }};gap:14px;font-variant-numeric:tabular-nums">
+<sc-for list="{{ budgets }}" as="b" hint-placeholder-count="4"><div style="background:var(--dark-card);color:var(--dark-card-ink);border-radius:18px;padding:20px;display:grid;gap:6px"><span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:34px;line-height:1;color:var(--metric)">{{ b.big }}</span><span style="font-size:14px;color:var(--dark-card-2)">{{ b.small }}</span></div></sc-for>
+</div>
+<div style="display:grid;border-top:1.5px solid var(--ink)"><sc-for list="{{ colophon }}" as="r" hint-placeholder-count="8"><div style="display:grid;grid-template-columns:{{ rowCols }};gap:8px 24px;padding:18px 0;border-bottom:1.5px solid var(--line)"><b style="font-size:17px">{{ r.k }}</b><div style="font-size:17px;line-height:1.6;color:var(--ink3)">{{ r.v }}</div></div></sc-for></div>
+</main></sc-if>
+
+<sc-if value="{{ is404 }}" hint-placeholder-val="{{ false }}">
+<main id="main" tabindex="-1" style="outline:none;max-width:1240px;margin:0 auto;padding:48px {{ gutter }} 96px;box-sizing:border-box;display:grid;grid-template-columns:{{ cols2 }};gap:40px;align-items:center;min-height:70vh">
+<div style="display:grid;gap:22px">
+<div style="font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)">Error 404</div>
+<h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:{{ lostSize }};line-height:.9;letter-spacing:-0.05em">Lost in space.</h1>
+<p style="margin:0;font-size:20px;line-height:1.5;text-wrap:pretty"><code style="background:var(--sunken);padding:2px 8px;border-radius:6px;font-size:18px;word-break:break-all">/{{ badPath }}</code> drifted out of orbit. I checked behind the moon and it isn't there either.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap"><a href="#/" style="background:var(--btn);color:var(--btn-ink);border-radius:999px;padding:0 20px;min-height:46px;display:grid;place-items:center;font-weight:700;text-decoration:none">Back to Planet Malone</a><button onClick="{{ openPal }}" style="background:transparent;border:1.5px solid var(--ink);border-radius:999px;padding:0 20px;min-height:46px;font-weight:700">Open ⌘K</button></div>
+</div>
+<div style="display:grid;place-items:center;position:relative"><img src="assets/illos/illo-astronaut.png" alt="Illustrated Sean in an astronaut suit, looking worried" style="width:min(280px,60%);transform:rotate(-8deg);position:relative"></div>
+</main></sc-if>
+
+<footer data-noprint style="max-width:1240px;margin:0 auto;padding:72px {{ gutter }} 48px;box-sizing:border-box;display:grid;gap:22px;font-size:14px;color:var(--ink2)">
+<div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px;color:var(--ink);letter-spacing:-0.02em">Thanks for visiting Planet Malone.</div>
+<div style="display:flex;gap:10px 14px;flex-wrap:wrap"><span>This site will not:</span><span>× track you</span><span>× drain your battery</span><span>× make a sound</span><span>× ask about cookies</span></div>
+<div style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;padding:16px 0;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line)">
+<div role="radiogroup" aria-label="Theme" style="display:flex;gap:4px;background:var(--sunken);border-radius:999px;padding:4px">
+<sc-for list="{{ themeOpts }}" as="o" hint-placeholder-count="3"><button role="radio" aria-checked="{{ o.on }}" onClick="{{ o.pick }}" style="border:0;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;background:{{ o.bg }};color:{{ o.fg }}">{{ o.label }}</button></sc-for>
+</div>
+
+<button role="switch" aria-checked="{{ motion }}" onClick="{{ toggleMotion }}" style="display:flex;gap:10px;align-items:center;background:none;border:0;padding:0;font-size:14px;color:var(--ink2)"><span>Motion</span><span style="width:44px;height:26px;border-radius:999px;background:{{ motionTrack }};position:relative;transition:background-color 150ms"><span style="position:absolute;top:3px;left:{{ motionKnob }};width:20px;height:20px;border-radius:50%;background:var(--surface);transition:left 150ms"></span></span></button>
+</div>
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span>v. 1.0 · Last updated Sep 25, 2026, by a human, with coffee</span><span style="display:flex;gap:14px;flex-wrap:wrap"><a href="#/now">Now</a><a href="#/uses">Uses</a><a href="#/colophon">Built with Astro</a><a href="#/the-far-side-of-the-moon">Don't click this</a></span></div>
+</footer>
+
+<sc-if value="{{ menu }}" hint-placeholder-val="{{ false }}">
+<div data-noprint style="position:fixed;inset:0;z-index:40;background:var(--overlay)" onClick="{{ closeMenu }}"></div>
+<nav data-noprint aria-label="Menu" style="position:fixed;left:12px;right:12px;top:72px;z-index:41;background:var(--surface);border-radius:20px;box-shadow:0 20px 50px rgba(0,0,0,.3);padding:10px;display:grid;gap:2px">
+<sc-for list="{{ menuItems }}" as="m" hint-placeholder-count="9"><button onClick="{{ m.go }}" style="background:none;border:0;text-align:left;padding:0 14px;min-height:48px;border-radius:12px;font-size:17px;font-weight:600" style-hover="background:var(--sunken)">{{ m.label }}</button></sc-for>
+</nav></sc-if>
+
+<sc-if value="{{ pal }}" hint-placeholder-val="{{ false }}">
+<div data-noprint style="position:fixed;inset:0;z-index:60;background:var(--overlay)" onClick="{{ closePal }}"></div>
+<div data-noprint role="dialog" aria-modal="true" aria-label="Command palette" style="position:fixed;left:50%;top:{{ palTop }};transform:translateX(-50%);width:min(620px,calc(100vw - 24px));z-index:61;background:var(--surface);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden;display:flex;flex-direction:column;max-height:70vh">
+<div style="display:flex;gap:12px;align-items:center;padding:14px 18px;border-bottom:1.5px solid var(--line)"><sc-if value="{{ logoLight }}" hint-placeholder-val="{{ true }}"><img src="assets/logo-mark-green.svg" alt="" style="width:24px"></sc-if><sc-if value="{{ logoDark }}" hint-placeholder-val="{{ false }}"><img src="assets/logo-mark-dark.svg" alt="" style="width:24px"></sc-if><input ref="{{ inputRef }}" value="{{ q }}" onChange="{{ onQ }}" placeholder="Jump to a section, copy email, change theme…" aria-label="Search commands" role="combobox" aria-expanded="true" aria-controls="pm-cmds" aria-activedescendant="{{ activeId }}" style="flex:1;border:0;background:transparent;font:inherit;font-size:18px;color:var(--ink);outline:none;min-width:0"><span style="font-size:12px;border:1.5px solid var(--line);border-radius:6px;padding:2px 6px;color:var(--ink2)">esc</span></div>
+<div id="pm-cmds" role="listbox" style="padding:8px;overflow:auto">
+<sc-for list="{{ cmdList }}" as="c" hint-placeholder-count="8">
+<sc-if value="{{ c.head }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);padding:10px 12px 4px">{{ c.g }}</div></sc-if>
+<div id="{{ c.id }}" role="option" aria-selected="{{ c.on }}" onClick="{{ c.run }}" onMouseEnter="{{ c.hover }}" style="display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px;border-radius:12px;cursor:pointer;background:{{ c.bg }};color:{{ c.fg }}"><span style="font-weight:600">{{ c.label }}</span><span style="font-size:13px;opacity:.75;white-space:nowrap">{{ c.hint }}</span></div>
+</sc-for>
+<sc-if value="{{ noCmds }}" hint-placeholder-val="{{ false }}"><div style="padding:18px 12px;color:var(--ink2)">Nothing matches. Even the bearded dragon looked.</div></sc-if>
+</div>
+<div style="display:flex;gap:18px;padding:10px 18px;border-top:1.5px solid var(--line);font-size:13px;color:var(--ink2);background:var(--bg)"><span><b style="color:var(--ink)">↑↓</b> move</span><span><b style="color:var(--ink)">↵</b> run</span><span><b style="color:var(--ink)">esc</b> close</span><span style="margin-left:auto">Also opens with /</span></div>
+</div></sc-if>
+
+<div data-noprint aria-live="polite" style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:70;pointer-events:none">
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}"><div style="background:var(--btn);color:var(--btn-ink);border-radius:999px;padding:12px 20px;font-weight:600;font-size:15px;box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:calc(100vw - 32px);text-align:center">{{ toast }}</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { route: this.parse(), theme: 'system', sysDark: false, accent: 'persimmon', motion: true, w: typeof window !== 'undefined' ? window.innerWidth : 1200, t: new Date(), open: 0, bio: 'short', toast: '', copied: false, egg: false, pal: false, q: '', sel: 0, active: 'impact', printing: false, menu: false };
+  inputRef = React.createRef();
+  themeRef = React.createRef();
+
+  parse() {
+    const h = (location.hash || '').replace(/^#\/?/, '');
+    if (!h) return { name: 'home' };
+    const m = h.match(/^work\/([\w-]+)$/);
+    if (m) return { name: 'case', slug: m[1] };
+    if (['now', 'uses', 'colophon'].includes(h)) return { name: h };
+    return { name: '404', path: h };
+  }
+
+  componentDidMount() {
+    try { const p = JSON.parse(localStorage.getItem('pm-proto-prefs') || '{}'); this.setState({ theme: p.theme || 'system', motion: p.motion ?? !matchMedia('(prefers-reduced-motion: reduce)').matches }); } catch (e) {}
+    this.mq = matchMedia('(prefers-color-scheme: dark)');
+    this.onMq = () => this.setState({ sysDark: this.mq.matches });
+    this.onMq(); this.mq.addEventListener('change', this.onMq);
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    this.onHash = () => this.navigate();
+    this.onScroll = () => this.trackSection();
+    this.onBefore = () => this.setState({ printing: true });
+    this.onAfter = () => this.setState({ printing: false });
+    const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']; let pos = 0;
+    this.onKey = e => {
+      const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (!this.state.pal) { pos = k === seq[pos] ? pos + 1 : (k === seq[0] ? 1 : 0); if (pos === seq.length) { pos = 0; this.setState(s => ({ egg: !s.egg })); this.say(this.state.egg ? 'Back to normal. Mostly.' : 'Cheat code accepted. Sean is now confused.'); } }
+      const typing = /INPUT|TEXTAREA/.test(document.activeElement?.tagName || '');
+      if ((e.metaKey || e.ctrlKey) && k === 'k') { e.preventDefault(); this.state.pal ? this.closePal() : this.openPal(); return; }
+      if (k === '/' && !typing && !this.state.pal) { e.preventDefault(); this.openPal(); return; }
+      if (k === 'Escape') { if (this.state.pal) this.closePal(); if (this.state.menu) this.setState({ menu: false }); }
+      if (this.state.pal) {
+        const n = this.filtered().length;
+        if (k === 'ArrowDown') { e.preventDefault(); this.setState(s => ({ sel: n ? (s.sel + 1) % n : 0 })); }
+        if (k === 'ArrowUp') { e.preventDefault(); this.setState(s => ({ sel: n ? (s.sel + n - 1) % n : 0 })); }
+        if (k === 'Enter') { e.preventDefault(); const c = this.filtered()[this.state.sel]; if (c) this.runCmd(c); }
+      }
+    };
+    window.addEventListener('resize', this.onResize); window.addEventListener('hashchange', this.onHash); window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('keydown', this.onKey); window.addEventListener('beforeprint', this.onBefore); window.addEventListener('afterprint', this.onAfter);
+    this.iv = setInterval(() => this.setState({ t: new Date() }), 30000);
+    console.log('%cReading my source? We should talk. I also do 1:1s.', 'font:700 14px system-ui;color:#C4461C');
+    console.log('sean@planetmalone.com · Try ⌘K, or the Konami code.');
+    this.applyVars();
+  }
+  componentWillUnmount() {
+    this.mq.removeEventListener('change', this.onMq);
+    ['resize', 'hashchange', 'scroll', 'keydown', 'beforeprint', 'afterprint'].forEach((ev, i) => window.removeEventListener(ev, [this.onResize, this.onHash, this.onScroll, this.onKey, this.onBefore, this.onAfter][i]));
+    clearInterval(this.iv); clearTimeout(this.tt); document.body.style.overflow = '';
+  }
+  componentDidUpdate() {
+    const ps = this.prev || {}; this.prev = { ...this.state };
+    this.applyVars();
+    if (!ps.pal && this.state.pal) setTimeout(() => this.inputRef.current?.focus(), 0);
+    if (ps.pal !== this.state.pal || ps.menu !== this.state.menu) document.body.style.overflow = (this.state.pal || this.state.menu) ? 'hidden' : '';
+    if (ps.theme !== this.state.theme || ps.accent !== this.state.accent || ps.motion !== this.state.motion) { try { localStorage.setItem('pm-proto-prefs', JSON.stringify({ theme: this.state.theme, motion: this.state.motion })); } catch (e) {} }
+  }
+
+  isDark(s = this.state) { return !s.printing && (s.theme === 'dark' || (s.theme === 'system' && s.sysDark)); }
+  ACC = { persimmon: ['Persimmon', '#C4461C', '#FF8A5B', '#A93A14', '#F2774A'], neptune: ['Neptune', '#3B4FD8', '#8E9CFF', '#2F3FB0', '#7584F2'], moss: ['Moss', '#3F7A2E', '#86C76A', '#326324', '#74B558'], plum: ['Plum', '#8E3B8C', '#E08BDD', '#732F71', '#CC77C9'], sunspot: ['Sunspot', '#8A5A00', '#F2B84B', '#6F4800', '#DDA43A'] };
+  applyVars() {
+    const d = this.isDark(), a = this.ACC[this.state.accent] || this.ACC.persimmon;
+    const L = { bg: '#F7F2EA', surface: '#FFFBF5', sunken: '#EFE7DB', line: '#E3D8C8', ink: '#231C15', ink2: '#5E5246', ink3: '#3A3027', accent: a[1], field: a[1], 'field-deep': a[3], 'on-field': '#FFF6EC', 'field-btn-ink': '#231C15', btn: '#231C15', 'btn-ink': '#FFFBF5', green: '#2F5A3A', 'green-tint': '#E1EBDD', 'green-dot': '#3F7A4A', metric: '#8FCB9C', 'dark-card': '#231C15', 'dark-card-ink': '#F7F2EA', 'dark-card-2': '#D9CDBC', 'c-accent': a[2], 'draft-bg': '#FBEADF', 'draft-ink': '#6E2A10', stripe: '#E8DFD1', overlay: 'rgba(35,28,21,.45)' };
+    const D = { bg: '#16120E', surface: '#201A15', sunken: '#2A231C', line: '#362D25', ink: '#F4ECE0', ink2: '#B9AC9B', ink3: '#E6DCCD', accent: a[2], field: a[2], 'field-deep': a[4], 'on-field': '#16120E', 'field-btn-ink': '#F4ECE0', btn: '#F4ECE0', 'btn-ink': '#16120E', green: '#8FCB9C', 'green-tint': '#1E3324', 'green-dot': '#2F7A45', metric: '#8FCB9C', 'dark-card': '#2A231C', 'dark-card-ink': '#F4ECE0', 'dark-card-2': '#B9AC9B', 'c-accent': a[2], 'draft-bg': '#3A2418', 'draft-ink': '#FFC9AE', stripe: '#332A22', overlay: 'rgba(0,0,0,.6)' };
+    const v = d ? D : L, r = document.documentElement.style;
+    for (const k in v) r.setProperty('--' + k, v[k]);
+    r.colorScheme = d ? 'dark' : 'light';
+  }
+
+  withVT(update, name) {
+    if (!this.state.motion || !document.startViewTransition) { update(() => {}); return null; }
+    if (name) document.documentElement.classList.add(name);
+    const vt = document.startViewTransition(() => new Promise(res => update(res)));
+    vt.finished.finally(() => name && document.documentElement.classList.remove(name));
+    return vt;
+  }
+  toggleTheme(e) {
+    const next = this.isDark() ? 'light' : 'dark';
+    const b = this.themeRef.current?.getBoundingClientRect();
+    const x = e?.clientX || (b ? b.left + b.width / 2 : innerWidth - 40), y = e?.clientY || (b ? b.top + b.height / 2 : 32);
+    const vt = this.withVT(done => this.setState({ theme: next }, () => { this.applyVars(); done(); }), 'pm-theme');
+    if (vt) vt.ready.then(() => { const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)); document.documentElement.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] }, { duration: 450, easing: 'cubic-bezier(.4,0,.2,1)', pseudoElement: '::view-transition-new(root)' }); });
+  }
+  navigate() {
+    const route = this.parse();
+    this.withVT(done => this.setState({ route, menu: false }, () => {
+      if (this.pending && route.name === 'home') { const id = this.pending; this.pending = null; this.scrollToId(id, true); } else window.scrollTo(0, 0);
+      document.getElementById('main')?.focus({ preventScroll: true });
+      done();
+    }));
+  }
+  go(h) { this.setState({ pal: false, menu: false }); if (location.hash === h || (h === '#/' && !location.hash)) { if (this.pending) { const id = this.pending; this.pending = null; this.scrollToId(id); } return; } location.hash = h; }
+  jump(id) { if (this.state.route.name !== 'home') { this.pending = id; this.go('#/'); } else { this.setState({ pal: false, menu: false }); this.scrollToId(id); } }
+  scrollToId(id, instant) { const el = document.getElementById(id); if (!el) return; const top = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top, behavior: this.state.motion && !instant ? 'smooth' : 'auto' }); }
+  trackSection() {
+    if (this.state.route.name !== 'home') return;
+    let cur = 'impact';
+    for (const s of this.SECTIONS) { const el = document.getElementById(s[0]); if (el && el.getBoundingClientRect().top < 180) cur = s[0]; }
+    if (cur !== this.state.active) this.setState({ active: cur });
+  }
+  say(msg) { clearTimeout(this.tt); this.setState({ toast: msg }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2800); }
+  copyEmail() { try { navigator.clipboard.writeText('sean@planetmalone.com'); } catch (e) {} this.setState({ copied: true }); this.say('Copied. Your clipboard is now 12% more Malone.'); clearTimeout(this.ct); this.ct = setTimeout(() => this.setState({ copied: false }), 2800); }
+  openPal() { this.setState({ pal: true, q: '', sel: 0, menu: false }); }
+  closePal() { this.setState({ pal: false }); }
+  runCmd(c) { this.setState({ pal: false }); setTimeout(() => c.run(), 0); }
+
+  SECTIONS = [['impact', 'Selected impact'], ['lead', 'How I lead'], ['experience', 'Experience'], ['built', 'Built & written'], ['skills', 'Skills'], ['about', 'About'], ['contact', 'Contact']];
+  CASES = [
+    { slug: 'nextgen-design-system', short: 'NextGen design system', tags: ['Strategy', 'Craft'], title: 'NextGen design system & React Aria migration', org: 'Aspira · 2025–26', summary: 'Authored the Figma design system and made the case to move from shadcn/Radix to React Aria Components, then led the migration inside a six-engineer epic.', metric: 'Full React Aria component set',
+      meta: [{ k: 'Where', v: 'Aspira' }, { k: 'When', v: '2025 – 26' }, { k: 'Role', v: 'Staff Frontend Engineer, design-system owner' }, { k: 'Team', v: 'Six-engineer migration epic' }],
+      context: 'NextGen is a ground-up rebuild of the platform. It needed one design system that design and engineering could both trust, and components that were accessible by default.', contextDraft: 'Draft: add the starting state (component count, where the old components came from, known accessibility gaps).',
+      scope: ['Authored the Figma design system: tokens, oklch palette, full React Aria component set.', 'Owned design-system and accessibility decisions for NextGen.', 'Led the component migration inside a six-engineer epic.'],
+      cards: [['Before', 'shadcn / Radix', 'Behaviour and styling copied into the codebase.'], ['Chose', 'React Aria Components', 'Accessibility and internationalisation behaviour maintained upstream; the team owns the styling layer.', 1]],
+      decisionDraft: 'Draft: the trade-offs you weighed, and a link to the ADR.', people: 'Established the rule that design handoffs must match the design system.', quote: '“Guardian of quality, consistency and sustainability.”', quoteBy: 'Team lead, NextGen', peopleDraft: '',
+      outcomes: [['Full set', 'React Aria component set, designed and built'], ['6', 'engineers in the migration epic'], ['1 rule', 'design handoffs match the system']] },
+    { slug: 'ai-assisted-engineering', short: 'AI-assisted engineering', tags: ['Strategy', 'People'], title: 'AI-assisted engineering, done responsibly', org: 'Aspira · 2026', summary: 'Started the agent-skills program and a weekly AI docs pipeline that only publishes after a human reviews the PR.', metric: 'Used by ~20 engineers',
+      meta: [{ k: 'Where', v: 'Aspira' }, { k: 'When', v: '2026' }, { k: 'Role', v: 'Staff Frontend Engineer, program lead' }, { k: 'Reach', v: '~20 engineers' }],
+      context: 'AI speeds things up, but every line still gets a human review. The program was built around that rule.', contextDraft: 'Draft: what prompted the program, and how the team used AI before it.',
+      scope: ['Started the team’s AI agent-skills program and wrote 11 of its 22 skills.', 'Grounded each skill in a codebase audit and checked it with fresh-agent runs.', 'Built an AI documentation pipeline that updates weekly and publishes only after a human reviews the PR.'],
+      cards: [['Guardrail', 'Audit first', 'Every skill starts from a codebase audit, not a guess about the codebase.'], ['Guardrail', 'Human-reviewed PRs', 'Generated docs publish only after a person approves the pull request.', 1]],
+      decisionDraft: 'Draft: what you chose not to automate, and why.', people: 'The skills are used by ~20 engineers, and the backend team is adopting the approach.', quote: '', quoteBy: '', peopleDraft: 'Draft: how you rolled it out (demos, pairing, docs).',
+      outcomes: [['11 of 22', 'agent skills authored'], ['~20', 'engineers using the skills'], ['Weekly', 'AI docs updates, each human-reviewed']] },
+    { slug: 'micro-frontend-platform', short: 'Micro-frontend platform', tags: ['Strategy', 'Delivery'], title: 'Micro-frontend platform for 5 teams', org: 'RedTeam · 2024–25', summary: 'Remix/SSR with a backend-for-frontend on AWS, used by 50+ engineers.', metric: 'Builds 30+ min → under 5 min',
+      meta: [{ k: 'Where', v: 'RedTeam' }, { k: 'When', v: '2024 – 25' }, { k: 'Role', v: 'Senior Engineering Architect / Principal FE' }, { k: 'Reach', v: '5 teams · 50+ engineers' }],
+      context: 'Five teams shipping into one product needed a shared frontend platform.', contextDraft: 'Draft: what the frontend looked like before (stack, deploy process, pain points).',
+      scope: ['Designed the micro-frontend platform: Remix/SSR with a backend-for-frontend (BFF) on AWS.', 'Platform used by 50+ engineers across 5 teams.', 'Member of the Architecture Committee.'],
+      cards: [['Rendering', 'Remix + SSR', 'Server rendering for fast first loads.'], ['Data', 'Backend-for-frontend on AWS', 'One BFF layer between the apps and backend services.', 1]],
+      decisionDraft: 'Draft: the alternatives you considered and what you gave up.', people: 'Brought the design through the Architecture Committee.', quote: '', quoteBy: '', peopleDraft: 'Draft: how the five teams were onboarded.',
+      outcomes: [['5–6 s → instant', 'page loads'], ['30+ → <5 min', 'build times'], ['0% → 80%+', 'frontend e2e coverage, 7 apps']] },
+    { slug: 'fifty-person-practice', short: '50-person practice', tags: ['People', 'Delivery'], title: 'Running a 50-person practice without leaving the code', org: 'Stellar Elements · 2021–23', summary: 'Directed a 50+ person app-dev practice through 6 managers while personally building US Bank’s design systems.', metric: '1:1 cadence <50% → 100%',
+      meta: [{ k: 'Where', v: 'Stellar Elements' }, { k: 'When', v: '2021 – 23' }, { k: 'Role', v: 'Technology Practice Director' }, { k: 'Team', v: '50+ people · 6 managers' }],
+      context: 'An app-dev practice of 50+ people serving 4+ enterprise clients.', contextDraft: 'Draft: the state of the practice when you took it over.',
+      scope: ['Directed a 50+ person app-dev practice through 6 managers.', 'Served 4+ enterprise clients.', 'Stayed hands-on: personally built US Bank’s design systems.'],
+      cards: [['People', '1:1s for everyone', 'Made regular 1:1s the baseline across the practice.', 1], ['Craft', 'Stay in the code', 'Kept building, including US Bank’s design systems.']],
+      decisionDraft: 'Draft: what you delegated to the 6 managers and what you kept.', people: '1:1 cadence rose from under 50% to 100%.', quote: '', quoteBy: '', peopleDraft: 'Draft: career frameworks, hiring, or other people processes you introduced.',
+      outcomes: [['50+', 'people in the practice'], ['<50% → 100%', '1:1 cadence'], ['6', 'managers led']] },
+  ];
+  ROLES = [
+    { dates: '2025 – now', title: 'Staff Frontend Engineer', company: 'Aspira', scope: 'Owns the design system and accessibility for NextGen, a ground-up platform rebuild; leads the AI-assisted engineering program', wins: ['Authored the NextGen Figma design system: tokens, oklch palette, full React Aria component set', 'Made the case for moving from shadcn/Radix to React Aria Components, then led the migration', 'Started the AI agent-skills program, now used by ~20 engineers'], chips: ['React 19', 'TypeScript', 'React Aria', 'Tailwind', 'Figma', 'Claude Code'], stage: 4, cs: 'nextgen-design-system' },
+    { dates: '2024 – 25', title: 'Senior Engineering Architect / Principal FE', company: 'RedTeam', scope: 'Micro-frontend platform for 5 teams; Architecture Committee', wins: ['Page loads from 5–6 s to near-instant', 'Builds from 30+ min to under 5 min', 'Frontend end-to-end coverage from 0% to 80%+ across 7 apps'], chips: ['Remix', 'SSR', 'AWS', 'Playwright', 'Nx'], stage: 4, cs: 'micro-frontend-platform' },
+    { dates: '2023 – 24', title: 'Senior SWE, Lead of the Artemis design system', company: 'Apollo.io', scope: '45 components migrated; data grid ~300% faster', wins: ['Migrated 45 components into Artemis', 'Made the data grid ~300% faster'], chips: ['React', 'TypeScript', 'Storybook'], stage: 4 },
+    { dates: '2021 – 23', title: 'Technology Practice Director', company: 'Stellar Elements', scope: '50+ person practice, 6 managers, 4+ enterprise clients', wins: ['Directed a 50+ person app-dev practice through 6 managers', '1:1 cadence from under 50% to 100%', 'Stayed hands-on: built US Bank’s design systems'], chips: ['Hiring', 'OKRs', 'Career frameworks', 'React'], stage: 3, cs: 'fifty-person-practice' },
+    { dates: '2020 – 21', title: 'Principal Frontend Architect', company: 'Redibs', scope: 'Built the team from 0 to 8; Next.js web plus 2 React Native apps; load time from 7 s to under 1 s', wins: ['Hired and led the frontend team from 0 to 8', 'Shipped Next.js web plus 2 React Native apps', 'Load time from 7 s to under 1 s'], chips: ['Next.js', 'React Native', 'GraphQL'], stage: 2 },
+    { dates: '2015 – 20', title: 'Senior Dev → Solutions Architect → Managing/Principal Architect', company: 'projekt202', scope: 'FedEx Office, Cox Automotive (Dealertrack), ExamSoft', wins: ['FedEx Office: Angular micro-frontend architecture delivered by 11 teams and 100+ engineers', 'Piloted in 5 stores, then rolled out company-wide', '100% on-schedule record as Managing Architect'], chips: ['Angular', 'Micro-frontends', 'Consulting'], stage: 2 },
+    { dates: '2013 – 15', title: 'UI/JavaScript Developer, Lead', company: 'Infor (PeopleAnswers)', scope: 'Brought the frontend in-house and led the new FE team', wins: ['Brought the frontend in-house', 'Led the new frontend team'], chips: ['JavaScript'], stage: 2 },
+    { dates: '2011 – 13', title: 'Developer', company: 'Epic Solutions', scope: 'Client web apps while finishing a CS degree', wins: ['Built client web apps while finishing a CS degree at UT Dallas'], chips: ['JavaScript'], aside: 'Sleep was briefly deprecated during this period.', stage: 1 },
+    { dates: '2003 – 11', title: 'U.S. Army', company: '', scope: 'U.S. Army · 2003–2011 · Honorable discharge', wins: ['Honorable discharge'], chips: [], stage: 0 },
+  ];
+  BIOS = {
+    facts: ['Staff Frontend Engineer at Aspira. 18+ years in tech; led teams up to 50+.', 'B.S. Computer Science, UT Dallas (4.0, Summa Cum Laude). U.S. Army · 2003–2011 · Honorable discharge.', 'Dallas–Fort Worth, remote, Central Time.'],
+    short: ['Sean is a frontend engineer and engineering leader in Dallas–Fort Worth. He builds design systems and frontend platforms, and has led teams of up to 50+ people. Today he is a Staff Frontend Engineer at Aspira.'],
+    long: ['Sean is a frontend engineer and engineering leader in Dallas–Fort Worth. He builds design systems and frontend platforms, and has led teams of up to 50+ people. Today he is a Staff Frontend Engineer at Aspira.', 'He took the scenic route: the U.S. Army, a CS degree from UT Dallas, consulting, directing a 50-person practice, then back to hands-on Staff work by choice. He volunteers with Dallas Area Habitat for Humanity and has framed two homes. Off the clock: 3D modelling and printing, woodworking, cooking and board games.'],
+    way: ['Sean is a frontend engineer and engineering leader in Dallas–Fort Worth. He builds design systems and frontend platforms, and has led teams of up to 50+ people. Today he is a Staff Frontend Engineer at Aspira.', 'He took the scenic route: the U.S. Army, a CS degree from UT Dallas, consulting, directing a 50-person practice, then back to hands-on Staff work by choice. He volunteers with Dallas Area Habitat for Humanity and has framed two homes. Off the clock: 3D modelling and printing, woodworking, cooking and board games.', 'He lives with his wife, two daughters, three cats, two dogs, two mice and a bearded dragon, which makes him the most outnumbered stakeholder in the house. He has 3D-printed several things he could have bought for $4. He will explain the rules of any board game, thoroughly, while you are already playing it.'],
+  };
+
+  cmds() {
+    const d = this.isDark();
+    return [
+      { g: 'Actions', label: 'Copy email', hint: 'sean@planetmalone.com', run: () => this.copyEmail() },
+      { g: 'Actions', label: 'Download résumé · Staff (PDF)', hint: 'Sep 2026', run: () => this.pdf() },
+      { g: 'Actions', label: 'Download résumé · EM (PDF)', hint: 'Sep 2026', run: () => this.pdf() },
+      { g: 'Actions', label: 'Print résumé', hint: 'Ctrl+P', run: () => { this.go('#/'); setTimeout(() => window.print(), 300); } },
+      { g: 'Actions', label: 'Toggle colour theme', hint: d ? 'Dark → Light' : 'Light → Dark', run: () => this.toggleTheme() },
+      { g: 'Actions', label: 'Toggle motion', hint: this.state.motion ? 'On → Off' : 'Off → On', run: () => this.setState(s => ({ motion: !s.motion })) },
+      ...this.SECTIONS.map(([id, label]) => ({ g: 'Jump to', label, hint: 'Section', run: () => this.jump(id) })),
+      ...this.CASES.map(c => ({ g: 'Case studies', label: c.title, hint: c.org, run: () => this.go('#/work/' + c.slug) })),
+      { g: 'Pages', label: 'Now', hint: 'What I’m up to', run: () => this.go('#/now') },
+      { g: 'Pages', label: 'Uses', hint: 'Desk and workshop', run: () => this.go('#/uses') },
+      { g: 'Pages', label: 'Colophon', hint: 'How this site was built', run: () => this.go('#/colophon') },
+      { g: 'Other', label: 'Count the population again', hint: 'The dragon insists', run: () => this.say('Recount complete: 12. The bearded dragon has filed an objection.') },
+      { g: 'Other', label: 'Take me somewhere new', hint: 'Leave orbit', run: () => this.go('#/the-far-side-of-the-moon') },
+    ];
+  }
+  filtered() { const q = this.state.q.trim().toLowerCase(); const all = this.cmds(); return q ? all.filter(c => (c.label + ' ' + c.g + ' ' + c.hint).toLowerCase().includes(q)) : all; }
+  pdf() { this.say('The PDFs arrive with the real build. Try “Print résumé” in ⌘K meanwhile.'); }
+
+  renderVals() {
+    const s = this.state, m = s.w < 900, d = this.isDark(), r = s.route;
+    const vt = slug => (s.motion ? 'case-' + slug : 'none');
+    const ci = this.CASES.findIndex(c => c.slug === r.slug);
+    const route = r.name === 'case' && ci < 0 ? { name: '404', path: 'work/' + r.slug } : r;
+    const cs = ci >= 0 ? this.CASES[ci] : this.CASES[0], n = this.CASES.length;
+    const csObj = { ...cs, vt: vt(cs.slug), hasQuote: !!cs.quote, hasPeopleDraft: !!cs.peopleDraft, cards: cs.cards.map(([label, title, body, on]) => ({ label, title, body, bd: on ? 'var(--ink)' : 'var(--line)' })), outcomes: cs.outcomes.map(([big, small]) => ({ big, small })) };
+    const stageOf = s.open >= 0 && this.ROLES[s.open] ? this.ROLES[s.open].stage : 4;
+    const list = this.filtered(); const sel = Math.min(s.sel, Math.max(0, list.length - 1));
+    const labels = ['U.S. Army', 'CS degree', 'Lead', 'Director', 'Back to Staff IC, on purpose'];
+    const pageLinks = [['Work', '#/', 'home'], ['Now', '#/now', 'now'], ['Uses', '#/uses', 'uses'], ['Colophon', '#/colophon', 'colophon']];
+    return {
+      isDesk: !m, isMob: m, isHome: route.name === 'home', isCase: route.name === 'case', isNow: route.name === 'now', isUses: route.name === 'uses', isColophon: route.name === 'colophon', is404: route.name === '404', badPath: route.path || '',
+      gutter: m ? '18px' : '32px', gutterSm: m ? '10px' : '20px', fieldPad: m ? '22px 18px 24px' : '44px 56px 48px', fieldMinH: m ? 'auto' : '600px', nameSize: m ? '60px' : (s.w < 1180 ? '88px' : '120px'), avW: s.w < 1180 ? '280px' : '400px', avRight: s.w < 1180 ? '32px' : '90px', heroTextMax: m ? '100%' : (s.w < 1180 ? 'calc(100% - 300px)' : '680px'), leadSize: m ? '18px' : '24px',
+      btnCols: m ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,max-content)', proofCols: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr)) minmax(0,1.1fr)', proofPad: m ? '8px' : '28px', timeAlign: m ? 'left' : 'right',
+      bodyCols: m ? 'minmax(0,1fr)' : '220px minmax(0,1fr)', cols2: m ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))', cols3: m ? 'minmax(0,1fr)' : 'repeat(3,minmax(0,1fr))', cols4: m ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))',
+      roleCols: m ? 'minmax(0,1fr) 28px' : '104px minmax(0,1fr) 28px', deskBlock: m ? 'none' : 'block', mobBlock: m ? 'block' : 'none', deskGrid: m ? 'none' : 'grid', winsPad: m ? '0 20px 20px' : '0 20px 20px 142px',
+      builtCols: m ? 'minmax(0,1fr)' : 'minmax(0,1.5fr) minmax(0,2fr) 90px', builtAlign: m ? 'left' : 'right', skillCols: m ? 'minmax(0,1fr)' : '200px minmax(0,1fr)', aboutCols: m ? 'minmax(0,1fr)' : 'minmax(0,1.5fr) minmax(0,1fr)', hobbyCols: m ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))', contactPad: m ? '28px 22px' : '44px',
+      caseHeadPad: m ? '24px 20px' : '52px 60px', caseH1: m ? '40px' : '76px', metaCols: m ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,max-content)', caseCols: m ? 'minmax(0,1fr)' : '200px minmax(0,1fr)', caseBodyPad: m ? '36px 8px 0' : '64px 40px 0', backPad: m ? '8px' : '0', rowCols: m ? 'minmax(0,1fr)' : '180px minmax(0,1fr)', lostSize: m ? '64px' : '104px', palTop: m ? '12px' : '12vh',
+      logoLight: !d, logoDark: d, avDefault: !s.egg, avSleepy: false, avEgg: s.egg, planetFlip: d ? 'scaleX(-1)' : 'none',
+      themeRef: this.themeRef, inputRef: this.inputRef, themeLabel: d ? 'Switch to light theme' : 'Switch to dark theme', toggleTheme: e => this.toggleTheme(e),
+      ctTime: s.t.toLocaleTimeString('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: '2-digit' }),
+      copyEmail: () => this.copyEmail(), copyLabel: s.copied ? 'Copied!' : 'Copy email', copyLabelShort: s.copied ? 'Copied!' : 'Copy email', pdf: () => this.pdf(),
+      pageLinks: pageLinks.map(([label, href, k]) => { const on = route.name === k || (k === 'home' && route.name === 'case'); return { label, href, current: on ? 'page' : undefined, bg: on ? 'var(--sunken)' : 'transparent' }; }),
+      sectionsNav: this.SECTIONS.map(([id, label]) => ({ label, go: () => this.jump(id), current: s.active === id ? 'true' : undefined, color: s.active === id ? 'var(--ink)' : 'var(--ink2)', bar: s.active === id ? '40px' : '18px', barColor: s.active === id ? 'var(--accent)' : 'var(--line)' })),
+      cases: this.CASES.map(c => ({ ...c, href: '#/work/' + c.slug, vt: vt(c.slug) })),
+      lead: [{ head: 'As an IC leader', items: [{ t: 'Write the decision down', d: 'ADRs and short RFCs travel further than meetings, and they outlast me being in the room.' }, { t: 'Make the right way the easy way', d: 'Design systems, lint rules and agent skills that encode the standard so nobody has to remember it.' }, { t: 'Stay in the code', d: 'I review, pair and ship. Strategy that never touches a PR tends to stay a slide.' }] },
+        { head: 'As a manager', items: [{ t: '1:1s happen', d: 'Every week, for everyone. At Stellar Elements the cadence went from under 50% to 100%.' }, { t: 'Say the expectation out loud', d: 'Career frameworks and OKRs that people can read, so growth isn’t a guessing game.' }, { t: 'Hire, then get out of the way', d: 'Built Redibs’ team from 0 to 8, then made myself the least necessary person on it.' }] }],
+      route: labels.map((label, i) => ({ label, arrow: i < labels.length - 1, current: i === stageOf ? 'step' : undefined, bg: i === stageOf ? 'var(--btn)' : 'transparent', fg: i === stageOf ? 'var(--btn-ink)' : 'var(--ink3)', bd: i === stageOf ? 'var(--btn)' : 'var(--line)' })),
+      roles: this.ROLES.map((ro, i) => { const open = s.printing || s.open === i; return { ...ro, at: ro.company ? ' · ' + ro.company : '', open, sign: open ? '–' : '+', bd: open ? 'var(--ink)' : 'var(--line)', signBg: open ? 'var(--btn)' : 'transparent', signFg: open ? 'var(--btn-ink)' : 'var(--accent)', signBd: open ? 'var(--btn)' : 'var(--line)', hasAside: !!ro.aside, aside: ro.aside || '', hasCase: !!ro.cs, caseHref: ro.cs ? '#/work/' + ro.cs : '#/', toggle: () => this.setState(st => ({ open: st.open === i ? -1 : i })) }; }),
+      built: [{ name: 'NextGen design-system docs', desc: 'Docs site for tokens, components and accessibility guidance.', kind: 'Docs site' }, { name: 'Storybook', desc: 'Every component, every state, with interaction tests.', kind: 'Storybook' }, { name: 'Architecture Decision Records', desc: 'Including the React Aria migration case.', kind: 'ADRs' }, { name: 'Claude Code agent skills', desc: '11 of the team’s 22 skills, each grounded in a codebase audit.', kind: 'Tooling' }, { name: 'github.com/planetmalone', desc: 'Open-source work and this site’s source.', kind: 'Code' }],
+      skills: [{ label: 'Shipped in production', items: ['TypeScript', 'React 19', 'Next.js', 'Remix', 'React Aria', 'Tailwind', 'GraphQL', 'Nx', 'Storybook', 'Playwright', 'Vitest', 'AWS', 'GitHub Actions'] }, { label: 'Led teams using', items: ['Design systems & tokens', 'Micro-frontends', 'SSR/SSG', 'WCAG 2.2 AA', 'CI/CD & DX', 'OKRs', 'Hiring', '1:1 and career frameworks'] }, { label: 'Currently exploring', items: ['Claude Code agent skills', 'Multi-model verification', 'AI docs pipelines'] }],
+      bioOpts: [['facts', 'Just the facts'], ['short', 'Short'], ['long', 'Long'], ['way', 'Way too long']].map(([k, label]) => ({ label, on: s.bio === k, bg: s.bio === k ? 'var(--btn)' : 'transparent', fg: s.bio === k ? 'var(--btn-ink)' : 'var(--ink3)', pick: () => this.setState({ bio: k }) })),
+      bioParas: this.BIOS[s.bio], bioIsList: s.bio === 'facts', bioIsProse: s.bio !== 'facts',
+      hobbies: [{ name: '3D printing.', cap: 'Mostly brackets for other brackets.', ph: 'Photo: a print in progress' }, { name: 'Woodworking.', cap: 'Measure twice, cut once, sand for a week.', ph: 'Photo: workshop project' }, { name: 'Cooking.', cap: 'The family rates it. Harshly.', ph: 'Photo: something delicious' }, { name: 'Board games.', cap: 'Reads the whole rulebook. Out loud.', ph: 'Photo: game night table' }],
+      cs: csObj, csPrev: { title: this.CASES[(ci + n - 1) % n].title, href: '#/work/' + this.CASES[(ci + n - 1) % n].slug }, csNext: { title: this.CASES[(ci + 1) % n].title, href: '#/work/' + this.CASES[(ci + 1) % n].slug },
+      caseNav: [['cs-context', 'Context'], ['cs-role', 'My role and scope'], ['cs-decisions', 'Key decisions and trade-offs'], ['cs-people', 'How I brought people along'], ['cs-outcomes', 'Outcomes'], ['cs-different', 'What I’d do differently']].map(([id, label]) => ({ label, go: () => this.scrollToId(id) })),
+      now: [{ k: 'Working on', v: 'The NextGen design system and the AI-assisted engineering program at Aspira.' }, { k: 'Looking for', v: 'Staff / Principal Frontend Engineer or Frontend Engineering Manager roles. Remote, Central Time.' }, { k: 'Exploring', v: 'Claude Code agent skills, multi-model verification, AI docs pipelines.' }, { k: 'Building', v: 'This site, in Astro.', draft: 'Draft: current 3D print or woodworking project.' }, { k: 'Playing', v: '', draft: 'Draft: the board game currently on the table.' }].map(x => ({ ...x, hasV: !!x.v, hasDraft: !!x.draft })),
+      uses: [{ title: 'Desk', items: ['Computer', 'Monitor', 'Keyboard', 'Chair'].map(x => ({ name: x, note: '', flag: 'Draft' })) }, { title: 'Software', items: [{ name: 'Editor', note: '', flag: 'Draft' }, { name: 'Claude Code', note: 'agent skills, reviewed line by line', flag: '' }, { name: 'Figma', note: 'design system source of truth', flag: '' }, { name: 'Storybook', note: 'every component, every state', flag: '' }] }, { title: 'Workshop', items: ['3D printer', '3D modelling software', 'Favourite woodworking tool'].map(x => ({ name: x, note: '', flag: 'Draft' })) }, { title: 'Kitchen & table', items: ['Go-to cooking tool', 'Most-played board game'].map(x => ({ name: x, note: '', flag: 'Draft' })) }],
+      budgets: [{ big: '100 × 4', small: 'Lighthouse target, all categories' }, { big: '< 1.5 s', small: 'LCP budget' }, { big: '≤ 100 KB', small: 'JavaScript budget' }, { big: '0', small: 'layout shift, trackers, cookies' }],
+      colophon: [{ k: 'Framework', v: 'Astro, static-first. Small interactive islands only where needed: the theme toggle, ⌘K, the bio switcher and the role cards.' }, { k: 'Type', v: 'Bricolage Grotesque for display, Atkinson Hyperlegible Next for text. Both self-hosted variable WOFF2 with size-adjusted fallbacks.' }, { k: 'Colour', v: 'Warm paper neutrals, one Persimmon accent and a supporting forest green. Light, dark and system themes with no flash on load.' }, { k: 'Accessibility', v: 'WCAG 2.2 AA. Visible branded focus rings, full keyboard support, prefers-reduced-motion plus an in-site motion toggle.' }, { k: 'Content', v: 'Markdown and JSON. One résumé source generates this site, the print view and the PDFs.' }, { k: 'Metadata', v: 'Server-rendered text for every fact, ProfilePage / Person JSON-LD, generated Open Graph images.' }, { k: 'AI', v: 'AI helped with research and drafts. Every line on this site was reviewed and approved by a human (me).' }, { k: 'Hosting', v: 'Draft: host and deploy pipeline.' }],
+      themeOpts: [['light', 'Light'], ['dark', 'Dark'], ['system', 'System']].map(([k, label]) => ({ label, on: s.theme === k, bg: s.theme === k ? 'var(--btn)' : 'transparent', fg: s.theme === k ? 'var(--btn-ink)' : 'var(--ink3)', pick: () => this.setState({ theme: k }) })),
+      accents: Object.entries(this.ACC).map(([k, a]) => ({ name: a[0], on: s.accent === k, color: d ? a[2] : a[1], ring: s.accent === k ? '2px solid var(--ink)' : '0 solid transparent', pick: () => this.setState({ accent: k }) })),
+      motion: s.motion, toggleMotion: () => this.setState(st => ({ motion: !st.motion })), motionTrack: s.motion ? 'var(--btn)' : 'var(--line)', motionKnob: s.motion ? '21px' : '3px',
+      menu: s.menu, toggleMenu: () => this.setState(st => ({ menu: !st.menu })), closeMenu: () => this.setState({ menu: false }),
+      menuItems: [...this.SECTIONS.map(([id, label]) => ({ label, go: () => this.jump(id) })), { label: 'Now', go: () => this.go('#/now') }, { label: 'Uses', go: () => this.go('#/uses') }, { label: 'Colophon', go: () => this.go('#/colophon') }],
+      pal: s.pal, openPal: () => this.openPal(), closePal: () => this.closePal(), q: s.q, onQ: e => this.setState({ q: e.target.value, sel: 0 }), activeId: 'cmd-' + sel, noCmds: list.length === 0,
+      cmdList: list.map((c, i) => ({ ...c, id: 'cmd-' + i, head: i === 0 || list[i - 1].g !== c.g, on: i === sel, bg: i === sel ? 'var(--btn)' : 'transparent', fg: i === sel ? 'var(--btn-ink)' : 'var(--ink)', run: () => this.runCmd(c), hover: () => this.state.sel !== i && this.setState({ sel: i }) })),
+      toast: s.toast, hasToast: !!s.toast,
+    };
+  }
+}
+</script>
+</body>
+</html>

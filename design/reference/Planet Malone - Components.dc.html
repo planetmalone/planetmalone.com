@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Atkinson+Hyperlegible+Next:wght@400..700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E3D9;font-family:'Atkinson Hyperlegible Next',system-ui,sans-serif;color:#231C15}a{color:#C4461C}a:hover{color:#8F3212}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08)}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}.dv-card{max-width:100%;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Components and states · <a href="Planet Malone - Home.dc.html">home</a></span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Role card: collapsed, hover, keyboard focus, expanded</div>
+<div class="dv-card" data-screen-label="Role card states" style="width:820px;background:#F7F2EA;padding:36px;box-sizing:border-box;display:grid;gap:26px">
+<div style="display:grid;gap:8px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Collapsed</div>
+<div style="background:#FFFBF5;border:1.5px solid #E3D8C8;border-radius:16px;padding:18px 22px;display:grid;grid-template-columns:110px minmax(0,1fr) 28px;gap:20px;align-items:start"><span style="font-size:14px;color:#5E5246;padding-top:3px">2024 – 25</span><span style="display:grid;gap:4px"><span style="font-weight:700;font-size:18px">Senior Engineering Architect / Principal FE<span style="color:#5E5246;font-weight:400"> · RedTeam</span></span><span style="color:#5E5246;font-size:15px">Micro-frontend platform for 5 teams; Architecture Committee</span></span><span style="width:28px;height:28px;border-radius:50%;border:1.5px solid #E3D8C8;display:grid;place-items:center;font-weight:700;color:#8F3212">+</span></div></div>
+<div style="display:grid;gap:8px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Hover · border warms to accent, + fills</div>
+<div style="background:#FFFBF5;border:1.5px solid #C4461C;border-radius:16px;padding:18px 22px;display:grid;grid-template-columns:110px minmax(0,1fr) 28px;gap:20px;align-items:start"><span style="font-size:14px;color:#5E5246;padding-top:3px">2024 – 25</span><span style="display:grid;gap:4px"><span style="font-weight:700;font-size:18px">Senior Engineering Architect / Principal FE<span style="color:#5E5246;font-weight:400"> · RedTeam</span></span><span style="color:#5E5246;font-size:15px">Micro-frontend platform for 5 teams; Architecture Committee</span></span><span style="width:28px;height:28px;border-radius:50%;background:#C4461C;display:grid;place-items:center;font-weight:700;color:#fff">+</span></div></div>
+<div style="display:grid;gap:8px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Focus-visible · 3px branded ring, 3px offset, no size change</div>
+<div style="background:#FFFBF5;border:1.5px solid #E3D8C8;border-radius:16px;padding:18px 22px;display:grid;grid-template-columns:110px minmax(0,1fr) 28px;gap:20px;align-items:start;outline:3px solid #C4461C;outline-offset:3px"><span style="font-size:14px;color:#5E5246;padding-top:3px">2024 – 25</span><span style="display:grid;gap:4px"><span style="font-weight:700;font-size:18px">Senior Engineering Architect / Principal FE<span style="color:#5E5246;font-weight:400"> · RedTeam</span></span><span style="color:#5E5246;font-size:15px">Micro-frontend platform for 5 teams; Architecture Committee</span></span><span style="width:28px;height:28px;border-radius:50%;border:1.5px solid #E3D8C8;display:grid;place-items:center;font-weight:700;color:#8F3212">+</span></div></div>
+<div style="display:grid;gap:8px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Expanded · &lt;details&gt; + interpolate-size, 200ms height, instant with reduced motion</div>
+<div style="background:#FFFBF5;border:1.5px solid #231C15;border-radius:16px;padding:18px 22px 22px;display:grid;gap:14px">
+<div style="display:grid;grid-template-columns:110px minmax(0,1fr) 28px;gap:20px;align-items:start"><span style="font-size:14px;color:#5E5246;padding-top:3px">2024 – 25</span><span style="display:grid;gap:4px"><span style="font-weight:700;font-size:18px">Senior Engineering Architect / Principal FE<span style="color:#5E5246;font-weight:400"> · RedTeam</span></span><span style="color:#5E5246;font-size:15px">Micro-frontend platform for 5 teams; Architecture Committee</span></span><span style="width:28px;height:28px;border-radius:50%;background:#231C15;display:grid;place-items:center;font-weight:700;color:#FFFBF5">–</span></div>
+<div style="padding-left:130px;display:grid;gap:14px">
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-variant-numeric:tabular-nums">
+<div style="background:#F7F2EA;border-radius:12px;padding:12px 14px"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:22px">5–6 s → instant</div><div style="font-size:13px;color:#5E5246">page loads</div></div>
+<div style="background:#F7F2EA;border-radius:12px;padding:12px 14px"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:22px">30+ → &lt;5 min</div><div style="font-size:13px;color:#5E5246">builds</div></div>
+<div style="background:#F7F2EA;border-radius:12px;padding:12px 14px"><div style="font-family:'Bricolage Grotesque';font-weight:700;font-size:22px">0% → 80%+</div><div style="font-size:13px;color:#5E5246">FE e2e coverage, 7 apps</div></div>
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:2px 10px;font-size:13px">Remix</span><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:2px 10px;font-size:13px">SSR</span><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:2px 10px;font-size:13px">BFF on AWS</span><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:2px 10px;font-size:13px">Playwright</span></div>
+<span style="color:#C4461C;font-weight:700;font-size:15px">Read the case study →</span>
+</div></div></div>
+</div></div>
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>⌘K command palette open, over the home page</div>
+<div class="dv-card" data-screen-label="Command palette" style="width:1100px;height:720px;position:relative;background:#F7F2EA">
+<div style="position:absolute;inset:0;padding:56px 72px;display:grid;grid-template-columns:380px 1fr;gap:40px;opacity:.9"><div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:80px;line-height:.88;letter-spacing:-0.045em">Sean<br>Malone.</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start"><div style="height:220px;border-radius:20px;background:#FFFBF5;border:1.5px solid #E3D8C8"></div><div style="height:220px;border-radius:20px;background:#FFFBF5;border:1.5px solid #E3D8C8"></div><div style="height:220px;border-radius:20px;background:#FFFBF5;border:1.5px solid #E3D8C8"></div><div style="height:220px;border-radius:20px;background:#FFFBF5;border:1.5px solid #E3D8C8"></div></div></div>
+<div style="position:absolute;inset:0;background:rgba(35,28,21,.45)"></div>
+<div role="dialog" aria-label="Command palette" style="position:absolute;left:50%;top:90px;transform:translateX(-50%);width:620px;background:#FFFBF5;border-radius:20px;box-shadow:0 24px 60px rgba(35,28,21,.35);overflow:hidden">
+<div style="display:flex;gap:12px;align-items:center;padding:18px 20px;border-bottom:1.5px solid #E3D8C8"><img src="assets/logo-mark.svg" alt="" style="width:26px"><span style="font-size:18px;flex:1">co<span style="display:inline-block;width:2px;height:20px;background:#C4461C;vertical-align:middle;margin-left:1px"></span></span><span style="font-size:12px;border:1.5px solid #E3D8C8;border-radius:6px;padding:2px 6px;color:#5E5246">esc</span></div>
+<div style="padding:10px;display:grid;gap:2px;max-height:470px">
+<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246;padding:8px 12px 4px">Actions</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;background:#231C15;color:#FFFBF5"><span style="font-weight:600"><b style="color:#FF8A5B">Co</b>py email</span><span style="font-size:13px;opacity:.75">sean@planetmalone.com ↵</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px"><span>Download résumé · Staff (PDF)</span><span style="font-size:13px;color:#5E5246">Sep 2026</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px"><span>Download résumé · EM (PDF)</span><span style="font-size:13px;color:#5E5246">Sep 2026</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px"><span>Toggle <b>co</b>lour theme</span><span style="font-size:13px;color:#5E5246">Light → Dark</span></div>
+<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246;padding:12px 12px 4px">Jump to</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px"><span><b>Co</b>ntact</span><span style="font-size:13px;color:#5E5246">Section</span></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px"><span><b>Co</b>lophon: how this site was built</span><span style="font-size:13px;color:#5E5246">Page</span></div>
+<div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246;padding:12px 12px 4px">Other</div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px"><span><b>Co</b>unt the population again</span><span style="font-size:13px;color:#5E5246">The dragon insists</span></div>
+</div>
+<div style="display:flex;gap:18px;padding:12px 20px;border-top:1.5px solid #E3D8C8;font-size:13px;color:#5E5246;background:#F7F2EA"><span><b style="color:#231C15">↑↓</b> move</span><span><b style="color:#231C15">↵</b> run</span><span><b style="color:#231C15">esc</b> close</span><span style="margin-left:auto">Also opens with /</span></div>
+</div></div></div>
+
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Theme toggle, circular reveal, accent picker, motion</div>
+<div class="dv-card" data-screen-label="Theme and accent" style="width:1100px;background:#F7F2EA;padding:36px;box-sizing:border-box;display:grid;gap:34px">
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+<div style="display:grid;gap:10px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Toggle · light</div><div style="display:flex;gap:14px;align-items:center;background:#FFFBF5;border:1.5px solid #E3D8C8;border-radius:16px;padding:18px"><span style="width:44px;height:44px;border-radius:50%;border:1.5px solid #E3D8C8;display:grid;place-items:center;background:#FFFBF5"><img src="assets/logo-mark.svg" alt="" style="width:30px"></span><span style="font-size:14px;line-height:1.4">Planet in daylight. Moon sits at 1 o'clock.</span></div></div>
+<div style="display:grid;gap:10px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Toggle · dark</div><div style="display:flex;gap:14px;align-items:center;background:#201A15;color:#F4ECE0;border:1.5px solid #362D25;border-radius:16px;padding:18px"><span style="width:44px;height:44px;border-radius:50%;border:1.5px solid #362D25;display:grid;place-items:center;transform:scaleX(-1)"><img src="assets/logo-mark.svg" alt="" style="width:30px;filter:brightness(1.25)"></span><span style="font-size:14px;line-height:1.4">Moon orbits to 11 o'clock (300ms, one pass).</span></div></div>
+<div style="display:grid;gap:10px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Menu · long-press or right side</div><div role="radiogroup" style="display:flex;gap:4px;background:#EFE7DB;border-radius:999px;padding:4px;width:max-content"><span style="border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600">Light</span><span style="border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600">Dark</span><span style="background:#231C15;color:#FFFBF5;border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600">System</span></div><div style="font-size:13px;color:#5E5246">System follows prefers-color-scheme; no flash on load.</div></div>
+</div>
+<div style="display:grid;gap:10px"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5E5246">Circular reveal from the toggle · View Transition, 450ms · reduced motion: 150ms crossfade</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+<div style="aspect-ratio:16/10;border-radius:14px;background:#F7F2EA;border:1.5px solid #E3D8C8;position:relative;overflow:hidden"><span style="position:absolute;right:12px;top:12px;width:18px;height:18px;border-radius:50%;border:2px solid #231C15"></span><span style="position:absolute;left:14px;bottom:12px;font-size:12px;color:#5E5246">0 ms</span></div>
+<div style="aspect-ratio:16/10;border-radius:14px;background:#F7F2EA;border:1.5px solid #E3D8C8;position:relative;overflow:hidden"><span style="position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:#16120E"></span><span style="position:absolute;left:14px;bottom:12px;font-size:12px;color:#5E5246">120 ms</span></div>
+<div style="aspect-ratio:16/10;border-radius:14px;background:#F7F2EA;border:1.5px solid #E3D8C8;position:relative;overflow:hidden"><span style="position:absolute;right:-140px;top:-140px;width:420px;height:420px;border-radius:50%;background:#16120E"></span><span style="position:absolute;left:14px;bottom:12px;font-size:12px;color:#5E5246">280 ms</span></div>
+<div style="aspect-ratio:16/10;border-radius:14px;background:#16120E;border:1.5px solid #362D25;position:relative"><span style="position:absolute;left:14px;bottom:12px;font-size:12px;color:#B9AC9B">450 ms · dark</span></div>
+</div></div>
+<div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:24px;align-items:start">
+<div style="background:#FFFBF5;border-radius:20px;box-shadow:0 16px 40px rgba(35,28,21,.18);padding:20px;display:grid;gap:14px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:20px">Pick a sky</span><span style="font-size:13px;color:#5E5246">Every option passes AA in both themes</span></div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+<div style="display:grid;gap:6px;justify-items:center;text-align:center"><span style="width:52px;height:52px;border-radius:50%;background:conic-gradient(#C4461C 0 50%,#FF8A5B 50%);outline:3px solid #231C15;outline-offset:3px"></span><b style="font-size:13px">Persimmon</b><span style="font-size:12px;color:#5E5246">6.2 : 1</span></div>
+<div style="display:grid;gap:6px;justify-items:center;text-align:center"><span style="width:52px;height:52px;border-radius:50%;background:conic-gradient(#3B4FD8 0 50%,#8E9CFF 50%)"></span><b style="font-size:13px">Neptune</b><span style="font-size:12px;color:#5E5246">5.7 : 1</span></div>
+<div style="display:grid;gap:6px;justify-items:center;text-align:center"><span style="width:52px;height:52px;border-radius:50%;background:conic-gradient(#3F7A2E 0 50%,#86C76A 50%)"></span><b style="font-size:13px">Moss</b><span style="font-size:12px;color:#5E5246">4.7 : 1</span></div>
+<div style="display:grid;gap:6px;justify-items:center;text-align:center"><span style="width:52px;height:52px;border-radius:50%;background:conic-gradient(#8E3B8C 0 50%,#E08BDD 50%)"></span><b style="font-size:13px">Plum</b><span style="font-size:12px;color:#5E5246">5.9 : 1</span></div>
+<div style="display:grid;gap:6px;justify-items:center;text-align:center"><span style="width:52px;height:52px;border-radius:50%;background:conic-gradient(#8A5A00 0 50%,#F2B84B 50%)"></span><b style="font-size:13px">Sunspot</b><span style="font-size:12px;color:#5E5246">5.3 : 1</span></div>
+</div>
+<div style="font-size:13px;color:#5E5246">Left half: light-theme accent. Right half: dark-theme accent. Ratios are the light accent on paper #F7F2EA.</div>
+</div>
+<div style="display:grid;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:center;background:#FFFBF5;border:1.5px solid #E3D8C8;border-radius:16px;padding:14px 18px"><span><b>Motion</b><br><span style="font-size:13px;color:#5E5246">Defaults to your OS setting</span></span><span style="width:48px;height:28px;border-radius:999px;background:#231C15;position:relative"><span style="position:absolute;right:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#FFFBF5"></span></span></div>
+</div></div>
+</div></div>
+
+<div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Open Graph image · 1200 × 630 · the one place the Persimmon field goes full volume</div>
+<div class="dv-card" data-screen-label="OG image" style="width:1200px;height:630px;background:#C4461C;color:#FFF6EC;position:relative;box-sizing:border-box;padding:64px 72px;display:flex;flex-direction:column">
+<div style="position:absolute;right:-80px;bottom:-120px;width:620px;height:620px;border-radius:50%;background:#A93A14"></div>
+<div style="position:absolute;right:-180px;bottom:170px;width:840px;height:180px;border:2.5px solid #FFF6EC;border-radius:50%;transform:rotate(-14deg);opacity:.45"></div>
+<img src="assets/avatar-default.svg" alt="" style="position:absolute;right:60px;bottom:40px;width:420px">
+<div style="display:flex;gap:12px;align-items:center;position:relative"><span style="width:44px;height:44px;border-radius:50%;background:#FFF6EC;display:grid;place-items:center"><img src="assets/logo-mark.svg" alt="" style="width:34px"></span><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:26px">planetmalone.com</span></div>
+<div style="margin-top:auto;position:relative;max-width:640px;display:grid;gap:22px">
+<div style="font-family:'Bricolage Grotesque';font-weight:800;font-size:120px;line-height:.86;letter-spacing:-0.05em">Sean<br>Malone</div>
+<div style="font-size:30px;line-height:1.3;font-weight:600">Frontend engineer and engineering leader. Design systems and frontend platforms.</div>
+<div style="display:flex;gap:22px;font-size:22px;font-weight:700;font-variant-numeric:tabular-nums"><span>18+ years</span><span>·</span><span>Teams up to 50+</span><span>·</span><span>4 design systems</span></div>
+</div></div></div>
+
+</div>
+<p class="dv-next">Try next: "make the ⌘K silly command something else" · "show the accent picker applied to the home hero in Neptune" · "OG variant on paper with the huge name"</p>
+</section>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,20 @@
+---
+// Inline and blocking on purpose: sets theme and motion before first paint so
+// there's no flash. Mirrors src/stores/theme.ts, src/stores/motion.ts and src/utils/storage.ts.
+---
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    let p = {};
+    try {
+      p = JSON.parse(localStorage.getItem('pm-prefs') || '{}');
+    } catch {}
+    const pref = p.theme || 'system';
+    const dark = pref === 'dark' || (pref === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+    const motion = p.motion ?? !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    root.dataset.theme = dark ? 'dark' : 'light';
+    root.dataset.motion = motion ? 'on' : 'off';
+    root.dataset.js = '';
+  })();
+</script>

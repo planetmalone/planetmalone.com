@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Atkinson+Hyperlegible+Next:wght@400..700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E3D9;font-family:'Atkinson Hyperlegible Next',system-ui,sans-serif;color:#231C15}a{color:#C4461C}a:hover{color:#8F3212}button{font:inherit;color:inherit;cursor:pointer}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08)}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}.dv-card{max-width:100%;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Case-study pages · all four, desktop + mobile · <a href="Planet Malone - Home.dc.html">home</a> · <a href="Planet Malone - Pages.dc.html">404 + print</a></span></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 24px">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4"><button onClick="{{ t.pick }}" style="border:1.5px solid #231C15;border-radius:999px;padding:8px 14px;font:600 13px system-ui;background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</button></sc-for>
+</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Desktop · light · 1440. Header is the home card, morphed via View Transition. Pink notes are placeholders for you.</div>
+<div class="dv-card" data-screen-label="Case study desktop" style="width:1440px;background:#F7F2EA">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:24px 72px">
+<span style="display:flex;gap:10px;align-items:center;font-weight:600"><img src="assets/logo-mark.svg" alt="" style="width:30px">← Back to Planet Malone</span>
+<span style="display:flex;gap:8px"><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700">⌘K</span><span style="width:34px;height:34px;border-radius:50%;border:1.5px solid #E3D8C8;display:grid;place-items:center"><img src="assets/logo-mark.svg" alt="Toggle theme" style="width:22px"></span></span>
+</div>
+<header style="margin:16px 72px 0;background:#FFFBF5;border:1.5px solid #E3D8C8;border-radius:28px;padding:56px 64px;display:grid;gap:22px">
+<div style="display:flex;gap:6px"><sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="2"><span style="background:#EFE7DB;border-radius:999px;padding:4px 12px;font-size:14px;font-weight:600">{{ t }}</span></sc-for></div>
+<h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:80px;line-height:.95;letter-spacing:-0.045em;max-width:1100px;text-wrap:balance">{{ c.title }}</h1>
+<div style="display:flex;flex-wrap:wrap;gap:48px;padding-top:22px;border-top:1.5px solid #E3D8C8;font-size:15px">
+<sc-for list="{{ c.meta }}" as="m" hint-placeholder-count="4"><div><div style="color:#5E5246">{{ m.k }}</div><b>{{ m.v }}</b></div></sc-for>
+</div></header>
+<div style="display:grid;grid-template-columns:260px minmax(0,760px);gap:72px;padding:64px 72px 96px">
+<nav style="position:sticky;top:24px;align-self:start;display:grid;gap:10px;font-size:14px;font-weight:600">
+<span style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5E5246;margin-bottom:4px">On this page</span>
+<span style="display:flex;gap:10px;align-items:center"><span style="width:28px;height:2px;background:#C4461C"></span>Context</span>
+<span style="color:#7A6D5F;padding-left:38px">My role and scope</span><span style="color:#7A6D5F;padding-left:38px">Key decisions and trade-offs</span><span style="color:#7A6D5F;padding-left:38px">How I brought people along</span><span style="color:#7A6D5F;padding-left:38px">Outcomes</span><span style="color:#7A6D5F;padding-left:38px">What I'd do differently</span>
+</nav>
+<article style="display:grid;gap:52px;font-size:18px;line-height:1.65">
+<section style="display:grid;gap:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">Context</h2>
+<p style="margin:0;text-wrap:pretty">{{ c.context }}</p>
+<p style="margin:0;padding:14px 18px;background:#FBEADF;border-radius:12px;font-size:15px;color:#6E2A10">{{ c.contextDraft }}</p></section>
+<section style="display:grid;gap:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">My role and scope</h2>
+<ul style="margin:0;padding-left:22px;display:grid;gap:6px"><sc-for list="{{ c.scope }}" as="s" hint-placeholder-count="3"><li>{{ s }}</li></sc-for></ul></section>
+<section style="display:grid;gap:16px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">Key decisions and trade-offs</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;font-size:16px;line-height:1.5">
+<sc-for list="{{ c.cards }}" as="d" hint-placeholder-count="2"><div style="background:#FFFBF5;border:1.5px solid {{ d.bd }};border-radius:16px;padding:20px;display:grid;gap:8px;align-content:start"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8F3212">{{ d.label }}</div><b style="font-size:18px">{{ d.title }}</b><span style="color:#5E5246">{{ d.body }}</span></div></sc-for>
+</div>
+<p style="margin:0;padding:14px 18px;background:#FBEADF;border-radius:12px;font-size:15px;color:#6E2A10">{{ c.decisionDraft }}</p></section>
+<section style="display:grid;gap:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">How I brought people along</h2>
+<p style="margin:0;text-wrap:pretty">{{ c.people }}</p>
+<sc-if value="{{ c.hasQuote }}" hint-placeholder-val="{{ false }}"><blockquote style="margin:8px 0 0;padding:0;display:grid;gap:10px"><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:34px;line-height:1.15;letter-spacing:-0.02em">{{ c.quote }}</span><span style="font-size:15px;color:#5E5246">{{ c.quoteBy }}</span></blockquote></sc-if>
+<sc-if value="{{ c.hasPeopleDraft }}" hint-placeholder-val="{{ false }}"><p style="margin:0;padding:14px 18px;background:#FBEADF;border-radius:12px;font-size:15px;color:#6E2A10">{{ c.peopleDraft }}</p></sc-if></section>
+<section style="display:grid;gap:16px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">Outcomes</h2>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;font-variant-numeric:tabular-nums">
+<sc-for list="{{ c.outcomes }}" as="o" hint-placeholder-count="3"><div style="background:#231C15;color:#F7F2EA;border-radius:18px;padding:22px;display:grid;gap:6px;align-content:start"><span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:40px;line-height:1;letter-spacing:-0.03em">{{ o.big }}</span><span style="font-size:15px;color:#D9CDBC">{{ o.small }}</span></div></sc-for>
+</div></section>
+<section style="display:grid;gap:12px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:32px;letter-spacing:-0.025em">What I'd do differently</h2>
+<p style="margin:0;padding:14px 18px;background:#FBEADF;border-radius:12px;font-size:15px;color:#6E2A10">Draft: your reflection goes here. Two or three sentences, specific.</p></section>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-top:28px;border-top:1.5px solid #E3D8C8;font-size:16px">
+<button onClick="{{ goPrev }}" style="background:none;border:0;padding:0;text-align:left"><div style="color:#5E5246;font-size:14px">← Previous</div><b>{{ prevTitle }}</b></button>
+<button onClick="{{ goNext }}" style="background:none;border:0;padding:0;text-align:right"><div style="color:#5E5246;font-size:14px">Next →</div><b>{{ nextTitle }}</b></button>
+</div>
+</article></div></div></div>
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Mobile · light · 390. Section nav becomes a sticky chip row.</div>
+<div class="dv-card" data-screen-label="Case study mobile" style="width:390px;background:#F7F2EA;border-radius:36px;border:8px solid #0B0907">
+<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #E3D8C8">
+<span style="display:flex;gap:8px;align-items:center;font-weight:700;font-size:15px;min-height:44px"><img src="assets/logo-mark.svg" alt="" style="width:26px">← Planet Malone</span>
+<span style="width:44px;height:44px;border-radius:50%;border:1.5px solid #E3D8C8;display:grid;place-items:center;font-weight:700;font-size:13px">⌘K</span>
+</div>
+<header style="margin:14px 12px 0;background:#FFFBF5;border:1.5px solid #E3D8C8;border-radius:22px;padding:22px 18px;display:grid;gap:14px">
+<div style="display:flex;gap:6px"><sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="2"><span style="background:#EFE7DB;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:600">{{ t }}</span></sc-for></div>
+<h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:38px;line-height:1;letter-spacing:-0.04em;text-wrap:balance">{{ c.title }}</h1>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px;border-top:1.5px solid #E3D8C8;font-size:13px">
+<sc-for list="{{ c.meta }}" as="m" hint-placeholder-count="4"><div><div style="color:#5E5246">{{ m.k }}</div><b>{{ m.v }}</b></div></sc-for>
+</div></header>
+<div style="position:sticky;top:0;display:flex;gap:6px;overflow:auto;padding:14px 12px;background:#F7F2EA">
+<span style="background:#231C15;color:#FFFBF5;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:700;white-space:nowrap">Context</span><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:6.5px 12px;font-size:13px;font-weight:600;white-space:nowrap">Role</span><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:6.5px 12px;font-size:13px;font-weight:600;white-space:nowrap">Decisions</span><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:6.5px 12px;font-size:13px;font-weight:600;white-space:nowrap">People</span><span style="border:1.5px solid #E3D8C8;border-radius:999px;padding:6.5px 12px;font-size:13px;font-weight:600;white-space:nowrap">Outcomes</span>
+</div>
+<article style="padding:8px 20px 28px;display:grid;gap:34px;font-size:16px;line-height:1.6">
+<section style="display:grid;gap:10px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:24px">Context</h2><p style="margin:0">{{ c.context }}</p><p style="margin:0;padding:12px 14px;background:#FBEADF;border-radius:12px;font-size:14px;color:#6E2A10">{{ c.contextDraft }}</p></section>
+<section style="display:grid;gap:10px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:24px">My role and scope</h2><ul style="margin:0;padding-left:20px;display:grid;gap:6px"><sc-for list="{{ c.scope }}" as="s" hint-placeholder-count="3"><li>{{ s }}</li></sc-for></ul></section>
+<section style="display:grid;gap:10px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:24px">Key decisions</h2>
+<sc-for list="{{ c.cards }}" as="d" hint-placeholder-count="2"><div style="background:#FFFBF5;border:1.5px solid {{ d.bd }};border-radius:14px;padding:16px;display:grid;gap:6px;font-size:15px;line-height:1.5"><div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8F3212">{{ d.label }}</div><b style="font-size:17px">{{ d.title }}</b><span style="color:#5E5246">{{ d.body }}</span></div></sc-for></section>
+<section style="display:grid;gap:10px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:24px">How I brought people along</h2><p style="margin:0">{{ c.people }}</p>
+<sc-if value="{{ c.hasQuote }}" hint-placeholder-val="{{ false }}"><blockquote style="margin:4px 0 0;padding:0;display:grid;gap:6px"><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:24px;line-height:1.2">{{ c.quote }}</span><span style="font-size:13px;color:#5E5246">{{ c.quoteBy }}</span></blockquote></sc-if></section>
+<section style="display:grid;gap:10px"><h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:24px">Outcomes</h2>
+<sc-for list="{{ c.outcomes }}" as="o" hint-placeholder-count="3"><div style="background:#231C15;color:#F7F2EA;border-radius:16px;padding:16px 18px;display:grid;gap:4px;font-variant-numeric:tabular-nums"><span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:30px;line-height:1">{{ o.big }}</span><span style="font-size:14px;color:#D9CDBC">{{ o.small }}</span></div></sc-for></section>
+<div style="display:grid;gap:8px;padding-top:18px;border-top:1.5px solid #E3D8C8">
+<button onClick="{{ goNext }}" style="background:#231C15;color:#FFFBF5;border:0;border-radius:16px;padding:16px;text-align:left;min-height:44px"><div style="font-size:13px;opacity:.75">Next case study →</div><b>{{ nextTitle }}</b></button>
+</div>
+</article>
+</div></div>
+
+</div>
+<p class="dv-next">Try next: "add a small diagram slot to the micro-frontend decisions section" · "dark theme for the mobile case study" · "shorten the case-study header on mobile"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 0 };
+  renderVals() {
+    const d = (label, title, body, chosen) => ({ label, title, body, bd: chosen ? '#231C15' : '#E3D8C8' });
+    const cases = [
+      { short: 'NextGen design system', tags: ['Strategy', 'Craft'], title: 'NextGen design system & React Aria migration',
+        meta: [{ k: 'Where', v: 'Aspira' }, { k: 'When', v: '2025 – 26' }, { k: 'Role', v: 'Staff Frontend Engineer, design-system owner' }, { k: 'Team', v: 'Six-engineer migration epic' }],
+        context: 'NextGen is a ground-up rebuild of the platform. It needed one design system that design and engineering could both trust, and components that were accessible by default.',
+        contextDraft: 'Draft: add the starting state (component count, where the old components came from, known accessibility gaps).',
+        scope: ['Authored the Figma design system: tokens, oklch palette, full React Aria component set.', 'Owned design-system and accessibility decisions for NextGen.', 'Led the component migration inside a six-engineer epic.'],
+        cards: [d('Before', 'shadcn / Radix', 'Behaviour and styling copied into the codebase.'), d('Chose', 'React Aria Components', 'Accessibility and internationalisation behaviour maintained upstream; the team owns the styling layer.', true)],
+        decisionDraft: 'Draft: the trade-offs you weighed, and a link to the ADR.',
+        people: 'Established the rule that design handoffs must match the design system.',
+        quote: '“Guardian of quality, consistency and sustainability.”', quoteBy: 'Team lead, NextGen', peopleDraft: '',
+        outcomes: [{ big: 'Full set', small: 'React Aria component set, designed and built' }, { big: '6', small: 'engineers in the migration epic' }, { big: '1 rule', small: 'design handoffs match the system' }] },
+      { short: 'AI-assisted engineering', tags: ['Strategy', 'People'], title: 'AI-assisted engineering, done responsibly',
+        meta: [{ k: 'Where', v: 'Aspira' }, { k: 'When', v: '2026' }, { k: 'Role', v: 'Staff Frontend Engineer, program lead' }, { k: 'Reach', v: '~20 engineers' }],
+        context: 'AI speeds things up, but every line still gets a human review. The program was built around that rule.',
+        contextDraft: 'Draft: what prompted the program, and how the team used AI before it.',
+        scope: ['Started the team’s AI agent-skills program and wrote 11 of its 22 skills.', 'Grounded each skill in a codebase audit and checked it with fresh-agent runs.', 'Built an AI documentation pipeline that updates weekly and publishes only after a human reviews the PR.'],
+        cards: [d('Guardrail', 'Audit first', 'Every skill starts from a codebase audit, not a guess about the codebase.'), d('Guardrail', 'Human-reviewed PRs', 'Generated docs publish only after a person approves the pull request.', true)],
+        decisionDraft: 'Draft: what you chose not to automate, and why.',
+        people: 'The skills are used by ~20 engineers, and the backend team is adopting the approach.',
+        quote: '', quoteBy: '', peopleDraft: 'Draft: how you rolled it out (demos, pairing, docs).',
+        outcomes: [{ big: '11 of 22', small: 'agent skills authored' }, { big: '~20', small: 'engineers using the skills' }, { big: 'Weekly', small: 'AI docs updates, each human-reviewed' }] },
+      { short: 'Micro-frontend platform', tags: ['Strategy', 'Delivery'], title: 'Micro-frontend platform for 5 teams',
+        meta: [{ k: 'Where', v: 'RedTeam' }, { k: 'When', v: '2024 – 25' }, { k: 'Role', v: 'Senior Engineering Architect / Principal FE' }, { k: 'Reach', v: '5 teams · 50+ engineers' }],
+        context: 'Five teams shipping into one product needed a shared frontend platform.',
+        contextDraft: 'Draft: what the frontend looked like before (stack, deploy process, pain points).',
+        scope: ['Designed the micro-frontend platform: Remix/SSR with a backend-for-frontend (BFF) on AWS.', 'Platform used by 50+ engineers across 5 teams.', 'Member of the Architecture Committee.'],
+        cards: [d('Rendering', 'Remix + SSR', 'Server rendering for fast first loads.'), d('Data', 'Backend-for-frontend on AWS', 'One BFF layer between the apps and backend services.', true)],
+        decisionDraft: 'Draft: the alternatives you considered and what you gave up.',
+        people: 'Brought the design through the Architecture Committee.',
+        quote: '', quoteBy: '', peopleDraft: 'Draft: how the five teams were onboarded.',
+        outcomes: [{ big: '5–6 s → instant', small: 'page loads' }, { big: '30+ → <5 min', small: 'build times' }, { big: '0% → 80%+', small: 'frontend e2e coverage, 7 apps' }] },
+      { short: '50-person practice', tags: ['People', 'Delivery'], title: 'Running a 50-person practice without leaving the code',
+        meta: [{ k: 'Where', v: 'Stellar Elements' }, { k: 'When', v: '2021 – 23' }, { k: 'Role', v: 'Technology Practice Director' }, { k: 'Team', v: '50+ people · 6 managers' }],
+        context: 'An app-dev practice of 50+ people serving 4+ enterprise clients.',
+        contextDraft: 'Draft: the state of the practice when you took it over.',
+        scope: ['Directed a 50+ person app-dev practice through 6 managers.', 'Served 4+ enterprise clients.', 'Stayed hands-on: personally built US Bank’s design systems.'],
+        cards: [d('People', '1:1s for everyone', 'Made regular 1:1s the baseline across the practice.', true), d('Craft', 'Stay in the code', 'Kept building, including US Bank’s design systems.')],
+        decisionDraft: 'Draft: what you delegated to the 6 managers and what you kept.',
+        people: '1:1 cadence rose from under 50% to 100%.',
+        quote: '', quoteBy: '', peopleDraft: 'Draft: career frameworks, hiring, or other people processes you introduced.',
+        outcomes: [{ big: '50+', small: 'people in the practice' }, { big: '<50% → 100%', small: '1:1 cadence' }, { big: '6', small: 'managers led' }] },
+    ];
+    const i = this.state.i, n = cases.length;
+    const c = { ...cases[i], hasQuote: !!cases[i].quote, hasPeopleDraft: !!cases[i].peopleDraft };
+    return {
+      c,
+      tabs: cases.map((x, j) => ({ label: `${j + 1} · ${x.short}`, bg: j === i ? '#231C15' : 'transparent', fg: j === i ? '#FFFBF5' : '#231C15', pick: () => this.setState({ i: j }) })),
+      prevTitle: cases[(i + n - 1) % n].title, nextTitle: cases[(i + 1) % n].title,
+      goPrev: () => this.setState({ i: (i + n - 1) % n }), goNext: () => this.setState({ i: (i + 1) % n }),
+    };
+  }
+}
+</script>
+</body>
+</html>

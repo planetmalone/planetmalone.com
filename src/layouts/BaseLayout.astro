@@ -1,0 +1,44 @@
+---
+import { Font } from 'astro:assets';
+import PrefsScript from '../components/PrefsScript.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site, type PageKey } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  current?: PageKey;
+}
+
+const {
+  title = site.title,
+  description = 'Frontend engineer and engineering leader. Staff / Principal Frontend and Frontend Engineering Manager.',
+  current,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <PrefsScript />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#F7F2EA" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#16120E" media="(prefers-color-scheme: dark)" />
+    <Font cssVariable="--font-bricolage" preload />
+    <Font cssVariable="--font-atkinson" preload={[{ style: 'normal' }]} />
+  </head>
+  <body>
+    <Header current={current} />
+    <main id="main" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

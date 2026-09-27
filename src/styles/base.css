@@ -1,0 +1,103 @@
+/*
+ * Global rules Tailwind utilities can't express: document-level theme and
+ * motion state, view-transition pseudo-elements, print, and the few
+ * reusable utilities the design repeats everywhere.
+ */
+@layer base {
+  :root {
+    color-scheme: light dark;
+    --gutter: 32px;
+    --gutter-sm: 20px;
+    --logo-texture: 0.45;
+    interpolate-size: allow-keywords;
+    @variant max-md {
+      --gutter: 18px;
+      --gutter-sm: 10px;
+    }
+  }
+  :root[data-theme='light'] {
+    color-scheme: light;
+  }
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+  }
+  @variant dark {
+    :root {
+      --logo-texture: 0.35;
+    }
+  }
+
+  /* Borders default to the design's line color; `border` is 1.5px (see theme.css). */
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    border-color: var(--color-line);
+  }
+
+  /* The design sets line height per type role and leaves the rest at `normal`. */
+  html {
+    line-height: normal;
+  }
+  body {
+    @apply bg-bg font-text text-ink antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    @apply text-accent underline hover:text-ink;
+  }
+  :focus-visible {
+    @apply outline-3 outline-offset-3 outline-accent;
+  }
+
+  /* An open modal (menu, palette) locks page scroll. */
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  /* Controls that only work with JS stay hidden until the pre-paint script runs. */
+  html:not([data-js]) .needs-js {
+    display: none !important;
+  }
+
+  /* Motion off: no transitions or animations anywhere. */
+  html[data-motion='off'] *,
+  html[data-motion='off'] *::before,
+  html[data-motion='off'] *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  /* Same-document theme reveal: turn off the default root cross-fade. */
+  html.pm-theme::view-transition-old(root),
+  html.pm-theme::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  /* Print always uses the light palette on white. */
+  @media print {
+    :root,
+    :root[data-theme] {
+      color-scheme: light;
+    }
+    body {
+      background: #fff;
+    }
+  }
+}
+
+/* Centered page column with the responsive gutter. */
+@utility container-page {
+  margin-inline: auto;
+  max-width: var(--container-page);
+  padding-inline: var(--gutter);
+}
