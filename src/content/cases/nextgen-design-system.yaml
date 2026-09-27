@@ -1,0 +1,44 @@
+order: 1
+title: NextGen design system & React Aria migration
+shortTitle: NextGen design system
+tags: [Strategy, Craft]
+company: Aspira
+years: { start: 2025, end: 2026 }
+summary: Authored the Figma design system and made the case to move from shadcn/Radix to React Aria Components, then led the migration inside a six-engineer epic.
+metric: Full React Aria component set
+role: Staff Frontend Engineer, design-system owner
+team: { label: Team, value: Six-engineer migration epic }
+
+context:
+  text: NextGen is a ground-up rebuild of the platform. It needed one design system that design and engineering could both trust, and components that were accessible by default.
+  draft: Add the starting state (component count, where the old components came from, known accessibility gaps).
+
+scope:
+  - 'Authored the Figma design system: tokens, oklch palette, full React Aria component set.'
+  - Owned design-system and accessibility decisions for NextGen.
+  - Led the component migration inside a six-engineer epic.
+
+decisions:
+  cards:
+    - label: Before
+      title: shadcn / Radix
+      body: Behavior and styling copied into the codebase.
+    - label: Chose
+      title: React Aria Components
+      body: Accessibility and internationalization behavior maintained upstream; the team owns the styling layer.
+      chosen: true
+  draft: The trade-offs you weighed.
+
+people:
+  text: Established the rule that design handoffs must match the design system.
+  quote:
+    text: '“Guardian of quality, consistency and sustainability.”'
+    by: Team lead, NextGen
+
+outcomes:
+  - { value: Full set, label: 'React Aria component set, designed and built' }
+  - { value: '6', label: engineers in the migration epic }
+  - { value: 1 rule, label: design handoffs match the system }
+
+reflection:
+  draft: Your reflection goes here. Two or three sentences, specific.

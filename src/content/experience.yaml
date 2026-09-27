@@ -1,0 +1,7 @@
+routeLabel: 'The scenic route:'
+stages:
+  - { id: army, label: U.S. Army }
+  - { id: degree, label: CS degree }
+  - { id: lead, label: Lead }
+  - { id: director, label: Director }
+  - { id: staff, label: 'Back to Staff IC, on purpose' }

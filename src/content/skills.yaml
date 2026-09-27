@@ -1,0 +1,32 @@
+groups:
+  - label: Shipped in production
+    items:
+      [
+        TypeScript,
+        React 19,
+        Next.js,
+        Remix,
+        React Aria,
+        Tailwind,
+        GraphQL,
+        Nx,
+        Storybook,
+        Playwright,
+        Vitest,
+        AWS,
+        GitHub Actions,
+      ]
+  - label: Led teams using
+    items:
+      [
+        Design systems & tokens,
+        Micro-frontends,
+        SSR/SSG,
+        WCAG 2.2 AA,
+        CI/CD & DX,
+        OKRs,
+        Hiring,
+        1:1 and career frameworks,
+      ]
+  - label: Currently exploring
+    items: [Claude Code agent skills, Multi-model verification, AI docs pipelines]

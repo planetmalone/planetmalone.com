@@ -1,0 +1,23 @@
+lead: The tools on my desk and in the garage. No affiliate links.
+groups:
+  - title: Desk
+    items:
+      - { name: Computer, draft: true }
+      - { name: Monitor, draft: true }
+      - { name: Keyboard, draft: true }
+      - { name: Chair, draft: true }
+  - title: Software
+    items:
+      - { name: Editor, draft: true }
+      - { name: Claude Code, note: 'agent skills, reviewed line by line' }
+      - { name: Figma, note: design system source of truth }
+      - { name: Storybook, note: 'every component, every state' }
+  - title: Workshop
+    items:
+      - { name: 3D printer, draft: true }
+      - { name: 3D modeling software, draft: true }
+      - { name: Favorite woodworking tool, draft: true }
+  - title: Kitchen & table
+    items:
+      - { name: Go-to cooking tool, draft: true }
+      - { name: Most-played board game, draft: true }

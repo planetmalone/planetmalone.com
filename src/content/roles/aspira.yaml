@@ -1,0 +1,12 @@
+order: 1
+title: Staff Frontend Engineer
+company: Aspira
+years: { start: 2025 }
+scope: Owns the design system and accessibility for NextGen, a ground-up platform rebuild; leads the AI-assisted engineering program
+wins:
+  - 'Authored the NextGen Figma design system: tokens, oklch palette, full React Aria component set'
+  - Made the case for moving from shadcn/Radix to React Aria Components, then led the migration
+  - Started the AI agent-skills program, now used by ~20 engineers
+tech: [React 19, TypeScript, React Aria, Tailwind, Figma, Claude Code]
+stage: staff
+caseStudy: nextgen-design-system

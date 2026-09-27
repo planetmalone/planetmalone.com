@@ -35,4 +35,5 @@ Consult these guides before working on related tasks:
 - Element state that other scripts set lives in **attributes** (like `checked` on `<pm-switch>`), with properties reflecting them. Attributes work before an element is defined, so consumers never wait on script order or use `whenDefined`.
 - State shared between components lives in **Nano Stores** in `src/stores/` (Astro's recommended approach), not custom DOM events. Components subscribe and set; they don't call each other.
 - `src/utils/` holds plain helpers (storage, view transitions). There is no `src/scripts/`.
+- Content: YAML in `src/content/`, schemas in `src/content.config.ts`. Every fact must trace to the Career vault and follow its `Tailoring Guide.md` rules; never invent a claim or metric. Unwritten copy goes in a `draft` field. Store facts (years, dates), not formatted strings; format with `src/utils/format.ts`.
 - Node comes from nvm (`.nvmrc`); in non-interactive shells run `. ~/.nvm/nvm.sh` first.

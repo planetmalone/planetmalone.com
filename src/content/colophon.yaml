@@ -1,0 +1,23 @@
+lead: How Planet Malone is built, and the budgets it's held to. v. 1.0.
+budgets:
+  - { value: 100 x 4, label: 'Lighthouse target, all categories' }
+  - { value: < 1.5 s, label: LCP budget }
+  - { value: ≤ 100 KB, label: JavaScript budget }
+  - { value: '0', label: 'layout shift, trackers, cookies' }
+rows:
+  - label: Framework
+    value: 'Astro, static-first, styled with Tailwind. No UI framework: the interactive pieces (the theme toggle, ⌘K, the bio switcher and the role cards) are small custom elements that share state through Nano Stores.'
+  - label: Type
+    value: Bricolage Grotesque for display, Atkinson Hyperlegible Next for text. Both self-hosted variable WOFF2 with size-adjusted fallbacks.
+  - label: Color
+    value: Warm paper neutrals, one Persimmon accent and a supporting forest green. Light, dark and system themes with no flash on load.
+  - label: Accessibility
+    value: WCAG 2.2 AA. Visible branded focus rings, full keyboard support, prefers-reduced-motion plus an in-site motion toggle.
+  - label: Content
+    value: YAML files checked against typed schemas at build time. One résumé source generates this site, the print view and the PDFs.
+  - label: Metadata
+    value: Server-rendered text for every fact, ProfilePage / Person JSON-LD, generated Open Graph images.
+  - label: AI
+    value: AI helped with research and drafts. Every line on this site was reviewed and approved by a human (me).
+  - label: Hosting
+    draft: Host and deploy pipeline.

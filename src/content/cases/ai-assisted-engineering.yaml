@@ -1,0 +1,42 @@
+order: 2
+title: AI-assisted engineering, done responsibly
+shortTitle: AI-assisted engineering
+tags: [Strategy, People]
+company: Aspira
+years: { start: 2025, end: 2026 }
+summary: Started the agent-skills program and a weekly AI docs pipeline that only publishes after a human reviews the PR.
+metric: Used by ~20 engineers
+role: Staff Frontend Engineer, program lead
+team: { label: Reach, value: ~20 engineers }
+
+context:
+  text: AI speeds things up, but every line still gets a human review. The program was built around that rule.
+  draft: What prompted the program, and how the team used AI before it.
+
+scope:
+  - Started the team's AI agent-skills program and wrote 11 of its 22 skills.
+  - Grounded each skill in a codebase audit and checked it with fresh-agent runs.
+  - Built an AI documentation pipeline that updates weekly and publishes only after a human reviews the PR.
+
+decisions:
+  cards:
+    - label: Guardrail
+      title: Audit first
+      body: Every skill starts from a codebase audit, not a guess about the codebase.
+    - label: Guardrail
+      title: Human-reviewed PRs
+      body: Generated docs publish only after a person approves the pull request.
+      chosen: true
+  draft: What you chose not to automate, and why.
+
+people:
+  text: The skills are used by ~20 engineers, and the backend team is adopting the approach.
+  draft: How you rolled it out (demos, pairing, docs).
+
+outcomes:
+  - { value: 11 of 22, label: agent skills authored }
+  - { value: ~20, label: engineers using the skills }
+  - { value: Weekly, label: 'AI docs updates, each human-reviewed' }
+
+reflection:
+  draft: Your reflection goes here. Two or three sentences, specific.

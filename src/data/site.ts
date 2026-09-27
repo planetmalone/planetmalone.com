@@ -1,12 +1,9 @@
-// Site-wide constants. Phase 2 moves the CV content into content collections;
-// this file keeps navigation and metadata that the chrome needs.
+// Site chrome: navigation and site metadata. CV content (contact details,
+// roles, case studies, copy) lives in src/content/.
 
 export const site = {
   name: 'Sean Malone',
   title: 'Sean Malone · Planet Malone',
-  email: 'sean@planetmalone.com',
-  linkedin: 'https://www.linkedin.com/in/malonesean',
-  github: 'https://github.com/planetmalone',
   version: '1.0',
   lastUpdated: 'Sep 25, 2026',
 };

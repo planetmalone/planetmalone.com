@@ -1,0 +1,15 @@
+updated: 2026-09-25
+lead: What's happening on Planet Malone this month.
+rows:
+  - label: Working on
+    value: The NextGen design system and the AI-assisted engineering program at Aspira.
+  - label: Looking for
+    value: Staff / Principal Frontend Engineer or Frontend Engineering Manager roles. Remote, Central Time.
+  - label: Exploring
+    value: Claude Code agent skills, multi-model verification, AI docs pipelines.
+  - label: Building
+    value: This site, in Astro.
+    draft: Current 3D print or woodworking project.
+  - label: Playing
+    draft: The board game currently on the table.
+footnote: A /now page. If this date is more than three months old, assume I'm doing roughly the same thing, only more tired.

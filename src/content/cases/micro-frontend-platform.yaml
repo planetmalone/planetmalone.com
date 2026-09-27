@@ -1,0 +1,42 @@
+order: 3
+title: Micro-frontend platform for 5 teams
+shortTitle: Micro-frontend platform
+tags: [Strategy, Delivery]
+company: RedTeam
+years: { start: 2024, end: 2025 }
+summary: Remix/SSR with a backend-for-frontend on AWS, used by 50+ engineers.
+metric: Builds 30+ min → under 5 min
+role: Senior Engineering Architect / Principal FE
+team: { label: Reach, value: 5 teams · 50+ engineers }
+
+context:
+  text: Five teams shipping into one product needed a shared frontend platform.
+  draft: What the frontend looked like before (stack, deploy process, pain points).
+
+scope:
+  - 'Designed the micro-frontend platform: Remix/SSR with a backend-for-frontend (BFF) on AWS.'
+  - Platform used by 50+ engineers across 5 teams.
+  - Member of the Architecture Committee.
+
+decisions:
+  cards:
+    - label: Rendering
+      title: Remix + SSR
+      body: Server rendering for fast first loads.
+    - label: Data
+      title: Backend-for-frontend on AWS
+      body: One BFF layer between the apps and backend services.
+      chosen: true
+  draft: The alternatives you considered and what you gave up.
+
+people:
+  text: Served on the Architecture Committee.
+  draft: How the five teams were onboarded.
+
+outcomes:
+  - { value: 5-6 s → near-instant, label: page loads }
+  - { value: 30+ → <5 min, label: build times }
+  - { value: 0% → 80%+, label: 'frontend e2e coverage, 7 apps' }
+
+reflection:
+  draft: Your reflection goes here. Two or three sentences, specific.

@@ -43,21 +43,24 @@
    - The footer (theme segmented control, Motion switch, "will not" line, version line)
 4. **Breakpoints.** 900px, plus 1180px for the hero. Add a container utility at 1240px max width with the specified gutters.
 
-## Phase 2: Content model
+## Phase 2: Content model ✅
 
-Astro content collections go in `src/content/`, typed with Zod schemas:
+Astro content collections in `src/content/`, all YAML, typed with Zod schemas in `src/content.config.ts`:
 
-| Collection / file | Holds |
+| File | Holds |
 |---|---|
-| `site.json` | Name, positioning line, status pill, email, links, proof strip, résumé PDF dates, version / last-updated |
-| `roles/*.md` | 9 roles: dates, title, company, scope, stage (scenic-route mapping), wins, tech chips, aside, case-study link |
-| `cases/*.md` | 4 case studies: tags, meta row, sections, decisions, pull-quote, outcomes, drafts |
-| `lead.json`, `skills.json`, `built.json` | How I lead, skills groups, the "Things I've built" list |
-| `about.json` | 4 bio lengths, population census, hobby captions |
-| `now.md`, `uses.json`, `colophon.json` | Secondary pages |
+| `cases/*.yaml` | 4 case studies: tags, meta, context, scope, decisions, people and quote, outcomes, reflection |
+| `roles/*.yaml` | 9 roles: years, title, company, scope, wins, tech chips, aside, scenic-route stage, case-study link |
+| `profile.yaml` | Name, status pill, hero lead, contact, links, proof strip, résumé PDFs, education, volunteering, print-only headline/summary/closing |
+| `experience.yaml` | The scenic-route label and stages |
+| `lead.yaml`, `built.yaml`, `skills.yaml` | How I lead, Built & written, skill groups |
+| `about.yaml` | 4 bio lengths, population census, hobbies |
+| `now.yaml`, `uses.yaml`, `colophon.yaml` | Secondary pages |
 
-- **Where the copy comes from.** Lift the Prototype's copy (including the `CASES` array), then cross-check every fact against the Career vault (`Obsidian Vault/Career/`: `Master Resume.md`, `Experience/`, `Projects/`) and follow its rules. Any mismatch gets flagged to Sean, not silently "fixed".
-- **Drafts.** A `draft: true` field (or a `<Draft>` block in Markdown) renders the pink Draft box. These boxes show in dev and in prod until the copy is written, and are hidden in print.
+- **Reading content:** `getSingleton('profile')`, `getCases()`, `getRoles()` and `getCaseNeighbors(slug)` in `src/utils/content.ts`. Display formatting (years, dates, population) is in `src/utils/format.ts`, so content stores facts, not formatted strings.
+- **Drafts** are separate `draft` fields, never placeholder text in a real field. The Draft component adds the "Draft:" label; print omits drafts.
+- **Validation:** schemas fail the build on missing fields, bad values and rows with neither a value nor a draft. `getRoles()` also fails the build on a broken case-study link, which Astro alone only logs.
+- **Cross-check:** see `docs/content-review.md` for every change from the Prototype's copy and the open questions.
 
 ## Phase 3: Home page, static first
 

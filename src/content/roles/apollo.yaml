@@ -1,0 +1,10 @@
+order: 3
+title: Senior SWE, Lead of the Artemis design system
+company: Apollo.io
+years: { start: 2023, end: 2024 }
+scope: 45 components migrated; data grid ~300% faster
+wins:
+  - Migrated 45 components into Artemis
+  - Made the data grid ~300% faster
+tech: [React, TypeScript, Storybook]
+stage: staff

@@ -1,0 +1,10 @@
+order: 8
+title: Developer
+company: Epic Solutions
+years: { start: 2011, end: 2013 }
+scope: Client web apps while finishing a CS degree
+wins:
+  - Built client web apps while finishing a CS degree at UT Dallas
+tech: [JavaScript]
+aside: Sleep was briefly deprecated during this period.
+stage: degree

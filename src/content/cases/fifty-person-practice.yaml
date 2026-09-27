@@ -1,0 +1,42 @@
+order: 4
+title: Running a 50-person practice without leaving the code
+shortTitle: 50-person practice
+tags: [People, Delivery]
+company: Stellar Elements
+years: { start: 2021, end: 2023 }
+summary: Directed a 50+ person app-dev practice through 6 managers while personally building US Bank's design systems.
+metric: 1:1 cadence <50% → 100%
+role: Technology Practice Director
+team: { label: Team, value: 50+ people · 6 managers }
+
+context:
+  text: An app-dev practice of 50+ people serving 4+ enterprise clients.
+  draft: The state of the practice when you took it over.
+
+scope:
+  - Directed a 50+ person app-dev practice through 6 managers.
+  - Served 4+ enterprise clients.
+  - 'Stayed hands-on: personally built US Bank's design systems.'
+
+decisions:
+  cards:
+    - label: People
+      title: 1:1s for everyone
+      body: Made regular 1:1s the baseline across the practice.
+      chosen: true
+    - label: Craft
+      title: Stay in the code
+      body: Kept building, including US Bank's design systems.
+  draft: What you delegated to the 6 managers and what you kept.
+
+people:
+  text: 1:1 cadence rose from under 50% to 100%.
+  draft: Career frameworks, hiring, or other people processes you introduced.
+
+outcomes:
+  - { value: 50+, label: people in the practice }
+  - { value: <50% → 100%, label: 1:1 cadence }
+  - { value: '6', label: managers led }
+
+reflection:
+  draft: Your reflection goes here. Two or three sentences, specific.

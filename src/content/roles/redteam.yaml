@@ -1,0 +1,12 @@
+order: 2
+title: Senior Engineering Architect / Principal FE
+company: RedTeam
+years: { start: 2024, end: 2025 }
+scope: Micro-frontend platform for 5 teams; Architecture Committee
+wins:
+  - Page loads from 5-6 s to near-instant
+  - Builds from 30+ min to under 5 min
+  - Frontend end-to-end coverage from 0% to 80%+ across 7 apps
+tech: [Remix, SSR, AWS, Playwright, Nx]
+stage: staff
+caseStudy: micro-frontend-platform

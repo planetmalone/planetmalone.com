@@ -1,0 +1,11 @@
+order: 5
+title: Principal Frontend Architect
+company: Redibs
+years: { start: 2020, end: 2021 }
+scope: Built the team from 0 to 8; Next.js web plus 2 React Native apps; load time from 7 s to under 1 s
+wins:
+  - Hired and led the frontend team from 0 to 8
+  - Shipped Next.js web plus 2 React Native apps
+  - Load time from 7 s to under 1 s
+tech: [Next.js, React Native, GraphQL]
+stage: lead

@@ -1,0 +1,11 @@
+order: 6
+title: Senior Dev → Solutions Architect → Managing/Principal Architect
+company: projekt202
+years: { start: 2015, end: 2020 }
+scope: FedEx Office, Cox Automotive (Dealertrack), ExamSoft
+wins:
+  - 'FedEx Office: Angular micro-frontend architecture delivered by 11 teams and 100+ engineers'
+  - Piloted in 5 stores, then rolled out company-wide
+  - 100% on-schedule record as Managing Architect
+tech: [Angular, Micro-frontends, Consulting]
+stage: lead

@@ -1,0 +1,17 @@
+items:
+  - name: NextGen architecture docs
+    description: Regenerated weekly by AI, published only after a human reviews the PR.
+    kind: Docs site
+  - name: Storybook
+    description: Every component, every state, with accessibility tests in CI.
+    kind: Storybook
+  - name: Architecture Decision Records
+    description: The big calls, written down with their trade-offs.
+    kind: ADRs
+  - name: Claude Code agent skills
+    description: 11 of the team's 22 skills, each grounded in a codebase audit.
+    kind: Tooling
+  - name: github.com/planetmalone
+    description: Open-source work and this site's source.
+    kind: Code
+note: Talks and posts will land here. Currently in draft, which is where most talks live.
