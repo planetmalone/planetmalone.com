@@ -1,0 +1,26 @@
+---
+import { Eyebrow } from '../Eyebrow';
+import { SectionHeading } from '../SectionHeading';
+import { getSingleton } from '../../utils/content';
+
+const { columns } = await getSingleton('lead');
+---
+
+<section class="grid scroll-mt-[90px] gap-6" id="lead" aria-labelledby="lead-heading">
+  <SectionHeading id="lead-heading">How I lead</SectionHeading>
+  <div class="grid gap-10 md:grid-cols-2">
+    {columns.map((col) => (
+      <div class="grid content-start gap-4.5">
+        <Eyebrow as="h3">{col.heading}</Eyebrow>
+        <dl class="grid gap-4.5">
+          {col.principles.map((p) => (
+            <div class="grid gap-1">
+              <dt class="text-lg font-bold">{p.title}</dt>
+              <dd class="leading-normal text-ink2">{p.description}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    ))}
+  </div>
+</section>

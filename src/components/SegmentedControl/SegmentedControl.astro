@@ -1,0 +1,42 @@
+---
+/**
+ * A segmented control: a radio group styled as pills. Native radios give it
+ * arrow-key navigation and form semantics for free; scripts read and set
+ * `checked` on the inputs. Extra attributes (data-*, class) go on the fieldset.
+ *
+ *   <SegmentedControl name="theme" legend="Theme" options={themes} data-theme-options />
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'fieldset'> {
+  name: string;
+  legend: string;
+  options: { value: string; label: string }[];
+  checked?: string;
+  size?: 'sm' | 'md';
+}
+
+const { name, legend, options, checked, size = 'sm', class: className, ...attrs } = Astro.props;
+---
+
+<fieldset
+  class:list={['flex max-w-full min-w-0 gap-1 overflow-x-auto rounded-pill bg-sunken p-1', className]}
+  {...attrs}
+>
+  <legend class="sr-only">{legend}</legend>
+  {options.map((o) => (
+    <label class="cursor-pointer">
+      <input class="peer sr-only" type="radio" name={name} value={o.value} checked={o.value === checked} />
+      <span
+        class:list={[
+          'block rounded-pill font-bold whitespace-nowrap text-ink3',
+          size === 'sm' ? 'px-3.5 py-1.75 text-caption' : 'px-3.5 py-2 text-sm',
+          'peer-checked:bg-btn peer-checked:text-btn-ink',
+          'peer-focus-visible:outline-3 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent',
+        ]}
+      >
+        {o.label}
+      </span>
+    </label>
+  ))}
+</fieldset>

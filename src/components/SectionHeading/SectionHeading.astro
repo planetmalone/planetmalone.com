@@ -1,0 +1,16 @@
+---
+/**
+ * A home-page section heading. Give it an `id` and point the section's
+ * `aria-labelledby` at it, so each section is a named region.
+ */
+interface Props {
+  id: string;
+  size?: 'md' | 'xl';
+}
+
+const { id, size = 'md' } = Astro.props;
+---
+
+<h2 class:list={[size === 'md' ? 'text-h2 font-bold' : 'text-contact font-extrabold']} id={id}>
+  <slot />
+</h2>

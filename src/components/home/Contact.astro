@@ -1,0 +1,42 @@
+---
+import { Button } from '../Button';
+import { SectionHeading } from '../SectionHeading';
+import { getSingleton } from '../../utils/content';
+
+const profile = await getSingleton('profile');
+---
+
+<section
+  class="grid scroll-mt-[90px] gap-5.5 rounded-field bg-dark-card px-5.5 py-7 text-dark-card-ink md:p-11"
+  id="contact"
+  aria-labelledby="contact-heading"
+>
+  <SectionHeading id="contact-heading" size="xl">
+    Say hello<span class="text-c-accent">.</span>
+  </SectionHeading>
+  <p class="max-w-140 text-lg/normal text-dark-card-2">{profile.contact.availability}</p>
+  <div class="flex flex-wrap items-center gap-3">
+    <a
+      class="text-email font-bold break-all text-dark-card-ink no-underline hover:text-c-accent"
+      href={`mailto:${profile.email}`}
+    >
+      {profile.email}
+    </a>
+    <Button variant="accent" href={`mailto:${profile.email}`} data-copy-email>
+      Copy email
+    </Button>
+  </div>
+  <div class="flex flex-wrap gap-2.5 text-ui">
+    <Button variant="dark-outline" href={profile.links.linkedin}>
+      LinkedIn <span aria-hidden="true">↗</span>
+    </Button>
+    <Button variant="dark-outline" href={profile.links.github}>
+      GitHub <span aria-hidden="true">↗</span>
+    </Button>
+    {profile.resumes.map((r) => (
+      <Button variant="dark-outline" href={r.href}>
+        {r.label} (PDF, {r.updated})
+      </Button>
+    ))}
+  </div>
+</section>

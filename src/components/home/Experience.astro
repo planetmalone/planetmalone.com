@@ -1,0 +1,136 @@
+---
+/**
+ * Experience: the scenic-route stepper, the role cards and education.
+ *
+ * Role cards are <details> sharing a `name`, so the browser keeps one open at a
+ * time with no JS; the first is open on load. The open card's stage is the
+ * current step on the scenic route: the server marks the first role's stage,
+ * and Phase 4 moves it as cards open.
+ */
+import { Chip } from '../Chip';
+import { SectionHeading } from '../SectionHeading';
+import { getRoles, getSingleton } from '../../utils/content';
+import { formatYears } from '../../utils/format';
+
+const [experience, roles, profile] = await Promise.all([
+  getSingleton('experience'),
+  getRoles(),
+  getSingleton('profile'),
+]);
+const currentStage = roles[0]?.data.stage;
+const { education, volunteer } = profile;
+---
+
+<section class="grid scroll-mt-[90px] gap-6" id="experience" aria-labelledby="experience-heading">
+  <SectionHeading id="experience-heading">Experience</SectionHeading>
+
+  <div class="flex flex-wrap items-center gap-2 text-sm font-semibold">
+    <span class="text-caption font-normal text-ink2" id="route-label">
+      {experience.routeLabel}
+    </span>
+    {/* role="list" keeps list semantics that display: contents drops in Safari */}
+    <ol class="contents" role="list" aria-labelledby="route-label">
+      {experience.stages.map((st, i) => (
+        <li class="flex items-center gap-2">
+          <span
+            class:list={[
+              'rounded-pill border px-3 py-1.25 text-ink3 transition-colors duration-200',
+              'aria-[current=step]:border-btn aria-[current=step]:bg-btn aria-[current=step]:text-btn-ink',
+            ]}
+            data-stage={st.id}
+            aria-current={st.id === currentStage ? 'step' : undefined}
+          >
+            {st.label}
+          </span>
+          {i < experience.stages.length - 1 && (
+            <span class="text-accent" aria-hidden="true">
+              →
+            </span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <ol class="grid gap-2.5">
+    {roles.map(({ data: role }, i) => {
+      const dates = formatYears(role.years);
+      return (
+        <li>
+          <details
+            class:list={[
+              'group rounded-tile border bg-surface transition-colors duration-150 open:border-ink hover:border-accent',
+              // Animate the height as the card opens and closes
+              'details-content:h-0 details-content:overflow-clip open:details-content:h-auto',
+              'details-content:transition-[height,content-visibility] details-content:transition-discrete details-content:duration-200 details-content:ease-standard',
+            ]}
+            name="role"
+            open={i === 0}
+            data-stage={role.stage}
+          >
+            <summary
+              class:list={[
+                'grid cursor-pointer list-none items-start gap-4.5 rounded-tile px-5 py-4.5 [&::-webkit-details-marker]:hidden',
+                'grid-cols-[minmax(0,1fr)_28px] md:grid-cols-[104px_minmax(0,1fr)_28px]',
+              ]}
+            >
+              <span class="pt-0.75 text-sm text-ink2 tabular-nums max-md:hidden">{dates}</span>
+              <span class="grid gap-1">
+                <span class="text-caption text-ink2 tabular-nums md:hidden">{dates}</span>
+                <span class="text-lg font-bold">
+                  {role.title}
+                  {role.company && <span class="font-normal text-ink2"> · {role.company}</span>}
+                </span>
+                <span class="text-ui/[1.45] text-ink2">{role.scope}</span>
+              </span>
+              <span
+                class:list={[
+                  'grid size-7 place-items-center rounded-full border font-bold text-accent',
+                  'group-open:border-btn group-open:bg-btn group-open:text-btn-ink',
+                ]}
+                aria-hidden="true"
+              >
+                <span class="group-open:hidden">+</span>
+                <span class="hidden group-open:inline">−</span>
+              </span>
+            </summary>
+
+            <div class="grid gap-3.5 px-5 pb-5 md:pl-35.5">
+              <ul class="grid list-[circle] gap-1.5 pl-4.5 leading-normal">
+                {role.wins.map((w) => (
+                  <li>{w}</li>
+                ))}
+              </ul>
+              {role.tech.length > 0 && (
+                <ul class="flex flex-wrap gap-1.5" aria-label="Tech">
+                  {role.tech.map((t) => (
+                    <Chip as="li" kind="tech">
+                      {t}
+                    </Chip>
+                  ))}
+                </ul>
+              )}
+              {role.aside && <p class="text-sm text-accent italic">{role.aside}</p>}
+              {role.caseStudy && (
+                <a class="text-ui font-bold" href={`/work/${role.caseStudy.id}`}>
+                  Read the case study →
+                </a>
+              )}
+            </div>
+          </details>
+        </li>
+      );
+    })}
+  </ol>
+
+  <div class="grid gap-4.5 text-ui/normal md:grid-cols-2">
+    <p>
+      <b>{education.degree}</b>, {education.school}, {education.year}
+      <span class="block text-ink2">{education.honors}</span>
+    </p>
+    <p>
+      <b>{volunteer.org}</b>, {volunteer.since} - present
+      <span class="block text-ink2">{volunteer.note}</span>
+    </p>
+  </div>
+</section>

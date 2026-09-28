@@ -16,6 +16,12 @@ export const formatYearsCompact = ({ start, end }: Years) =>
 export const formatDate = (date: Date) =>
   date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
+/** A time zone's everyday name: "America/Chicago" → "Central Time". */
+export const timeZoneLabel = (timeZone: string) =>
+  new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'longGeneric' })
+    .formatToParts()
+    .find((p) => p.type === 'timeZoneName')!.value;
+
 /** Everyone on Planet Malone, per the bearded dragon's census. */
 export const countPopulation = (residents: { count: number }[]) =>
   residents.reduce((sum, r) => sum + r.count, 0);

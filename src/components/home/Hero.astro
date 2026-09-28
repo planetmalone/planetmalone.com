@@ -1,0 +1,106 @@
+---
+/**
+ * Home hero: the Persimmon field (planet disc, orbit ring, avatar, status,
+ * name, lead, buttons) and the proof strip under it.
+ */
+import { Picture } from 'astro:assets';
+import { Button } from '../Button';
+import { Clock } from '../Clock';
+import { getSingleton } from '../../utils/content';
+import { timeZoneLabel } from '../../utils/format';
+import wave from '../../assets/illos/illo-wave.png';
+
+const profile = await getSingleton('profile');
+
+// The orbit ring (desktop only), centered on the disc.
+const ring = [
+  'absolute -rotate-12 rounded-[50%] border-2 border-on-field opacity-45 max-md:hidden',
+  '-right-47.5 bottom-5 h-50 w-190 lg:-right-55 lg:bottom-15 lg:h-60 lg:w-235',
+].join(' ');
+
+// Lead and button row at 1180px+: at most 680px, and clear of the avatar, which
+// reaches 434px into the text area (400px wide, 90px from the edge, minus the
+// 56px padding), plus a gap.
+const besideAvatar = 'lg:max-w-[min(680px,calc(100%-460px))]';
+---
+
+<section class="mx-auto grid max-w-page gap-5 px-gutter-sm pt-4" aria-label="Introduction">
+  <div
+    class:list={[
+      'relative flex flex-col overflow-hidden rounded-field bg-field text-on-field',
+      'px-4.5 pt-5.5 pb-6 md:min-h-150 md:px-14 md:pt-11 md:pb-12',
+    ]}
+  >
+    {/*
+      Saturn-style planet: the orbit ring's far half is drawn behind the disc and
+      its near half in front, so the ring wraps around the planet. Each half is
+      the same ellipse, clipped in its own (rotated) coordinates.
+    */}
+    <div class:list={[ring, '[clip-path:inset(0_0_50%_0)]']} aria-hidden="true"></div>
+    <div
+      class="absolute -right-12 -bottom-24 size-70 rounded-full bg-field-deep md:-right-10 md:-bottom-27.5 md:size-115 lg:size-145"
+      aria-hidden="true"
+    ></div>
+    <div class:list={[ring, '[clip-path:inset(50%_0_0_0)]']} aria-hidden="true"></div>
+
+    <div class="relative mt-auto grid grid-cols-[minmax(0,1fr)] gap-5 md:max-w-[calc(100%-300px)] lg:max-w-none">
+      <p class="flex w-fit items-center gap-2 rounded-pill bg-on-field px-3.5 py-1.5 text-sm font-semibold text-field-btn-ink">
+        <span class="size-2 flex-none rounded-full bg-green-dot" aria-hidden="true"></span>
+        {profile.status}
+      </p>
+      <h1 class="text-hero-sm font-extrabold md:text-hero-md lg:text-hero">{profile.name}</h1>
+      <p class:list={['text-lg/[1.4] md:text-2xl/[1.4]', besideAvatar]}>{profile.lead}</p>
+    </div>
+
+    <div class:list={['mt-5 flex items-start gap-3 md:block md:max-w-[calc(100%-300px)]', besideAvatar]}>
+      <div class="@container relative min-w-0 flex-1">
+        <div class="grid gap-2.5 whitespace-nowrap @min-[320px]:grid-cols-2 @min-[580px]:grid-cols-[repeat(4,max-content)]">
+          {profile.resumes.map((r) => (
+            <Button variant="field" size="lg" href={r.href}>
+              {r.label}
+            </Button>
+          ))}
+          <Button variant="field-outline" size="lg" href={`mailto:${profile.email}`} data-copy-email>
+            Copy email
+          </Button>
+          <Button variant="field-outline" size="lg" href={profile.links.linkedin}>
+            LinkedIn <span aria-hidden="true">↗</span>
+          </Button>
+        </div>
+      </div>
+      <Picture
+        src={wave}
+        formats={['avif', 'webp']}
+        widths={[360, 560, 800]}
+        sizes="(max-width: 899px) 180px, (max-width: 1179px) 280px, 400px"
+        alt="Illustrated Sean waving"
+        loading="eager"
+        fetchpriority="high"
+        class="block h-auto w-full"
+        pictureAttributes={{
+          class: [
+            'relative -mb-6 block w-[clamp(96px,30%,180px)] flex-none self-end',
+            'md:absolute md:right-8 md:bottom-0 md:m-0 md:w-70 lg:right-22.5 lg:w-100',
+          ].join(' '),
+        }}
+      />
+    </div>
+  </div>
+
+  <div class="grid items-center gap-5 px-2 pt-1 pb-2 tabular-nums md:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.1fr)] md:px-7">
+    {profile.proof.map((p) => (
+      <div>
+        <p class="font-display text-proof font-bold">{p.value}</p>
+        <p class="text-wrap text-ink2">{p.label}</p>
+      </div>
+    ))}
+    <p class="text-sm text-ink2 md:text-right">
+      {profile.location} · {timeZoneLabel(profile.timezone)}
+      <Clock
+        class="block font-bold text-ink"
+        timeZone={profile.timezone}
+        label="Local time on Planet Malone:"
+      />
+    </p>
+  </div>
+</section>

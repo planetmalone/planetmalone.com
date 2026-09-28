@@ -1,0 +1,16 @@
+---
+import { CaseCard } from '../CaseCard';
+import { SectionHeading } from '../SectionHeading';
+import { getCases } from '../../utils/content';
+
+const cases = await getCases();
+---
+
+<section class="grid scroll-mt-[90px] gap-6" id="impact" aria-labelledby="impact-heading">
+  <SectionHeading id="impact-heading">Selected impact</SectionHeading>
+  <div class="grid gap-4.5 md:grid-cols-2">
+    {cases.map((c) => (
+      <CaseCard entry={c} />
+    ))}
+  </div>
+</section>

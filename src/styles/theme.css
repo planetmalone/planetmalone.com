@@ -34,6 +34,8 @@
   --color-dark-card-ink: light-dark(#f7f2ea, #f4ece0);
   --color-dark-card-2: light-dark(#d9cdbc, #b9ac9b);
   --color-c-accent: #ff8a5b;
+  --color-c-accent-ink: #231c15;
+  --color-dark-card-line: #5a4c3f;
   --color-draft-bg: light-dark(#fbeadf, #3a2418);
   --color-draft-ink: light-dark(#6e2a10, #ffc9ae);
   --color-stripe: light-dark(#e8dfd1, #332a22);
@@ -50,6 +52,7 @@
   --radius-card: 20px;
   --radius-outcome: 18px;
   --radius-tile: 16px;
+  --radius-photo: 14px;
   --radius-box: 12px;
 
   /* Elevation: floating layers only */
@@ -75,14 +78,39 @@
   --text-sm: 14px;
   --text-ui: 15px;
   --text-base: 16px;
+  --text-row: 17px;
   --text-lg: 18px;
   --text-xl: 20px;
+  --text-email: 22px;
   --text-2xl: 24px;
+  --text-card-title: 24px;
+  --text-card-title--line-height: 1.12;
+  --text-card-title--letter-spacing: -0.02em;
   --text-footer-title: 26px;
   --text-footer-title--letter-spacing: -0.02em;
+  --text-proof: 32px;
+  --text-proof--letter-spacing: -0.02em;
+  --text-h2: 36px;
+  --text-h2--letter-spacing: -0.03em;
+  --text-contact: 56px;
+  --text-contact--line-height: 1;
+  --text-contact--letter-spacing: -0.04em;
+  --text-population: 64px;
+  --text-population--line-height: 1;
+  --text-population--letter-spacing: -0.04em;
+  /* Hero name: 120px from 1180px, 88px from 900px, 60px on mobile. */
   --text-hero: 120px;
   --text-hero--line-height: 0.9;
   --text-hero--letter-spacing: -0.045em;
+  --text-hero-md: 88px;
+  --text-hero-md--line-height: 0.9;
+  --text-hero-md--letter-spacing: -0.045em;
+  --text-hero-sm: 60px;
+  --text-hero-sm--line-height: 0.9;
+  --text-hero-sm--letter-spacing: -0.045em;
+
+  /* Uppercase eyebrow labels */
+  --tracking-eyebrow: 0.08em;
 
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 

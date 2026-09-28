@@ -1,5 +1,7 @@
 ---
 import LogoMark from './LogoMark.astro';
+import { Button } from './Button';
+import { SkipLink } from './SkipLink';
 import { pages, sections, type PageKey } from '../data/site';
 
 interface Props {
@@ -12,18 +14,9 @@ const menuItems = [
   ...sections.map((s) => ({ label: s.label, href: `/#${s.id}`, current: false })),
   ...pages.filter((p) => p.key !== 'work').map((p) => ({ ...p, current: p.key === current })),
 ];
-
-// Shared by the ⌘K and Menu buttons. Phase 3 turns this into a Button component.
-const outlinePill =
-  'needs-js flex h-11 items-center gap-2 rounded-pill border bg-transparent px-3.5 text-sm hover:border-ink';
 ---
 
-<a
-  class="sr-only rounded-pill bg-btn font-bold text-btn-ink no-underline focus:not-sr-only focus:absolute focus:top-2 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 print:hidden"
-  href="#main"
->
-  Skip to content
-</a>
+<SkipLink />
 
 <header class="sticky top-0 z-20 border-b-1 bg-bg print:hidden">
   <div class="mx-auto flex max-w-page items-center justify-between gap-3 px-gutter py-2.5">
@@ -49,16 +42,18 @@ const outlinePill =
         ))}
       </nav>
 
-      <button
-        class:list={[outlinePill, 'text-ink2']}
-        type="button"
+      <Button
+        variant="ghost"
+        size="sm"
+        bold={false}
+        class="needs-js text-ink2"
         data-open-palette
         aria-label="Open command palette"
         aria-keyshortcuts="Meta+K Control+K /"
       >
         <b class="text-ink">⌘K</b>
-        <span class="max-md:hidden">Search or do a thing</span>
-      </button>
+        <span class="ml-1 max-md:hidden">Search or do a thing</span>
+      </Button>
 
       <button
         class="needs-js grid size-11 place-items-center rounded-full border bg-surface p-0 hover:border-ink"
@@ -73,16 +68,17 @@ const outlinePill =
         />
       </button>
 
-      <button
-        class:list={[outlinePill, 'font-bold md:hidden']}
-        type="button"
+      <Button
+        variant="ghost"
+        size="sm"
+        class="needs-js md:hidden"
         data-menu-open
         aria-haspopup="dialog"
         aria-expanded="false"
         aria-controls="site-menu"
       >
         Menu
-      </button>
+      </Button>
     </div>
   </div>
 </header>

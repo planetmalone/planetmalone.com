@@ -1,0 +1,24 @@
+---
+/**
+ * A small uppercase label above a heading or card ("As a manager", "Error 404").
+ * Use `as` to make it the real heading for its block.
+ */
+interface Props {
+  as?: 'p' | 'h3' | 'div';
+  size?: 'xs' | 'sm' | 'md';
+  tone?: 'accent' | 'muted';
+}
+
+const { as: Tag = 'p', size = 'sm', tone = 'accent' }: Props = Astro.props;
+const sizes = { xs: 'text-xs', sm: 'text-caption', md: 'text-sm' };
+---
+
+<Tag
+  class:list={[
+    'font-text font-bold tracking-eyebrow uppercase',
+    sizes[size],
+    tone === 'accent' ? 'text-accent' : 'text-ink2',
+  ]}
+>
+  <slot />
+</Tag>

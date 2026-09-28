@@ -1,0 +1,20 @@
+---
+import { SectionHeading } from '../SectionHeading';
+import { getSingleton } from '../../utils/content';
+
+const { items, note } = await getSingleton('built');
+---
+
+<section class="grid scroll-mt-[90px] gap-5" id="built" aria-labelledby="built-heading">
+  <SectionHeading id="built-heading">Things I've built and written</SectionHeading>
+  <ul class="grid border-t border-ink">
+    {items.map((b) => (
+      <li class="grid items-baseline gap-x-5 gap-y-1.5 border-b py-4 md:grid-cols-[minmax(0,1.5fr)_minmax(0,2fr)_90px]">
+        <span class="text-row font-bold">{b.name}</span>
+        <span class="text-ui/[1.45] text-ink2">{b.description}</span>
+        <span class="text-caption font-bold text-accent md:text-right">{b.kind}</span>
+      </li>
+    ))}
+  </ul>
+  <p class="text-sm text-ink2">{note}</p>
+</section>

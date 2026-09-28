@@ -1,0 +1,24 @@
+---
+/**
+ * A live clock for one time zone, upgraded by the <pm-clock> custom element
+ * (./pmClock.ts). The time only exists client-side, so the whole clock is
+ * hidden without JS rather than showing a time frozen at build.
+ *
+ *   <Clock timeZone="America/Chicago" label="Local time on Planet Malone:" />
+ */
+interface Props {
+  timeZone: string;
+  label: string;
+  class?: string;
+}
+
+const { timeZone, label, class: className } = Astro.props;
+---
+
+<pm-clock class:list={['needs-js', className]} time-zone={timeZone}>
+  {label} <time class="tabular-nums"></time>
+</pm-clock>
+
+<script>
+  import './pmClock';
+</script>

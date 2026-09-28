@@ -71,7 +71,8 @@
   /* Motion off: no transitions or animations anywhere. */
   html[data-motion='off'] *,
   html[data-motion='off'] *::before,
-  html[data-motion='off'] *::after {
+  html[data-motion='off'] *::after,
+  html[data-motion='off'] *::details-content {
     transition: none !important;
     animation: none !important;
   }

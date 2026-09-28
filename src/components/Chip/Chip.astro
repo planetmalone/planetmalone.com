@@ -1,0 +1,32 @@
+---
+/**
+ * A small pill label. Render it as `li` inside a list of chips:
+ *
+ *   <ul class="flex flex-wrap gap-1.5">{tags.map((t) => <Chip as="li">{t}</Chip>)}</ul>
+ */
+type Kind =
+  | 'tag' 
+  | 'skill'
+  | 'tech'; 
+
+interface Props {
+  kind?: Kind;
+  size?: 'sm' | 'md';
+  as?: 'span' | 'li';
+}
+
+const { kind = 'tag', size = 'sm', as: Tag = 'span' }: Props = Astro.props;
+
+const kinds: Record<Kind, string> = {
+  tag:
+    size === 'sm'
+      ? 'bg-sunken px-2.5 py-0.75 text-caption font-semibold'
+      : 'bg-sunken px-3 py-1 text-sm font-semibold',
+  skill: 'bg-sunken px-3 py-1.25 text-sm',
+  tech: 'border px-2.5 py-0.5 text-caption',
+};
+---
+
+<Tag class:list={['inline-block rounded-pill', kinds[kind]]}>
+  <slot />
+</Tag>

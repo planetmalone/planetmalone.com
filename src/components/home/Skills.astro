@@ -1,0 +1,25 @@
+---
+import { Chip } from '../Chip';
+import { SectionHeading } from '../SectionHeading';
+import { getSingleton } from '../../utils/content';
+
+const { groups } = await getSingleton('skills');
+---
+
+<section class="grid scroll-mt-[90px] gap-5.5" id="skills" aria-labelledby="skills-heading">
+  <SectionHeading id="skills-heading">Skills</SectionHeading>
+  {groups.map((g, i) => (
+    <div class="grid items-baseline gap-x-5 gap-y-3 border-b pb-4.5 md:grid-cols-[200px_minmax(0,1fr)]">
+      <h3 class="font-text font-bold" id={`skills-${i}`}>
+        {g.label}
+      </h3>
+      <ul class="flex flex-wrap gap-2" aria-labelledby={`skills-${i}`}>
+        {g.items.map((s) => (
+          <Chip as="li" kind="skill">
+            {s}
+          </Chip>
+        ))}
+      </ul>
+    </div>
+  ))}
+</section>
