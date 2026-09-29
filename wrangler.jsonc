@@ -1,0 +1,13 @@
+// Cloudflare Workers static assets: serves the Astro build in dist/.
+// Cloudflare runs `npm run build`, then `npx wrangler deploy`.
+{
+  "name": "planetmalone-com",
+  "compatibility_date": "2026-09-28",
+  "assets": {
+    "directory": "./dist",
+    // /now serves now.html, and /now.html redirects to /now.
+    "html_handling": "auto-trailing-slash",
+    // Unknown URLs get dist/404.html ("Lost in space") with a 404 status.
+    "not_found_handling": "404-page",
+  },
+}
