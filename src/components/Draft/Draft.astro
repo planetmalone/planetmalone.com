@@ -1,0 +1,19 @@
+---
+/**
+ * A pink "Draft:" box marking copy Sean hasn't written yet. Print omits it.
+ */
+interface Props {
+  size?: 'sm' | 'md';
+}
+
+const { size = 'md' }: Props = Astro.props;
+---
+
+<p
+  class:list={[
+    'rounded-box bg-draft-bg text-ui/normal text-draft-ink print:hidden',
+    size === 'md' ? 'px-4.5 py-3.5' : 'px-3.5 py-3',
+  ]}
+>
+  Draft: <slot />
+</p>

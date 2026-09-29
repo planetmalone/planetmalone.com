@@ -1,0 +1,162 @@
+---
+/**
+ * A case study. Its H1 morphs from and to the home card's title (see
+ * PageTransitions.astro).
+ */
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CaseNav } from '../../components/CaseNav';
+import { Chip } from '../../components/Chip';
+import { Draft } from '../../components/Draft';
+import { Eyebrow } from '../../components/Eyebrow';
+import { StatCard } from '../../components/StatCard';
+import { getCaseNeighbors, getCases } from '../../utils/content';
+import { formatYears } from '../../utils/format';
+import { site } from '../../data/site';
+
+export const getStaticPaths = (async () =>
+  (await getCases()).map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }))) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { id, data } = entry;
+const { prev, next } = await getCaseNeighbors(id);
+
+const meta = [
+  { label: 'Where', value: data.company },
+  { label: 'When', value: formatYears(data.years) },
+  { label: 'Role', value: data.role },
+  { label: data.team.label, value: data.team.value },
+];
+const sections = [
+  { id: 'cs-context', label: 'Context' },
+  { id: 'cs-role', label: 'My role and scope' },
+  { id: 'cs-decisions', label: 'Key decisions and trade-offs' },
+  { id: 'cs-people', label: 'How I brought people along' },
+  { id: 'cs-outcomes', label: 'Outcomes' },
+  { id: 'cs-different', label: "What I'd do differently" },
+];
+const heading = 'font-display text-case-h2 font-bold';
+---
+
+<BaseLayout title={`${data.title} · ${site.name}`} description={data.summary} current="work">
+  <div class="mx-auto max-w-page px-gutter-sm pt-5 pb-24">
+    <a
+      class="inline-flex min-h-11 items-center px-2 font-bold text-ink no-underline hover:text-accent md:px-0 print:hidden"
+      href="/"
+    >
+      ← Back to Planet Malone
+    </a>
+
+    <header class="mt-2 grid gap-5 rounded-field border bg-surface px-5 py-6 md:px-15 md:py-13">
+      <ul class="flex flex-wrap gap-1.5" aria-label="Tags">
+        {data.tags.map((t) => (
+          <Chip as="li" size="md">
+            {t}
+          </Chip>
+        ))}
+      </ul>
+      <h1
+        class="max-w-250 text-case-title-sm font-extrabold text-balance md:text-case-title"
+        data-vt-case={id}
+      >
+        {data.title}
+      </h1>
+      <dl class="grid grid-cols-2 gap-x-10 gap-y-4 border-t pt-5 text-ui md:grid-cols-[repeat(4,max-content)]">
+        {meta.map((m) => (
+          <div>
+            <dt class="text-ink2">{m.label}</dt>
+            <dd class="font-bold">{m.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </header>
+
+    <div class="grid gap-18 px-2 pt-9 md:grid-cols-[200px_minmax(0,1fr)] md:px-10 md:pt-16">
+      <nav
+        class="sticky top-24 grid gap-1.5 self-start text-sm font-semibold max-md:hidden print:hidden"
+        aria-labelledby="toc"
+      >
+        <div class="mb-1.5" id="toc">
+          <Eyebrow as="div" size="xs" tone="muted">
+            On this page
+          </Eyebrow>
+        </div>
+        {sections.map((s) => (
+          <a class="py-1.25 text-ink2 no-underline hover:text-ink" href={`#${s.id}`}>
+            {s.label}
+          </a>
+        ))}
+      </nav>
+
+      <article class="grid max-w-190 gap-13 text-lg/[1.65]">
+        <section class="grid scroll-mt-[90px] gap-3" id="cs-context">
+          <h2 class={heading}>Context</h2>
+          <p>{data.context.text}</p>
+          {data.context.draft && <Draft>{data.context.draft}</Draft>}
+        </section>
+
+        <section class="grid scroll-mt-[90px] gap-3" id="cs-role">
+          <h2 class={heading}>My role and scope</h2>
+          <ul class="grid list-disc gap-1.5 pl-5.5">
+            {data.scope.map((s) => (
+              <li>{s}</li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="grid scroll-mt-[90px] gap-4" id="cs-decisions">
+          <h2 class={heading}>Key decisions and trade-offs</h2>
+          <div class="grid gap-3.5 text-base/normal md:grid-cols-2">
+            {data.decisions.cards.map((d) => (
+              <div
+                class:list={[
+                  'grid content-start gap-2 rounded-tile border bg-surface p-5',
+                  d.chosen && 'border-ink',
+                ]}
+              >
+                <Eyebrow as="div" size="xs">
+                  {d.label}
+                </Eyebrow>
+                <b class="text-lg">{d.title}</b>
+                <p class="text-ink2">{d.body}</p>
+              </div>
+            ))}
+          </div>
+          {data.decisions.draft && <Draft>{data.decisions.draft}</Draft>}
+        </section>
+
+        <section class="grid scroll-mt-[90px] gap-3" id="cs-people">
+          <h2 class={heading}>How I brought people along</h2>
+          <p>{data.people.text}</p>
+          {data.people.quote && (
+            <blockquote class="mt-2 grid gap-2.5">
+              <p class="font-display text-quote font-bold">{data.people.quote.text}</p>
+              <footer class="text-ui text-ink2">{data.people.quote.by}</footer>
+            </blockquote>
+          )}
+          {data.people.draft && <Draft>{data.people.draft}</Draft>}
+        </section>
+
+        <section class="grid scroll-mt-[90px] gap-4" id="cs-outcomes">
+          <h2 class={heading}>Outcomes</h2>
+          <div class="grid gap-3.5 md:grid-cols-3">
+            {data.outcomes.map((o) => (
+              <StatCard value={o.value} label={o.label} />
+            ))}
+          </div>
+        </section>
+
+        <section class="grid scroll-mt-[90px] gap-3" id="cs-different">
+          <h2 class={heading}>What I'd do differently</h2>
+          {data.reflection.text && <p>{data.reflection.text}</p>}
+          {data.reflection.draft && <Draft>{data.reflection.draft}</Draft>}
+        </section>
+
+        <CaseNav prev={prev} next={next} />
+      </article>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+/**
+ * Label / value rows between rules (Now, Colophon). A row can have a value, a
+ * draft, or both.
+ */
+import { Draft } from '../Draft';
+
+interface Props {
+  rows: { label: string; value?: string | undefined; draft?: string | undefined }[];
+  size?: 'md' | 'lg';
+}
+
+const { rows, size = 'md' }: Props = Astro.props;
+---
+
+<dl class="grid border-t border-ink">
+  {rows.map((r) => (
+    <div
+      class:list={[
+        'grid gap-x-6 gap-y-2 border-b md:grid-cols-[180px_minmax(0,1fr)]',
+        size === 'lg' ? 'py-5.5' : 'py-4.5',
+      ]}
+    >
+      <dt class="text-row font-bold">{r.label}</dt>
+      <dd class="grid gap-2.5">
+        {r.value && (
+          <p class:list={size === 'lg' ? 'text-lg/[1.6]' : 'text-row/[1.6] text-ink3'}>{r.value}</p>
+        )}
+        {r.draft && <Draft size="sm">{r.draft}</Draft>}
+      </dd>
+    </div>
+  ))}
+</dl>

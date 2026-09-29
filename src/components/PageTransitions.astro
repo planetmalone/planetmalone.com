@@ -1,0 +1,42 @@
+---
+// Cross-page view transitions (see @view-transition in base.css). Inline in
+// <head> on purpose: `pagereveal` must be handled before the first paint.
+//
+// Case titles (`data-vt-case`) are named only for the navigation that needs
+// them, so exactly one title morphs:
+// - to a case study: that case's title on the page you're leaving (home card
+//   or Previous / Next card) morphs into its H1;
+// - from a case study to home: its H1 morphs into its home card.
+// With Motion off, the transition is skipped.
+---
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const caseOf = (url) => (url ? new URL(url).pathname.match(/^\/work\/([\w-]+)$/)?.[1] : undefined);
+    const isHome = (url) => !!url && new URL(url).pathname === '/';
+
+    const name = (slug, vt) => {
+      const el = slug && document.querySelector(`[data-vt-case="${slug}"]`);
+      if (!el) return;
+      el.style.viewTransitionName = 'case-title';
+      vt.finished.finally(() => (el.style.viewTransitionName = ''));
+    };
+
+    addEventListener('pageswap', (e) => {
+      if (!e.viewTransition) return;
+      if (root.dataset.motion === 'off') return e.viewTransition.skipTransition();
+      const to = e.activation?.entry?.url;
+      name(caseOf(to) ?? (isHome(to) ? caseOf(location.href) : undefined), e.viewTransition);
+    });
+
+    addEventListener('pagereveal', (e) => {
+      if (!e.viewTransition) return;
+      if (root.dataset.motion === 'off') return e.viewTransition.skipTransition();
+      const from = navigation?.activation?.from?.url;
+      const here = caseOf(location.href);
+      if (here) name(here, e.viewTransition);
+      else if (isHome(location.href)) name(caseOf(from), e.viewTransition);
+    });
+  })();
+</script>

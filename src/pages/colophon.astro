@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { RuledList } from '../components/RuledList';
+import { StatCard } from '../components/StatCard';
+import { getSingleton } from '../utils/content';
+import { site } from '../data/site';
+
+const colophon = await getSingleton('colophon');
+---
+
+<BaseLayout title={`Colophon · ${site.name}`} description={colophon.lead} current="colophon">
+  <div class="mx-auto grid max-w-260 gap-9 px-gutter pt-14 pb-24">
+    <div class="grid gap-3.5">
+      <h1 class="text-page-title font-extrabold">Colophon</h1>
+      <p class="text-page-lead text-ink3">{colophon.lead}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-3.5 md:grid-cols-4">
+      {colophon.budgets.map((b) => (
+        <StatCard value={b.value} label={b.label} size="sm" />
+      ))}
+    </div>
+    <RuledList rows={colophon.rows} />
+  </div>
+</BaseLayout>

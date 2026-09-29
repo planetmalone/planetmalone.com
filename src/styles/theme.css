@@ -99,6 +99,34 @@
   --text-population: 64px;
   --text-population--line-height: 1;
   --text-population--letter-spacing: -0.04em;
+  --text-page-lead: 19px;
+  --text-page-lead--line-height: 1.5;
+  --text-case-h2: 32px;
+  --text-case-h2--letter-spacing: -0.025em;
+  --text-quote: 32px;
+  --text-quote--line-height: 1.15;
+  --text-quote--letter-spacing: -0.02em;
+  --text-budget: 34px;
+  --text-budget--line-height: 1;
+  --text-outcome: 36px;
+  --text-outcome--line-height: 1;
+  --text-outcome--letter-spacing: -0.03em;
+  /* Page H1s: Now, Uses, Colophon (72px); case study (76px / 40px); 404 (104px / 64px). */
+  --text-page-title: 72px;
+  --text-page-title--line-height: 0.95;
+  --text-page-title--letter-spacing: -0.045em;
+  --text-case-title: 76px;
+  --text-case-title--line-height: 0.98;
+  --text-case-title--letter-spacing: -0.045em;
+  --text-case-title-sm: 40px;
+  --text-case-title-sm--line-height: 0.98;
+  --text-case-title-sm--letter-spacing: -0.045em;
+  --text-lost: 104px;
+  --text-lost--line-height: 0.9;
+  --text-lost--letter-spacing: -0.05em;
+  --text-lost-sm: 64px;
+  --text-lost-sm--line-height: 0.9;
+  --text-lost-sm--letter-spacing: -0.05em;
   /* Hero name: 120px from 1180px, 88px from 900px, 60px on mobile. */
   --text-hero: 120px;
   --text-hero--line-height: 0.9;
@@ -114,6 +142,24 @@
   --tracking-eyebrow: 0.08em;
 
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* The 404 astronaut drifting in zero gravity; composes with its -8deg tilt. */
+  --animate-float: float 8s ease-in-out infinite;
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(4px, -10px) rotate(2deg);
+    }
+    50% {
+      transform: translate(0, -16px) rotate(-1deg);
+    }
+    75% {
+      transform: translate(-4px, -8px) rotate(1.5deg);
+    }
+  }
 
   /* Every border in the design is 1.5px unless a class says otherwise. */
   --default-border-width: 1.5px;

@@ -1,6 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import PrefsScript from '../components/PrefsScript.astro';
+import PageTransitions from '../components/PageTransitions.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { Palette } from '../components/Palette';
@@ -29,6 +30,7 @@ const { email } = await getSingleton('profile');
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <PrefsScript />
+    <PageTransitions />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />

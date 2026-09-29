@@ -1,0 +1,25 @@
+---
+/**
+ * A dark card with a big green number: case-study outcomes (md) and the
+ * Colophon's budgets (sm).
+ */
+interface Props {
+  value: string;
+  label: string;
+  size?: 'sm' | 'md';
+}
+
+const { value, label, size = 'md' }: Props = Astro.props;
+---
+
+<div
+  class:list={[
+    'grid content-start gap-1.5 rounded-outcome bg-dark-card text-dark-card-ink tabular-nums',
+    size === 'md' ? 'p-5.5' : 'p-5',
+  ]}
+>
+  <p class:list={['font-display font-extrabold text-metric', size === 'md' ? 'text-outcome' : 'text-budget']}>
+    {value}
+  </p>
+  <p class:list={['text-dark-card-2', size === 'md' ? 'text-ui' : 'text-sm']}>{label}</p>
+</div>

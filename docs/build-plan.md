@@ -116,8 +116,8 @@ Each island is a small, self-contained script, and all of them honor the Motion 
   - Header card, meta row, sticky "On this page" nav
   - Decision cards, pull-quote, outcome cards, Draft box
   - Prev/next cards that loop
-  - The card-title → H1 morph uses Astro `<ClientRouter />` view transitions, disabled when Motion is off
-  - On navigation, scroll to top and move focus to `<main>`
+  - The card-title → H1 morph uses the browser's native cross-document View Transitions (`@view-transition`), not Astro's `<ClientRouter />`, so every page stays a normal page load and the islands need no page-swap handling (Sean, 2026-09-28). Chrome, Edge and Safari 18.2+ morph; other browsers navigate normally. A pre-paint hook skips the transition when Motion is off
+  - Normal page loads already scroll to the top and reset focus
 - **`/now`, `/uses`, `/colophon`:** built as specified, with the Draft placeholders intact.
 - **`404.astro`:** echoes the visitor's bad path in the `<code>` chip, client-side, with a static fallback. Has the astronaut illustration and buttons that open ⌘K.
 

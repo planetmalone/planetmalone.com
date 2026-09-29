@@ -2,8 +2,7 @@
 /**
  * A case-study card on the home page. The title link stretches over the whole
  * card, so the card is one click target but its accessible name stays short.
- * The title shares a view-transition-name with the case study's H1, so it
- * morphs between pages (Phase 5).
+ * The title morphs into the case study's H1 (see PageTransitions.astro).
  */
 import type { CollectionEntry } from 'astro:content';
 import { Chip } from '../Chip';
@@ -28,7 +27,7 @@ const { id, data } = Astro.props.entry;
       <Chip as="li">{t}</Chip>
     ))}
   </ul>
-  <h3 class="text-card-title font-bold text-pretty" style={`view-transition-name: case-${id}`}>
+  <h3 class="text-card-title font-bold text-pretty" data-vt-case={id}>
     <a
       class="text-ink no-underline after:absolute after:inset-0 after:rounded-card focus-visible:outline-none"
       href={`/work/${id}`}

@@ -1,0 +1,38 @@
+---
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { RuledList } from '../components/RuledList';
+import { getSingleton } from '../utils/content';
+import { formatDate } from '../utils/format';
+import { site } from '../data/site';
+import busy from '../assets/illos/illo-busy.png';
+
+const now = await getSingleton('now');
+---
+
+<BaseLayout title={`Now · ${site.name}`} description={now.lead} current="now">
+  <div class="mx-auto grid max-w-205 gap-9 px-gutter pt-14 pb-24">
+    <div class="grid gap-3.5">
+      <Picture
+        src={busy}
+        formats={['avif', 'webp']}
+        widths={[280, 560]}
+        sizes="280px"
+        alt="Illustrated Sean in glasses, typing on a laptop"
+        class="h-auto w-70 max-w-full"
+      />
+      <h1 class="text-page-title font-extrabold">Now</h1>
+      <p class="flex flex-wrap items-center gap-2.5 text-ui text-ink2">
+        <time
+          class="rounded-pill bg-btn px-3 py-1 font-bold text-btn-ink tabular-nums"
+          datetime={now.updated.toISOString().slice(0, 10)}
+        >
+          {formatDate(now.updated)}
+        </time>
+        {now.lead}
+      </p>
+    </div>
+    <RuledList rows={now.rows} size="lg" />
+    <p class="text-sm text-ink2">{now.footnote}</p>
+  </div>
+</BaseLayout>

@@ -121,3 +121,12 @@
     @apply bg-surface backdrop-blur-none;
   }
 }
+
+/*
+ * Native cross-document view transitions: the case title morphs between
+ * pages and everything else cross-fades. PageTransitions.astro names the
+ * title and skips the transition when Motion is off.
+ */
+@view-transition {
+  navigation: auto;
+}

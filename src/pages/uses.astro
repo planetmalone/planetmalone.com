@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSingleton } from '../utils/content';
+import { site } from '../data/site';
+
+const uses = await getSingleton('uses');
+---
+
+<BaseLayout title={`Uses · ${site.name}`} description={uses.lead} current="uses">
+  <div class="mx-auto grid max-w-260 gap-9 px-gutter pt-14 pb-24">
+    <div class="grid gap-3.5">
+      <h1 class="text-page-title font-extrabold">Uses</h1>
+      <p class="text-page-lead text-ink3">{uses.lead}</p>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      {uses.groups.map((g) => (
+        <section class="grid content-start gap-3.5 rounded-card border bg-surface p-6">
+          <h2 class="text-card-title font-bold">{g.title}</h2>
+          <ul>
+            {g.items.map((item) => (
+              <li class="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-t border-sunken py-2.5">
+                <span>
+                  <b>{item.name}</b> {item.note && <span class="text-ink2">{item.note}</span>}
+                </span>
+                {item.draft && (
+                  <span class="self-center text-xs font-bold text-accent print:hidden">Draft</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
