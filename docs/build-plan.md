@@ -144,13 +144,15 @@ Each island is a small, self-contained script, and all of them honor the Motion 
 
 | Gate | How |
 |---|---|
-| Visual fidelity | Playwright screenshots of the Prototype vs. the build: every route at 1440 / 1024 / 390 widths, light and dark. Reviewed side by side, fixing drift |
-| Accessibility | `@axe-core/playwright` on every route and state (palette open, menu open, dark); manual keyboard pass; screen-reader spot check of ⌘K and the accordion |
-| Performance | Lighthouse CI with assertions for the Colophon budgets; a bundle-size check keeps JS ≤ 100 KB |
-| Behavior | Playwright tests for ⌘K, theme persistence without flash, one-open-at-a-time roles, bio switcher, copy email, 404 path echo, Motion off |
-| Content | `astro check` plus Zod schemas; a link checker |
+| Content & types | Prettier, `astro check` (with the Zod schemas) and `tsc -p tests` |
+| Behavior | Playwright tests for ⌘K, theme persistence without flash, one-open role cards and the scenic route, bio switcher, copy email, rail tracking, the clock, home printing, case-study navigation and title morph, 404 path echo, Motion off |
+| Accessibility | `@axe-core/playwright` (WCAG 2.2 AA) on every route in light and dark, plus the open palette and mobile menu; keyboard tests for the skip link, focus rings, role cards and the menu's focus trap. A screen-reader spot check stays manual |
+| Links | Every internal link resolves; the résumé PDFs warn until they're added |
+| Performance | Lighthouse CI (`lighthouserc.cjs`) asserts the Colophon budgets on **desktop** (Sean, 2026-09-28): 100 in all four categories, LCP under 1.5 s, CLS 0. `LHCI_PRESET=mobile` audits mobile for reference. A Playwright test keeps every page's JS at 100 KB or less |
 
-These run locally with one command, `npm run verify`, and again in CI.
+- **Tests** use Page Objects (`tests/pages/*.page.ts`, components in `tests/pages/components/`) injected as fixtures from `tests/fixtures.ts`.
+- **Run** everything with `npm run verify` (lint → build → Playwright → Lighthouse), locally and in CI (`.github/workflows/verify.yml`). Tests serve the build with `astro preview --ignore-lock` on ports 4322 and 4323, so a running dev or preview server is never touched.
+- **No Prototype fidelity script** (Sean, 2026-09-28): the site has moved past the Prototype; adjustments come as requests.
 
 ## Phase 9: Deploy
 

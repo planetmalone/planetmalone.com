@@ -29,3 +29,7 @@ playwright-report/
 
 # Docs
 docs/content-review.md
+
+# Lighthouse
+.lighthouseci
+/C:*/
