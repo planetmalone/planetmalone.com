@@ -10,3 +10,6 @@ wins:
 tech: [Remix, SSR, AWS, Playwright, Nx]
 stage: staff
 caseStudy: micro-frontend-platform
+print:
+  - 'Micro-frontend platform (Remix/SSR, BFF on AWS) for 5 teams and 50+ engineers; Architecture Committee'
+  - 'Page loads 5-6 s → near-instant; builds 30+ min → under 5 min; frontend e2e coverage 0% → 80%+ across 7 apps'

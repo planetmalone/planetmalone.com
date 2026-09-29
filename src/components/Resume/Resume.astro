@@ -1,0 +1,100 @@
+---
+/**
+ * The two-page US Letter résumé (design Pages 1c), from the same content as the
+ * site. The home page renders it print-only, so Ctrl+P there prints this
+ * instead of the page. The downloadable PDFs are separate static files.
+ *
+ * Page size, margins and the "Sean Malone · Résumé · n / 2" footers come from
+ * `@page resume` in base.css. It's always paper-colored: `scheme-light` makes
+ * the light-dark() tokens inside resolve to light, even in dark mode.
+ */
+import LogoMark from '../LogoMark.astro';
+import { getRoles, getSingleton } from '../../utils/content';
+import { formatYears } from '../../utils/format';
+
+interface Props {
+  track: 'staff' | 'em';
+  class?: string;
+}
+
+const { track, class: className }: Props = Astro.props;
+const [profile, roles, skills] = await Promise.all([
+  getSingleton('profile'),
+  getRoles(),
+  getSingleton('skills'),
+]);
+const { print, education, volunteer } = profile;
+const updated = profile.resumes.find((r) => r.track === track)?.updated;
+const host = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
+const label = 'text-caption font-bold tracking-[0.1em] text-print-accent uppercase';
+---
+
+<article
+  class:list={['resume grid gap-5.5 bg-paper text-base/[1.4] text-ink scheme-light', className]}
+  data-track={track}
+>
+  <header class="flex flex-wrap items-end justify-between gap-5 border-b-2 border-ink pb-4 md:flex-nowrap print:flex-nowrap">
+    <div>
+      <p class="font-display text-resume-name font-extrabold">{profile.name}</p>
+      <p class="mt-1.5 text-row">{print.headline}</p>
+    </div>
+    <address class="shrink-0 text-sm/normal not-italic md:text-right print:text-right">
+      {profile.email}
+      <br />
+      {host(profile.links.site)}
+      <br />
+      {host(profile.links.linkedin)}
+      <br />
+      {print.location}
+    </address>
+  </header>
+
+  <p>{print.summary}</p>
+
+  <h2 class={label}>Experience</h2>
+  {roles.map(({ data: role }) => (
+    <section class="grid gap-1 break-inside-avoid">
+      <h3 class="flex justify-between gap-3 font-text">
+        <b>
+          {role.title}
+          {role.company && <span class="font-normal"> · {role.company}</span>}
+        </b>
+        <span class="text-sm whitespace-nowrap text-ink2 tabular-nums">
+          {formatYears(role.years, 'present')}
+        </span>
+      </h3>
+      <ul class="grid list-disc gap-0.5 pl-4.5">
+        {(role.print ?? [role.scope, ...role.wins]).map((line) => (
+          <li>{line}</li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <h2 class:list={[label, 'mt-1.5']}>Skills</h2>
+  <div class="grid gap-1.5">
+    {skills.groups.map((g) => (
+      <p>
+        <b>{g.label}:</b> {g.items.join(', ')}
+      </p>
+    ))}
+  </div>
+
+  <h2 class:list={[label, 'mt-1.5']}>Education and volunteering</h2>
+  <div class="grid gap-1.5">
+    <p>
+      <b>{education.degree}</b>, {education.school}, {education.year} · {education.honors}
+    </p>
+    <p>
+      <b>{volunteer.org}</b>, {volunteer.since} - present · {volunteer.note}
+    </p>
+  </div>
+
+  <p class="flex items-center gap-2.5 border-t border-dashed border-print-rule pt-3 text-sm text-ink2 break-inside-avoid">
+    <LogoMark size={22} id={`resume-${track}`} />
+    <span>
+      {print.closing}
+      {updated && ` Updated ${updated}.`}
+    </span>
+  </p>
+</article>

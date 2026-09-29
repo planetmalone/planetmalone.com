@@ -39,6 +39,9 @@
   --color-draft-bg: light-dark(#fbeadf, #3a2418);
   --color-draft-ink: light-dark(#6e2a10, #ffc9ae);
   --color-stripe: light-dark(#e8dfd1, #332a22);
+  --color-paper: #fff;
+  --color-print-accent: #8f3212;
+  --color-print-rule: #cfc3b2;
   --color-glass-edge: light-dark(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.12));
   --color-overlay: light-dark(rgb(35 28 21 / 0.45), rgb(0 0 0 / 0.6));
   --color-logo-planet: light-dark(#c4461c, #ff8a5b);
@@ -99,6 +102,9 @@
   --text-population: 64px;
   --text-population--line-height: 1;
   --text-population--letter-spacing: -0.04em;
+  --text-resume-name: 48px;
+  --text-resume-name--line-height: 1;
+  --text-resume-name--letter-spacing: -0.04em;
   --text-page-lead: 19px;
   --text-page-lead--line-height: 1.5;
   --text-case-h2: 32px;

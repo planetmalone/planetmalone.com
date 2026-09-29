@@ -8,3 +8,5 @@ wins:
   - Made the data grid ~300% faster
 tech: [React, TypeScript, Storybook]
 stage: staff
+print:
+  - 'Migrated 45 components; made the data grid ~300% faster'

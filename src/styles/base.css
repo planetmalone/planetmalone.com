@@ -130,3 +130,30 @@
 @view-transition {
   navigation: auto;
 }
+
+@page resume {
+  size: letter;
+  margin: 64px 72px;
+  @bottom-left {
+    content: 'Sean Malone · Résumé';
+    font:
+      13px 'Atkinson Hyperlegible Next',
+      system-ui,
+      sans-serif;
+    color: #5e5246;
+  }
+  @bottom-right {
+    content: counter(page) ' / ' counter(pages);
+    font:
+      13px 'Atkinson Hyperlegible Next',
+      system-ui,
+      sans-serif;
+    color: #5e5246;
+  }
+}
+
+@media print {
+  .resume {
+    page: resume;
+  }
+}

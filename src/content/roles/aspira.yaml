@@ -10,3 +10,7 @@ wins:
 tech: [React 19, TypeScript, React Aria, Tailwind, Figma, Claude Code]
 stage: staff
 caseStudy: nextgen-design-system
+print:
+  - 'Owns the design system and accessibility for NextGen, a ground-up platform rebuild'
+  - 'Authored the Figma design system (tokens, oklch palette, full React Aria component set); led the shadcn/Radix → React Aria migration inside a six-engineer epic'
+  - 'Started the AI agent-skills program (11 of 22 skills), used by ~20 engineers; built a human-reviewed weekly AI docs pipeline'

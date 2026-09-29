@@ -8,3 +8,5 @@ wins:
 tech: [JavaScript]
 aside: Sleep was briefly deprecated during this period.
 stage: degree
+print:
+  - 'Client web apps while finishing a CS degree'

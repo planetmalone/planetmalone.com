@@ -85,6 +85,8 @@ const roles = defineCollection({
     tech: z.array(z.string()).default([]),
     /** An italic aside; the one place a role gets a joke. */
     aside: z.string().optional(),
+    /** The print résumé's denser lines. Without them, print uses the scope and wins. */
+    print: z.array(z.string()).min(1).optional(),
     stage,
     caseStudy: reference('cases').optional(),
   }),

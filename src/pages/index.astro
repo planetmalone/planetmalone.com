@@ -9,20 +9,27 @@ import Built from '../components/home/Built.astro';
 import Skills from '../components/home/Skills.astro';
 import About from '../components/home/About.astro';
 import Contact from '../components/home/Contact.astro';
+import { Resume } from '../components/Resume';
 ---
 
 <BaseLayout current="work">
-  <Hero />
-  <div class="mx-auto grid max-w-page gap-16 px-gutter pt-18 md:grid-cols-[220px_minmax(0,1fr)]">
-    <Rail />
-    <div class="flex min-w-0 flex-col gap-24">
-      <Impact />
-      <Lead />
-      <Experience />
-      <Built />
-      <Skills />
-      <About />
-      <Contact />
+  <div class="print:hidden">
+    <Hero />
+    <div class="mx-auto grid max-w-page gap-16 px-gutter pt-18 md:grid-cols-[220px_minmax(0,1fr)]">
+      <Rail />
+      <div class="flex min-w-0 flex-col gap-24">
+        <Impact />
+        <Lead />
+        <Experience />
+        <Built />
+        <Skills />
+        <About />
+        <Contact />
+      </div>
     </div>
+  </div>
+  {/* Ctrl+P on the home page prints the résumé, not the page. */}
+  <div class="hidden print:block">
+    <Resume track="staff" />
   </div>
 </BaseLayout>

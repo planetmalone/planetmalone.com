@@ -9,7 +9,7 @@
 - **WCAG 2.2 AA.** Hit targets are at least 44px, and every interactive piece works from the keyboard.
 - **No UI framework.** Islands are Astro components with plain TypeScript `<script>`s, which keeps JS far under budget.
 - **Styling is Tailwind v4.** The design tokens are the Tailwind theme (`src/styles/theme.css`), with Tailwind's default palette, radii, shadows, breakpoints and type scale cleared so only the spec's values exist. A small plain-CSS layer (`src/styles/base.css`) covers what utilities can't: theme and motion state, view-transition pseudo-elements and print.
-- **One content source.** Markdown/JSON in the repo generates the site, the print view and both PDFs.
+- **One content source.** YAML in the repo generates the site and the print view. The résumé PDFs are static files from Sean's résumé skill.
 - **No invented content.** Anything marked "Draft:" in the design stays a visible Draft placeholder until Sean writes it.
 
 ## Phase 0: Project setup
@@ -20,7 +20,7 @@
 4. **Tooling:**
    - Prettier with the Astro plugin
    - `astro check` in CI
-   - Playwright for tests, screenshots and PDF rendering
+   - Playwright for tests and screenshots
 5. **Fonts.** Self-host variable WOFF2 for Bricolage Grotesque (opsz and wght axes) and Atkinson Hyperlegible Next. Give each a size-adjusted fallback `@font-face` and preload the two faces used above the fold.
 6. **Assets.**
    - The SVG logos and favicon go into `src/assets` / `public`.
@@ -128,9 +128,9 @@ Each island is a small, self-contained script, and all of them honor the Motion 
    - Chrome hidden and every role expanded
    - `@page` footers "Sean Malone · Résumé" plus page numbers
    - The closing line with the logo
-2. **`/resume/staff` and `/resume/em` routes.** These print-first views are rendered from the same content, so the print layout isn't tangled into the home page.
-3. **PDF generation.** A post-build script (`scripts/buildPdfs.ts`) uses Playwright to `page.pdf()` each route into `dist/resume-staff.pdf` and `dist/resume-em.pdf`. The EM PDF duplicates the Staff one until Sean supplies the EM content.
-4. **Page-count check.** A test asserts each PDF is exactly 2 pages.
+2. **Ctrl+P on the home page** prints the `Resume` component (rendered print-only) instead of the page. ⌘K "Print résumé" does the same from any page.
+3. **Print lines.** Roles have an optional `print` field for the résumé's denser lines (from Pages 1c); without it, print uses the role's scope and wins.
+4. **PDFs are static files** (Sean, 2026-09-28). Sean's résumé skill generates them; they go in `public/` as `resume-staff.pdf` and `resume-em.pdf`, which the site's Download links already point to. The site doesn't build PDFs, and there are no `/resume/*` pages.
 
 ## Phase 7: SEO and metadata
 
