@@ -20,4 +20,4 @@ rows:
   - label: AI
     value: AI helped with research and drafts. Every line on this site was reviewed and approved by a human (me).
   - label: Hosting
-    draft: Host and deploy pipeline.
+    value: Cloudflare Workers static assets, built and deployed from GitHub on every push to main, with a preview for every pull request.

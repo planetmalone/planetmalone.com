@@ -49,11 +49,11 @@ const menuItems = [
         bold={false}
         class="needs-js text-ink2"
         data-open-palette
-        aria-label="Open command palette"
         aria-keyshortcuts="Meta+K Control+K /"
       >
         <b class="text-ink">⌘K</b>
-        <span class="ml-1 max-md:hidden">Search or do a thing</span>
+        {/* The visible text is the accessible name (WCAG 2.5.3); phones keep it for screen readers only. */}
+        <span class="ml-1 max-md:sr-only">Search or do a thing</span>
       </Button>
 
       <button
