@@ -1,0 +1,28 @@
+---
+/**
+ * A "Copy email" button. It's a mailto: link that <pm-copy-email> upgrades to
+ * copy the address instead, so without JS it still opens the mail app. The
+ * wrapper is `display: contents`, so the link sits directly in its parent's
+ * grid or flex layout.
+ */
+import { Button } from '../Button';
+import { getSingleton } from '../../utils/content';
+
+interface Props {
+  variant: 'field-outline' | 'outline' | 'accent';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { variant, size }: Props = Astro.props;
+const { email } = await getSingleton('profile');
+---
+
+<pm-copy-email class="contents" email={email}>
+  <Button variant={variant} size={size} href={`mailto:${email}`}>
+    Copy email
+  </Button>
+</pm-copy-email>
+
+<script>
+  import './pmCopyEmail';
+</script>

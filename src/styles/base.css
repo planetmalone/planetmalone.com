@@ -58,14 +58,19 @@
     @apply outline-3 outline-offset-3 outline-accent;
   }
 
-  /* An open modal (menu, palette) locks page scroll. */
-  html:has(dialog[open]) {
+  /* An open modal locks page scroll, except the ⌘K palette (data-page-scroll), which lets the page scroll behind it. */
+  html:has(dialog[open]:not([data-page-scroll])) {
     overflow: hidden;
   }
 
   /* Controls that only work with JS stay hidden until the pre-paint script runs. */
   html:not([data-js]) .needs-js {
     display: none !important;
+  }
+
+  /* Section links (rail, menu, ⌘K) scroll smoothly only while motion is on. */
+  html[data-motion='on'] {
+    scroll-behavior: smooth;
   }
 
   /* Motion off: no transitions or animations anywhere. */
@@ -101,4 +106,18 @@
   margin-inline: auto;
   max-width: var(--container-page);
   padding-inline: var(--gutter);
+}
+
+/*
+ * Frosted glass for floating layers (⌘K, mobile menu, toast): a translucent
+ * surface over a blurred page, with a lit top edge. Solid for visitors who ask
+ * for reduced transparency. Keep secondary text on glass at ink/80, not ink2,
+ * which drops below AA contrast over the Persimmon hero.
+ */
+@utility glass {
+  @apply border border-glass-edge bg-surface/60 inset-shadow-[0_1px_0_var(--color-glass-edge)] backdrop-blur-md backdrop-saturate-150;
+  @apply dark:bg-surface/75 dark:backdrop-blur-xl;
+  @media (prefers-reduced-transparency: reduce) {
+    @apply bg-surface backdrop-blur-none;
+  }
 }

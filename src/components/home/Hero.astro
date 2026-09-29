@@ -6,6 +6,7 @@
 import { Picture } from 'astro:assets';
 import { Button } from '../Button';
 import { Clock } from '../Clock';
+import { CopyEmail } from '../CopyEmail';
 import { getSingleton } from '../../utils/content';
 import { timeZoneLabel } from '../../utils/format';
 import wave from '../../assets/illos/illo-wave.png';
@@ -60,9 +61,7 @@ const besideAvatar = 'lg:max-w-[min(680px,calc(100%-460px))]';
               {r.label}
             </Button>
           ))}
-          <Button variant="field-outline" size="lg" href={`mailto:${profile.email}`} data-copy-email>
-            Copy email
-          </Button>
+          <CopyEmail variant="field-outline" size="lg" />
           <Button variant="field-outline" size="lg" href={profile.links.linkedin}>
             LinkedIn <span aria-hidden="true">↗</span>
           </Button>

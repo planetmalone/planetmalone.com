@@ -4,10 +4,7 @@
  *
  *   <ul class="flex flex-wrap gap-1.5">{tags.map((t) => <Chip as="li">{t}</Chip>)}</ul>
  */
-type Kind =
-  | 'tag' 
-  | 'skill'
-  | 'tech'; 
+type Kind = 'tag' | 'skill' | 'tech';
 
 interface Props {
   kind?: Kind;

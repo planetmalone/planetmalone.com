@@ -1,0 +1,69 @@
+---
+/**
+ * The theme button's icon: a sun in light mode that morphs into a crescent
+ * moon in dark mode, and back. Pure CSS transitions on the resolved theme, so
+ * it follows every way the theme changes (header, footer, ⌘K, the OS) and
+ * holds still when Motion is off.
+ *
+ * Light → dark: the rays spin in and fade, the disc grows, then a masking
+ * circle slides in from the left to carve the crescent, which opens left.
+ * Dark → light reverses, with the rays and disc springing back out.
+ */
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 24, class: className } = Astro.props;
+const spring = 'ease-[cubic-bezier(0.5,1.5,0.75,1.25)]';
+---
+
+<svg
+  class:list={['overflow-visible', className]}
+  viewBox="0 0 24 24"
+  width={size}
+  height={size}
+  aria-hidden="true"
+  focusable="false"
+>
+  <mask id="theme-icon-moon">
+    <rect width="24" height="24" fill="white"></rect>
+    <circle
+      class="translate-x-0 transition-transform duration-250 ease-out dark:translate-x-[7px] dark:delay-250"
+      cx="0"
+      cy="10"
+      r="6"
+      fill="black"
+    ></circle>
+  </mask>
+  <circle
+    class:list={[
+      'origin-center transition-transform duration-500 [transform-box:fill-box]',
+      spring,
+      'dark:scale-175 dark:duration-250 dark:ease-out',
+    ]}
+    cx="12"
+    cy="12"
+    r="6"
+    mask="url(#theme-icon-moon)"
+    fill="currentColor"
+  ></circle>
+  <g
+    class:list={[
+      'origin-center stroke-current transition-[transform,opacity] duration-500 [transform-box:fill-box]',
+      spring,
+      'dark:-rotate-25 dark:scale-50 dark:opacity-0 dark:duration-150 dark:ease-out',
+    ]}
+    stroke-width="2"
+    stroke-linecap="round"
+  >
+    <line x1="12" y1="1" x2="12" y2="3"></line>
+    <line x1="12" y1="21" x2="12" y2="23"></line>
+    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+    <line x1="1" y1="12" x2="3" y2="12"></line>
+    <line x1="21" y1="12" x2="23" y2="12"></line>
+    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+  </g>
+</svg>

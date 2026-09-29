@@ -1,5 +1,6 @@
 ---
 import LogoMark from './LogoMark.astro';
+import ThemeIcon from './ThemeIcon.astro';
 import { Button } from './Button';
 import { SkipLink } from './SkipLink';
 import { pages, sections, type PageKey } from '../data/site';
@@ -33,7 +34,7 @@ const menuItems = [
       <nav class="mr-1.5 flex gap-1 text-ui font-semibold max-md:hidden" aria-label="Pages">
         {pages.map((p) => (
           <a
-            class="rounded-pill px-3 py-2 text-ink no-underline hover:bg-sunken aria-[current=page]:bg-sunken"
+            class="rounded-pill px-3 py-2 text-ink no-underline hover:bg-sunken aria-[current=page]:bg-btn aria-[current=page]:text-btn-ink"
             href={p.href}
             aria-current={p.key === current ? 'page' : undefined}
           >
@@ -61,11 +62,7 @@ const menuItems = [
         data-theme-toggle
         aria-label="Switch color theme"
       >
-        <LogoMark
-          size={28}
-          id="theme"
-          class="transition-transform duration-300 ease-standard dark:-scale-x-100"
-        />
+        <ThemeIcon size={22} />
       </button>
 
       <Button
@@ -84,7 +81,7 @@ const menuItems = [
 </header>
 
 <dialog
-  class="fixed inset-x-3 top-18 bottom-auto m-0 w-auto max-w-none rounded-card bg-surface p-2.5 text-ink shadow-menu backdrop:bg-overlay print:hidden"
+  class="glass fixed inset-x-3 top-18 bottom-auto m-0 w-auto max-w-none rounded-card p-2.5 text-ink shadow-menu backdrop:bg-overlay/50 print:hidden"
   id="site-menu"
   aria-label="Menu"
 >
@@ -102,9 +99,9 @@ const menuItems = [
 </dialog>
 
 <script>
-  import { theme, themePref } from '../stores/theme';
+  import { theme } from '../stores/theme';
   import { paletteOpen } from '../stores/palette';
-  import { withViewTransition } from '../utils/viewTransition';
+  import { toggleThemeFrom } from '../utils/themeReveal';
 
   // Theme toggle: light ↔ dark, with a circular reveal from the click point.
   const themeBtn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;
@@ -114,19 +111,9 @@ const menuItems = [
   });
 
   themeBtn.addEventListener('click', (e) => {
-    const next = theme.get() === 'dark' ? 'light' : 'dark';
     const box = themeBtn.getBoundingClientRect();
     // Keyboard clicks report 0,0; start from the button's center instead.
-    const x = e.clientX || box.left + box.width / 2;
-    const y = e.clientY || box.top + box.height / 2;
-    const vt = withViewTransition(() => themePref.set(next), 'pm-theme');
-    vt?.ready.then(() => {
-      const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
-      document.documentElement.animate(
-        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
-        { duration: 450, easing: 'cubic-bezier(.4,0,.2,1)', pseudoElement: '::view-transition-new(root)' },
-      );
-    });
+    toggleThemeFrom(e.clientX || box.left + box.width / 2, e.clientY || box.top + box.height / 2);
   });
 
   // Mobile menu: a modal <dialog>, which handles Esc, focus trapping and inert background.
@@ -142,6 +129,7 @@ const menuItems = [
     if (e.target === menu || (e.target as Element).closest('a')) menu.close();
   });
 
-  // The palette itself arrives in Phase 4 and subscribes to this store.
   document.querySelector('[data-open-palette]')!.addEventListener('click', () => paletteOpen.set(true));
+  // Only one modal at a time: ⌘K from the open menu replaces it.
+  paletteOpen.subscribe((open) => open && menu.close());
 </script>

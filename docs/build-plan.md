@@ -100,12 +100,12 @@ Each island is a small, self-contained script, and all of them honor the Motion 
 |---|---|
 | Theme | Light / Dark / System with live `prefers-color-scheme`; header toggle with a circular View Transitions reveal (450ms) from the click point; footer segmented control |
 | Motion | Footer switch; defaults to the inverse of `prefers-reduced-motion`; stored as a `data-motion` attribute that CSS and the other scripts read. Section links (rail, mobile menu, ⌘K "Jump to") scroll smoothly when Motion is on and jump instantly when it's off |
-| ⌘K palette | Opens via ⌘K / Ctrl+K / `/` / button; ARIA combobox + listbox with `aria-activedescendant`; wrapping ↑/↓; substring filter; grouped commands (Actions, Jump to, Case studies, Pages, Other); scroll lock; focus return; empty state |
+| ⌘K palette | Opens via ⌘K / Ctrl+K / `/` / button; ARIA combobox + listbox with `aria-activedescendant`; wrapping ↑/↓; substring filter; grouped commands (Actions, Jump to, Case studies, Pages, Other); the page stays scrollable behind it (Sean, 2026-09-28); focus return; empty state |
 | Experience | One card open at a time (first open on load) and scenic-route pill highlighting; works with `aria-expanded` |
 | Bio switcher | Segmented control with an `aria-live` region |
 | Clock ✅ | "Local time on Planet Malone", `America/Chicago`, refreshes every 30s. Built early, in Phase 3 (`src/components/Clock/`) |
 | Copy email + toast | Clipboard, "Copied!" for 2.8s, shared toast service used by ⌘K and the Konami code |
-| Rail tracking | IntersectionObserver; active item when its top passes 180px; animated accent bar |
+| Rail tracking | Scroll listener, measured at most once per frame; active item when its top passes 180px, and the last section at the page bottom (Contact can't reach the line); animated accent bar |
 | Mobile menu | Sheet, scrim, Esc, focus trap |
 | Easter eggs | Styled console message (second line: "sean@planetmalone.com · Try ⌘K."), ⌘K "Count the population again". **Cut:** Konami code, the "Don't click this" footer link, and ⌘K "Take me somewhere new" (Sean, 2026-09-27) |
 

@@ -1,0 +1,178 @@
+---
+/**
+ * The ⌘K command palette, on every page. Commands are server-rendered from
+ * content; <pm-palette> (./pmPalette.ts) filters and runs them. Open it by
+ * setting the `paletteOpen` store (src/stores/palette.ts).
+ *
+ * A command either navigates (`data-href`), shows a toast (`data-toast`), or
+ * runs a named action (`data-run`).
+ */
+import { Eyebrow } from '../Eyebrow';
+import LogoMark from '../LogoMark.astro';
+import { pages, sections } from '../../data/site';
+import { getCases, getSingleton } from '../../utils/content';
+import { countPopulation, formatYearsCompact } from '../../utils/format';
+
+interface Command {
+  label: string;
+  hint: string;
+  href?: string;
+  run?: 'copy-email' | 'print' | 'theme' | 'motion';
+  toast?: string;
+}
+
+const [profile, about, cases] = await Promise.all([
+  getSingleton('profile'),
+  getSingleton('about'),
+  getCases(),
+]);
+const tracks = { staff: 'Staff', em: 'EM' };
+const pageHints: Record<string, string> = {
+  now: "What I'm up to",
+  uses: 'Desk and workshop',
+  colophon: 'How this site was built',
+};
+
+const groups: { name: string; commands: Command[] }[] = [
+  {
+    name: 'Actions',
+    commands: [
+      { label: 'Copy email', hint: profile.email, run: 'copy-email' },
+      ...profile.resumes.map((r) => ({
+        label: `Download résumé · ${tracks[r.track]} (PDF)`,
+        hint: r.updated,
+        href: r.href,
+      })),
+      { label: 'Print résumé', hint: 'Ctrl+P', run: 'print' },
+      // Hints for theme and motion are filled in from the current state.
+      { label: 'Toggle color theme', hint: '', run: 'theme' },
+      { label: 'Toggle motion', hint: '', run: 'motion' },
+    ],
+  },
+  {
+    name: 'Jump to',
+    commands: sections.map((s) => ({ label: s.label, hint: 'Section', href: `/#${s.id}` })),
+  },
+  {
+    name: 'Case studies',
+    commands: cases.map((c) => ({
+      label: c.data.title,
+      hint: `${c.data.company} · ${formatYearsCompact(c.data.years)}`,
+      href: `/work/${c.id}`,
+    })),
+  },
+  {
+    name: 'Pages',
+    commands: pages
+      .filter((p) => p.key !== 'work')
+      .map((p) => ({ label: p.label, hint: pageHints[p.key] ?? '', href: p.href })),
+  },
+  {
+    name: 'Other',
+    commands: [
+      {
+        label: 'Count the population again',
+        hint: 'The dragon insists',
+        toast: `Recount complete: ${countPopulation(about.population.residents)}. The bearded dragon has filed an objection.`,
+      },
+    ],
+  },
+];
+
+let n = 0;
+const numbered = groups.map((g) => ({ ...g, commands: g.commands.map((c) => ({ ...c, id: `cmd-${n++}` })) }));
+---
+
+<pm-palette class="contents" email={profile.email}>
+  <dialog
+    class:list={[
+      'inset-x-0 top-[12vh] bottom-auto mx-auto my-0 max-md:top-3',
+      'max-h-[47vh] w-[min(620px,calc(100vw-24px))] max-w-none overflow-hidden',
+      'glass rounded-card p-0 text-ink shadow-dialog backdrop:bg-overlay/50 open:flex open:flex-col print:hidden',
+    ]}
+    aria-label="Command palette"
+    data-page-scroll
+  >
+    <div class="flex items-center gap-3 border-b border-line/60 px-4.5 py-3.5">
+      <LogoMark size={24} id="palette" />
+      <input
+        class="min-w-0 flex-1 bg-transparent text-lg text-ink outline-none placeholder:text-ink/80"
+        type="text"
+        role="combobox"
+        aria-label="Search commands"
+        aria-expanded="true"
+        aria-controls="pm-cmds"
+        aria-autocomplete="list"
+        autocomplete="off"
+        spellcheck="false"
+        placeholder="Jump to a section, copy email, change theme…"
+      />
+      <kbd class="rounded-[6px] border px-1.5 py-0.5 font-text text-xs text-ink/80">esc</kbd>
+    </div>
+
+    <div
+      class="scroll-py-2 overflow-auto overscroll-contain p-2"
+      id="pm-cmds"
+      role="listbox"
+      aria-label="Commands"
+    >
+      {numbered.map((g) => (
+        <div
+          class:list={[
+            // A rule above every visible group after the first, so filtering never leaves one at the top
+            '[[data-group]:not([hidden])~&]:mt-2.5 [[data-group]:not([hidden])~&]:border-t [[data-group]:not([hidden])~&]:border-ink/15',
+          ]}
+          role="group"
+          aria-label={g.name}
+          data-group
+        >
+          <div class="px-3 pt-2.5 pb-1" aria-hidden="true">
+            <Eyebrow as="div" size="xs" tone="glass">
+              {g.name}
+            </Eyebrow>
+          </div>
+          {g.commands.map((c) => (
+            <div
+              class="flex cursor-pointer items-center justify-between gap-3 rounded-box p-3 aria-selected:bg-btn aria-selected:text-btn-ink"
+              id={c.id}
+              role="option"
+              aria-selected="false"
+              data-group-name={g.name}
+              data-href={c.href}
+              data-run={c.run}
+              data-toast={c.toast}
+            >
+              <span class="font-semibold">{c.label}</span>
+              <span class="text-caption whitespace-nowrap opacity-80" data-hint>
+                {c.hint}
+              </span>
+            </div>
+          ))}
+        </div>
+      ))}
+      <p class="px-3 py-4.5 text-ink/80" data-empty hidden>
+        Nothing matches. Even the bearded dragon looked.
+      </p>
+    </div>
+
+    <div
+      class="flex gap-4.5 border-t border-line/60 bg-bg/40 px-4.5 py-2.5 text-caption text-ink/80"
+      aria-hidden="true"
+    >
+      <span>
+        <b class="text-ink">↑↓</b> move
+      </span>
+      <span>
+        <b class="text-ink">↵</b> run
+      </span>
+      <span>
+        <b class="text-ink">esc</b> close
+      </span>
+      <span class="ml-auto max-md:hidden">Also opens with /</span>
+    </div>
+  </dialog>
+</pm-palette>
+
+<script>
+  import './pmPalette';
+</script>

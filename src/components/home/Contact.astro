@@ -1,5 +1,6 @@
 ---
 import { Button } from '../Button';
+import { CopyEmail } from '../CopyEmail';
 import { SectionHeading } from '../SectionHeading';
 import { getSingleton } from '../../utils/content';
 
@@ -22,9 +23,7 @@ const profile = await getSingleton('profile');
     >
       {profile.email}
     </a>
-    <Button variant="accent" href={`mailto:${profile.email}`} data-copy-email>
-      Copy email
-    </Button>
+    <CopyEmail variant="accent" />
   </div>
   <div class="flex flex-wrap gap-2.5 text-ui">
     <Button variant="dark-outline" href={profile.links.linkedin}>

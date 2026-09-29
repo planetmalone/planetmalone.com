@@ -3,8 +3,8 @@
  * About: the bio-length switcher, the population census and hobby photos.
  *
  * All four bios are server-rendered and only "Short" is visible, so the page
- * reads well without JS. The switcher needs JS (it's hidden without it);
- * Phase 4 wires it to the `hidden` attributes and the live region.
+ * reads well without JS. The switcher needs JS, so it's hidden without it;
+ * <pm-bio> (./pmBio.ts) swaps the bios.
  */
 import { Eyebrow } from '../Eyebrow';
 import { SectionHeading } from '../SectionHeading';
@@ -32,65 +32,71 @@ const prose = [
   id="about"
   aria-labelledby="about-heading"
 >
-  <div class="flex flex-wrap items-center justify-between gap-4">
-    <SectionHeading id="about-heading">About</SectionHeading>
-    <SegmentedControl
-      name="bio"
-      legend="Bio length"
-      options={lengths}
-      checked="short"
-      size="md"
-      class="needs-js"
-      data-bio-options
-    />
-  </div>
+  <pm-bio class="contents" length="short">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <SectionHeading id="about-heading">About</SectionHeading>
+      <SegmentedControl
+        name="bio"
+        legend="Bio length"
+        options={lengths}
+        checked="short"
+        size="md"
+        class="needs-js"
+        data-bio-options
+      />
+    </div>
 
-  <div class="grid gap-7 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
-    <div class="text-lg/[1.6]" aria-live="polite" data-bio>
-      <ul class="grid list-disc gap-2 pl-5" data-bio-length="facts" hidden>
-        {bios.facts.items.map((item) => (
-          <li>{item}</li>
-        ))}
-      </ul>
-      {prose.map((b) => (
-        <div class="grid gap-3.5" data-bio-length={b.key} hidden={b.key !== 'short'}>
-          {b.paragraphs.map((p) => (
-            <p>{p}</p>
+    <div class="grid gap-7 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+      <div class="text-lg/[1.6]" aria-live="polite" data-bio>
+        <ul class="grid list-disc gap-2 pl-5" data-bio-length="facts" hidden>
+          {bios.facts.items.map((item) => (
+            <li>{item}</li>
           ))}
-        </div>
+        </ul>
+        {prose.map((b) => (
+          <div class="grid gap-3.5" data-bio-length={b.key} hidden={b.key !== 'short'}>
+            {b.paragraphs.map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div class="grid content-start gap-3 rounded-card border bg-surface p-5.5 tabular-nums">
+        <Eyebrow as="h3">{population.title}</Eyebrow>
+        <p class="font-display text-population font-extrabold">{countPopulation(population.residents)}</p>
+        <dl class="grid grid-cols-[1fr_auto] gap-y-1.5 text-ui">
+          {population.residents.map((r) => (
+            <>
+              <dt>{r.label}</dt>
+              <dd class="font-bold">{r.count}</dd>
+            </>
+          ))}
+        </dl>
+        <p class="text-caption text-ink2">{population.caption}</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3.5 md:grid-cols-4">
+      {hobbies.map((h) => (
+        <figure class="grid gap-2">
+          {/* Placeholder until Sean supplies the photo */}
+          <div
+            class="grid aspect-4/3 place-items-center rounded-photo bg-[repeating-linear-gradient(135deg,var(--color-sunken)_0_10px,var(--color-stripe)_10px_20px)] p-2 text-center text-xs text-ink2"
+            role="img"
+            aria-label={h.photoDraft}
+          >
+            {h.photoDraft}
+          </div>
+          <figcaption class="text-sm/[1.4]">
+            <b>{h.name}</b> {h.caption}
+          </figcaption>
+        </figure>
       ))}
     </div>
-
-    <div class="grid content-start gap-3 rounded-card border bg-surface p-5.5 tabular-nums">
-      <Eyebrow as="h3">{population.title}</Eyebrow>
-      <p class="font-display text-population font-extrabold">{countPopulation(population.residents)}</p>
-      <dl class="grid grid-cols-[1fr_auto] gap-y-1.5 text-ui">
-        {population.residents.map((r) => (
-          <>
-            <dt>{r.label}</dt>
-            <dd class="font-bold">{r.count}</dd>
-          </>
-        ))}
-      </dl>
-      <p class="text-caption text-ink2">{population.caption}</p>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-2 gap-3.5 md:grid-cols-4">
-    {hobbies.map((h) => (
-      <figure class="grid gap-2">
-        {/* Placeholder until Sean supplies the photo */}
-        <div
-          class="grid aspect-4/3 place-items-center rounded-photo bg-[repeating-linear-gradient(135deg,var(--color-sunken)_0_10px,var(--color-stripe)_10px_20px)] p-2 text-center text-xs text-ink2"
-          role="img"
-          aria-label={h.photoDraft}
-        >
-          {h.photoDraft}
-        </div>
-        <figcaption class="text-sm/[1.4]">
-          <b>{h.name}</b> {h.caption}
-        </figcaption>
-      </figure>
-    ))}
-  </div>
+  </pm-bio>
 </section>
+
+<script>
+  import './pmBio';
+</script>

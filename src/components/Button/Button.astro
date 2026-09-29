@@ -8,19 +8,9 @@
  */
 import type { HTMLAttributes } from 'astro/types';
 
-type Variant =
-  | 'solid' 
-  | 'outline' 
-  | 'ghost' 
-  | 'field' 
-  | 'field-outline' 
-  | 'accent'
-  | 'dark-outline';
+type Variant = 'solid' | 'outline' | 'ghost' | 'field' | 'field-outline' | 'accent' | 'dark-outline';
 
-type Size =
-  | 'sm' 
-  | 'md' 
-  | 'lg';
+type Size = 'sm' | 'md' | 'lg';
 
 type Props = (HTMLAttributes<'a'> | HTMLAttributes<'button'>) & {
   variant: Variant;

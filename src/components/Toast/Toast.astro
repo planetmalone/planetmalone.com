@@ -1,0 +1,22 @@
+---
+/**
+ * The toast pill at the bottom of the screen, shown by `showToast()` in
+ * src/stores/toast.ts. The live region is always in the page so screen
+ * readers announce each message.
+ */
+---
+
+<pm-toast
+  class="pointer-events-none fixed bottom-6 left-1/2 z-70 -translate-x-1/2 print:hidden"
+  role="status"
+  aria-live="polite"
+>
+  <p
+    class="glass w-max max-w-[calc(100vw-32px)] rounded-pill px-5 py-3 text-center text-ui font-semibold text-ink shadow-toast"
+    hidden
+  ></p>
+</pm-toast>
+
+<script>
+  import './pmToast';
+</script>
