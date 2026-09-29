@@ -1,7 +1,9 @@
+import { currentRole } from '../../stores/scenicRoute';
+
 /**
- * <pm-experience>: highlights the open role card's stage on the scenic route.
- * The <details> share a `name`, so the browser already keeps one open at a
- * time. With every card closed, the route falls back to `default-stage`.
+ * <pm-experience>: publishes the open role card (the `currentRole` store) for
+ * the flight path. The <details> share a `name`, so the browser already keeps
+ * one open at a time. With every card closed, it falls back to `default-role`.
  */
 export class PmExperience extends HTMLElement {
   connectedCallback() {
@@ -16,10 +18,7 @@ export class PmExperience extends HTMLElement {
 
   #sync = () => {
     const open = this.querySelector<HTMLElement>('details[open]');
-    const stage = open?.dataset.stage ?? this.getAttribute('default-stage');
-    this.querySelectorAll<HTMLElement>('[data-route] [data-stage]').forEach((s) =>
-      s.dataset.stage === stage ? s.setAttribute('aria-current', 'step') : s.removeAttribute('aria-current'),
-    );
+    currentRole.set(open?.dataset.role ?? this.getAttribute('default-role') ?? '');
   };
 }
 

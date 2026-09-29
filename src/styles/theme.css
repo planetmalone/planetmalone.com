@@ -149,6 +149,30 @@
 
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
 
+  /* The flight path rocket's exhaust. */
+  --animate-flicker: flicker 0.35s ease-in-out infinite alternate;
+  @keyframes flicker {
+    from {
+      transform: scaleX(0.7);
+    }
+    to {
+      transform: scaleX(1.15);
+    }
+  }
+
+  /* A puff of the rocket's exhaust trail. */
+  --animate-puff: puff 0.9s ease-out forwards;
+  @keyframes puff {
+    from {
+      opacity: 0.55;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(2.4);
+    }
+  }
+
   /* The 404 astronaut drifting in zero gravity; composes with its -8deg tilt. */
   --animate-float: float 8s ease-in-out infinite;
   @keyframes float {

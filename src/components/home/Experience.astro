@@ -1,13 +1,13 @@
 ---
 /**
- * Experience: the scenic-route stepper, the role cards and education.
+ * Experience: the scenic route (FlightPath), the role cards and education.
  *
  * Role cards are <details> sharing a `name`, so the browser keeps one open at a
- * time with no JS; the first is open on load. The open card's stage is the
- * current step on the scenic route: the server marks the first role's stage,
- * and <pm-experience> (./pmExperience.ts) moves it as cards open.
+ * time with no JS; the first is open on load. <pm-experience>
+ * (./pmExperience.ts) publishes the open role, and the flight path shows it.
  */
 import { Chip } from '../Chip';
+import { FlightPath } from '../FlightPath';
 import { SectionHeading } from '../SectionHeading';
 import { getRoles, getSingleton } from '../../utils/content';
 import { formatYears } from '../../utils/format';
@@ -17,43 +17,30 @@ const [experience, roles, profile] = await Promise.all([
   getRoles(),
   getSingleton('profile'),
 ]);
-const currentStage = roles[0]?.data.stage;
+const currentRole = roles[0]?.id;
+// The flight path runs oldest to newest.
+const route = roles
+  .map((r) => ({ id: r.id, stage: r.data.stage, name: r.data.company ?? r.data.title }))
+  .reverse();
 const { education, volunteer } = profile;
 ---
 
 <section class="grid scroll-mt-[90px] gap-6" id="experience" aria-labelledby="experience-heading">
-  <pm-experience class="contents" default-stage={currentStage}>
+  <pm-experience class="contents" default-role={currentRole}>
     <SectionHeading id="experience-heading">Experience</SectionHeading>
 
-    <div class="sticky top-[65px] z-10 -my-3 flex flex-wrap items-center gap-2 bg-bg py-3 text-sm font-semibold">
-      <span class="text-caption font-normal text-ink2" id="route-label">
-        {experience.routeLabel}
-      </span>
-      <ol class="contents" role="list" aria-labelledby="route-label" data-route>
-        {experience.stages.map((st, i) => (
-          <li class="flex items-center gap-2">
-            <span
-              class:list={[
-                'rounded-pill border px-3 py-1.25 text-ink3 transition-colors duration-200',
-                'aria-[current=step]:border-btn aria-[current=step]:bg-btn aria-[current=step]:text-btn-ink',
-              ]}
-              data-stage={st.id}
-              aria-current={st.id === currentStage ? 'step' : undefined}
-            >
-              {st.label}
-            </span>
-            {i < experience.stages.length - 1 && (
-              <span class="text-accent" aria-hidden="true">
-                →
-              </span>
-            )}
-          </li>
-        ))}
-      </ol>
+    {/* Sticks under the 65px header while the role cards scroll beneath it */}
+    <div class="sticky top-[65px] z-10 -my-3 bg-bg py-3">
+      <FlightPath
+        label={experience.routeLabel}
+        stages={experience.stages}
+        roles={route}
+        current={currentRole}
+      />
     </div>
 
     <ol class="grid gap-2.5">
-      {roles.map(({ data: role }, i) => {
+      {roles.map(({ id, data: role }, i) => {
         const dates = formatYears(role.years);
         return (
           <li>
@@ -67,6 +54,7 @@ const { education, volunteer } = profile;
               name="role"
               open={i === 0}
               data-stage={role.stage}
+              data-role={id}
             >
               <summary
                 class:list={[

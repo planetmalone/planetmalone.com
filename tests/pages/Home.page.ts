@@ -7,7 +7,8 @@ export class HomePage extends Site {
   readonly copyEmailButtons: Locator;
   readonly roleCards: Locator;
   readonly openRoleCards: Locator;
-  readonly currentStage: Locator;
+  readonly activeMoon: Locator;
+  readonly rocket: Locator;
   readonly currentRailLink: Locator;
   readonly clock: Locator;
   readonly resume: Locator;
@@ -19,7 +20,8 @@ export class HomePage extends Site {
     this.copyEmailButtons = page.locator('pm-copy-email a');
     this.roleCards = page.locator('details[name="role"]');
     this.openRoleCards = page.locator('details[name="role"][open]');
-    this.currentStage = page.locator('[data-route] [aria-current="step"]');
+    this.activeMoon = page.locator('pm-flight-path [data-moon][data-current]');
+    this.rocket = page.locator('pm-flight-path [data-rocket]');
     this.currentRailLink = page.locator('[data-rail-link][aria-current="true"]');
     this.clock = page.locator('pm-clock time');
     this.resume = page.locator('.resume');
@@ -36,6 +38,22 @@ export class HomePage extends Site {
 
   roleSummary(title: string) {
     return this.page.locator('summary', { hasText: title });
+  }
+
+  moon(role: string) {
+    return this.page.locator(`pm-flight-path [data-moon="${role}"]`);
+  }
+
+  /** Pixels between the rocket's center and a role's moon. */
+  async rocketDistanceTo(role: string) {
+    const [r, m] = await Promise.all([
+      this.rocket.boundingBox(),
+      this.moon(role).locator('span').first().boundingBox(),
+    ]);
+    return Math.hypot(
+      r!.x + r!.width / 2 - (m!.x + m!.width / 2),
+      r!.y + r!.height / 2 - (m!.y + m!.height / 2),
+    );
   }
 
   railLink(id: string) {

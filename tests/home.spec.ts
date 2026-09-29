@@ -3,19 +3,26 @@ import { expect, test } from './fixtures';
 test.describe('Home', () => {
   test.beforeEach(async ({ home }) => home.goto());
 
-  test('role cards: one open at a time, the first on load, and the scenic route follows', async ({
-    home,
-  }) => {
+  test('role cards: one open at a time, the first on load, and the flight path follows', async ({ home }) => {
     await expect(home.roleCards.first()).toHaveAttribute('open', '');
-    await expect(home.currentStage).toHaveAttribute('data-stage', 'staff');
+    await expect(home.activeMoon).toHaveAttribute('data-moon', 'aspira');
 
     await home.roleSummary('Technology Practice Director').click();
     await expect(home.openRoleCards).toHaveCount(1);
-    await expect(home.currentStage).toHaveAttribute('data-stage', 'director');
+    await expect(home.activeMoon).toHaveAttribute('data-moon', 'stellar-elements');
 
     await home.roleSummary('Technology Practice Director').click();
     await expect(home.openRoleCards).toHaveCount(0);
-    await expect(home.currentStage).toHaveAttribute('data-stage', 'staff');
+    await expect(home.activeMoon).toHaveAttribute('data-moon', 'aspira');
+  });
+
+  test("the rocket flies to the open role's moon and parks beside it", async ({ home }) => {
+    await home.section('experience').scrollIntoViewIfNeeded();
+    await expect.poll(() => home.rocketDistanceTo('aspira'), { timeout: 8000 }).toBeLessThan(50);
+    await home.roleSummary('RedTeam').click();
+    await expect.poll(() => home.rocketDistanceTo('redteam'), { timeout: 5000 }).toBeLessThan(50);
+    await home.roleSummary('U.S. Army').click();
+    await expect.poll(() => home.rocketDistanceTo('us-army'), { timeout: 5000 }).toBeLessThan(50);
   });
 
   test('bio switcher shows one length at a time', async ({ home }) => {
