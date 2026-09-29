@@ -115,6 +115,8 @@ const profile = singleton(
     }),
     volunteer: z.object({ org: z.string(), since: z.number().int(), note: z.string() }),
     print: z.object({ headline: z.string(), location: z.string(), summary: z.string(), closing: z.string() }),
+    /** The Open Graph image's line under the name. */
+    og: z.object({ tagline: z.string() }),
   }),
 );
 

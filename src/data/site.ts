@@ -3,6 +3,7 @@
 
 export const site = {
   name: 'Sean Malone',
+  siteName: 'Planet Malone',
   title: 'Sean Malone · Planet Malone',
   version: '1.0',
   lastUpdated: 'Sep 25, 2026',

@@ -137,8 +137,8 @@ Each island is a small, self-contained script, and all of them honor the Motion 
 - Per-page `<title>`, description and canonical
 - `ProfilePage` + `Person` JSON-LD on home
 - `@astrojs/sitemap`, `robots.txt`, `llms.txt` (generated from content)
-- **OG images** generated at build time with Satori + resvg: one for home and one per case study (title swapped in), matching Components **1d**. Fonts are loaded from the self-hosted files.
-- Favicon from `avatar-favicon.svg`, plus the PNG and Apple touch sizes
+- **OG images** generated at build time with Satori + resvg (`src/utils/og.ts`, `/og/[slug].png`): one for home and one per case study (title, company and tags swapped in), matching Components **1d** with the Prototype's waving avatar. Satori can't read variable fonts, so text uses the static `@fontsource` packages and the title uses a static cut of Bricolage Grotesque at its display optical size, committed in `src/assets/og/` with its OFL license
+- Favicon from `avatar-favicon.svg`, plus `favicon.ico` (32px) and `apple-touch-icon.png` (180px), rendered at build time (`src/utils/icons.ts`)
 
 ## Phase 8: Quality gates
 

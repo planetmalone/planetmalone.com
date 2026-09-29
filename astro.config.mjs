@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 const bricolage = '@fontsource-variable/bricolage-grotesque/files';
 const atkinson = '@fontsource-variable/atkinson-hyperlegible-next/files';
@@ -12,6 +13,7 @@ export default defineConfig({
   site: 'https://planetmalone.com',
   trailingSlash: 'never',
   build: { format: 'file' },
+  integrations: [sitemap()],
   vite: { plugins: [tailwindcss()] },
   fonts: [
     {

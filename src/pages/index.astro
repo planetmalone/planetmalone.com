@@ -10,9 +10,39 @@ import Skills from '../components/home/Skills.astro';
 import About from '../components/home/About.astro';
 import Contact from '../components/home/Contact.astro';
 import { Resume } from '../components/Resume';
+import { getRoles, getSingleton } from '../utils/content';
+
+// ProfilePage + Person structured data (schema.org), from the same content as the page.
+const [profile, roles, skills, now] = await Promise.all([
+  getSingleton('profile'),
+  getRoles(),
+  getSingleton('skills'),
+  getSingleton('now'),
+]);
+const current = roles[0]!.data;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  dateModified: now.updated.toISOString().slice(0, 10),
+  mainEntity: {
+    '@type': 'Person',
+    name: profile.name,
+    url: profile.links.site,
+    image: new URL('/og/home.png', Astro.site).href,
+    description: profile.lead,
+    jobTitle: current.title,
+    worksFor: current.company && { '@type': 'Organization', name: current.company },
+    email: `mailto:${profile.email}`,
+    address: { '@type': 'PostalAddress', addressLocality: profile.location, addressCountry: 'US' },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: profile.education.school },
+    knowsAbout: skills.groups.slice(0, 2).flatMap((g) => g.items),
+    sameAs: [profile.links.linkedin, profile.links.github],
+  },
+};
 ---
 
 <BaseLayout current="work">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <div class="print:hidden">
     <Hero />
     <div class="mx-auto grid max-w-page gap-16 px-gutter pt-18 md:grid-cols-[220px_minmax(0,1fr)]">

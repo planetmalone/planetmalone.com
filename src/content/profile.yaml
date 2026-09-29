@@ -40,3 +40,6 @@ print:
   location: Dallas-Fort Worth, TX · Remote · CT
   summary: Frontend engineer and engineering leader with 18+ years in tech. Builds design systems and frontend platforms that let whole teams ship faster, from both the IC and the manager's chair. Led teams up to 50+; built 4 design systems and managed 2 design-system teams.
   closing: Printed from planetmalone.com. Thanks for using actual paper; the web version has more cats.
+
+og:
+  tagline: Frontend engineer and engineering leader. Design systems and frontend platforms.

@@ -41,7 +41,14 @@ const sections = [
 const heading = 'font-display text-case-h2 font-bold';
 ---
 
-<BaseLayout title={`${data.title} · ${site.name}`} description={data.summary} current="work">
+<BaseLayout
+  title={`${data.title} · ${site.name}`}
+  description={data.summary}
+  current="work"
+  image={`/og/${id}.png`}
+  imageAlt={`${data.title}: a case study by ${site.name}`}
+  type="article"
+>
   <div class="mx-auto max-w-page px-gutter-sm pt-5 pb-24">
     <a
       class="inline-flex min-h-11 items-center px-2 font-bold text-ink no-underline hover:text-accent md:px-0 print:hidden"

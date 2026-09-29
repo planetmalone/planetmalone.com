@@ -14,14 +14,27 @@ interface Props {
   title?: string;
   description?: string;
   current?: PageKey;
+  /** The Open Graph image, from /og/[slug].png. */
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  /** Keeps the page out of search results and the sitemap's canonical set (the 404). */
+  noindex?: boolean;
 }
 
+const profile = await getSingleton('profile');
 const {
   title = site.title,
-  description = 'Frontend engineer and engineering leader. Staff / Principal Frontend and Frontend Engineering Manager.',
+  description = profile.lead,
   current,
+  image = '/og/home.png',
+  imageAlt = `${profile.name}: ${profile.og.tagline}`,
+  type = 'website',
+  noindex = false,
 } = Astro.props;
-const { email } = await getSingleton('profile');
+const { email } = profile;
+// build.format 'file' reports built paths as /work/x.html and /index.html; canonicals use the clean URL.
+const canonical = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Astro.site);
 ---
 
 <!doctype html>
@@ -33,8 +46,23 @@ const { email } = await getSingleton('profile');
     <PageTransitions />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={site.siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <slot name="head" />
     <meta name="theme-color" content="#F7F2EA" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#16120E" media="(prefers-color-scheme: dark)" />
     <Font cssVariable="--font-bricolage" preload />
