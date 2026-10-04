@@ -1,49 +1,57 @@
 ---
 /**
- * Lost in space. The bad path is filled in from the address bar as the page
- * parses, so it shows without a flash; without JS it reads "This page".
+ * Lost in space, against the hero's starry deep-space field (drift and mouse
+ * parallax from Starfield; the astronaut drifts with the mouse too). The bad
+ * path is filled in from the address bar as the page parses, so it shows
+ * without a flash; without JS it reads "This page".
  */
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Button } from '../components/Button';
 import { Eyebrow } from '../components/Eyebrow';
+import { Starfield } from '../components/Starfield';
 import { site } from '../data/site';
 import astronaut from '../assets/illos/illo-astronaut.png';
 ---
 
 <BaseLayout title={`Lost in space · ${site.name}`} description="This page drifted out of orbit." noindex>
-  <div class="mx-auto grid min-h-[70vh] max-w-page items-center gap-10 px-gutter pt-12 pb-24 md:grid-cols-2">
-    <div class="grid gap-5.5">
-      <Eyebrow size="md">Error 404</Eyebrow>
-      <h1 class="text-lost-sm font-extrabold md:text-lost">Lost in space.</h1>
-      <p class="text-xl/normal">
-        <code class="rounded-[6px] bg-sunken px-2 py-0.5 text-lg break-all" id="bad-path">
-          This page
-        </code>
-        drifted out of orbit. I checked behind the moon and it isn't there either.
-      </p>
-      <script is:inline>
-        document.getElementById('bad-path').textContent = location.pathname;
-      </script>
-      <div class="flex flex-wrap gap-2.5">
-        <Button variant="solid" size="lg" href="/">
-          Back to Planet Malone
-        </Button>
-        <Button variant="outline" size="lg" class="needs-js" data-open-palette-404>
-          Open ⌘K
-        </Button>
+  <div class="mx-auto max-w-page px-gutter-sm pt-4 pb-24">
+    <div class="relative grid min-h-[70vh] items-center gap-10 overflow-hidden rounded-field bg-field px-6 py-12 text-on-field md:grid-cols-2 md:px-14">
+      <Starfield />
+      <div class="relative grid gap-5.5">
+        <Eyebrow size="md" tone="field">
+          Error 404
+        </Eyebrow>
+        <h1 class="text-lost-sm font-extrabold md:text-lost">Lost in space.</h1>
+        <p class="text-xl/normal">
+          <code class="rounded-[6px] bg-on-field/15 px-2 py-0.5 text-lg break-all" id="bad-path">
+            This page
+          </code>
+          drifted out of orbit. I checked behind the moon and it isn't there either.
+        </p>
+        <script is:inline>
+          document.getElementById('bad-path').textContent = location.pathname;
+        </script>
+        <div class="flex flex-wrap gap-2.5">
+          <Button variant="field" size="lg" href="/">
+            Back to Planet Malone
+          </Button>
+          <Button variant="field-outline" size="lg" class="needs-js" data-open-palette-404>
+            Open ⌘K
+          </Button>
+        </div>
       </div>
-    </div>
-    <div class="grid place-items-center">
-      <Picture
-        src={astronaut}
-        formats={['avif', 'webp']}
-        widths={[280]}
-        sizes="(max-width: 899px) 60vw, 280px"
-        alt="Illustrated Sean in an astronaut suit, looking worried"
-        class="h-auto w-[min(280px,60%)] -rotate-8 animate-float motion-reduce:animate-none"
-        pictureAttributes={{ class: 'contents' }}
-      />
+      <div class="relative grid place-items-center" data-parallax="6">
+        <Picture
+          src={astronaut}
+          formats={['avif', 'webp']}
+          widths={[280]}
+          sizes="(max-width: 899px) 60vw, 280px"
+          alt="Illustrated Sean in an astronaut suit, looking worried"
+          class="h-auto w-[min(280px,60%)] -rotate-8 animate-float motion-reduce:animate-none"
+          pictureAttributes={{ class: 'contents' }}
+        />
+      </div>
     </div>
   </div>
 </BaseLayout>

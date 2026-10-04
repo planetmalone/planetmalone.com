@@ -157,3 +157,27 @@
     page: resume;
   }
 }
+
+/*
+ * Stars over the deep-space hero, as two repeating tiles of small points of
+ * light: a bright near layer and a dim far one, at different tile sizes so the
+ * pattern never lines up into a grid. Starfield.astro layers and moves them.
+ */
+@utility starfield-near {
+  --star: rgb(238 241 255 / 0.75);
+  background-image:
+    radial-gradient(circle at 18px 24px, var(--star) 1.2px, transparent 1.8px),
+    radial-gradient(circle at 132px 86px, var(--star) 1px, transparent 1.6px),
+    radial-gradient(circle at 74px 150px, var(--star) 1.5px, transparent 2.2px),
+    radial-gradient(circle at 190px 40px, var(--star) 1px, transparent 1.6px);
+  background-size: 220px 180px;
+}
+@utility starfield-far {
+  --star: rgb(238 241 255 / 0.4);
+  background-image:
+    radial-gradient(circle at 40px 210px, var(--star) 1.2px, transparent 1.8px),
+    radial-gradient(circle at 260px 120px, var(--star) 1px, transparent 1.6px),
+    radial-gradient(circle at 310px 230px, var(--star) 1.4px, transparent 2px),
+    radial-gradient(circle at 150px 40px, var(--star) 1px, transparent 1.6px);
+  background-size: 340px 260px;
+}

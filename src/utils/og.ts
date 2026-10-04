@@ -1,13 +1,10 @@
 /**
- * Open Graph images (design Components 1d): 1200 × 630, the Persimmon field
- * at full volume with the planet, its ring and the waving avatar. Rendered at
- * build time: Satori lays out the tree and resvg rasterizes it to PNG.
+ * Open Graph images: 1200 × 630, the hero's deep-space field with stars, the
+ * planet, its ring and the waving avatar. Rendered at build time: Satori lays
+ * out the tree and resvg rasterizes it to PNG.
  *
- * Satori needs static fonts, not the site's variable WOFF2. Text sizes come
- * from the static @fontsource packages; the title uses a static cut of
- * Bricolage Grotesque at its display optical size (96) and weight 800, from
- * Google Fonts (src/assets/og/, OFL), because Fontsource's static files are
- * cut at the small optical size, which is wider and rounder than the hero's.
+ * Satori needs static fonts, not the site's variable WOFF2, so these come from
+ * the static @fontsource packages, which are only used here.
  */
 import { Resvg } from '@resvg/resvg-js';
 import { readFile } from 'node:fs/promises';
@@ -21,10 +18,28 @@ const asset = (path: string) => `src/assets/${path}`;
 const dataUri = async (path: string, type: string) =>
   `data:${type};base64,${(await readFile(path)).toString('base64')}`;
 
-// Light-theme values from theme.css: the OG image is always the light field.
-const field = '#c4461c';
-const fieldDeep = '#a93a14';
-const onField = '#fff6ec';
+// The hero field's values from theme.css (light theme for the disc).
+const field = '#141a3f';
+const fieldDeep = '#232a5e';
+const onField = '#eef1ff';
+// Fixed star positions (x, y in px, size), so every image gets the same sky.
+const stars = [
+  [96, 110, 3],
+  [240, 400, 2],
+  [430, 70, 2],
+  [560, 260, 4],
+  [700, 48, 2],
+  [880, 180, 3],
+  [1030, 96, 2],
+  [1120, 330, 2],
+  [170, 560, 3],
+  [380, 228, 2],
+  [660, 470, 2],
+  [820, 360, 2],
+  [1160, 40, 3],
+  [520, 590, 2],
+  [980, 560, 2],
+];
 
 type Style = Record<string, string | number>;
 type Node = { type: string; props: Record<string, unknown> };
@@ -40,16 +55,16 @@ const loadAssets = () =>
   (assets ??= (async () => ({
     fonts: [
       {
-        name: 'Bricolage',
+        name: 'Big Shoulders',
         weight: 700,
         style: 'normal',
-        data: await font('@fontsource/bricolage-grotesque', 'bricolage-grotesque-latin-700-normal.woff'),
+        data: await font('@fontsource/big-shoulders-display', 'big-shoulders-display-latin-700-normal.woff'),
       },
       {
-        name: 'Bricolage Display',
-        weight: 800,
+        name: 'Big Shoulders',
+        weight: 900,
         style: 'normal',
-        data: await readFile(asset('og/bricolage-grotesque-96-800.ttf')),
+        data: await font('@fontsource/big-shoulders-display', 'big-shoulders-display-latin-900-normal.woff'),
       },
       {
         name: 'Atkinson',
@@ -118,6 +133,18 @@ export async function renderOg({ title, titleSize, stacked = false, subtitle, fa
       color: onField,
       fontFamily: 'Atkinson',
     },
+    ...stars.map(([x, y, size]) =>
+      h('div', {
+        position: 'absolute',
+        left: x!,
+        top: y!,
+        width: size!,
+        height: size!,
+        borderRadius: '50%',
+        backgroundColor: onField,
+        opacity: 0.55,
+      }),
+    ),
     ring('back'),
     h('div', {
       position: 'absolute',
@@ -145,7 +172,11 @@ export async function renderOg({ title, titleSize, stacked = false, subtitle, fa
         },
         img(logo, { width: 34, height: 34 }),
       ),
-      h('div', { fontFamily: 'Bricolage', fontWeight: 700, fontSize: 26 }, 'planetmalone.com'),
+      h(
+        'div',
+        { fontFamily: 'Big Shoulders', fontWeight: 700, fontSize: 32, letterSpacing: 0.5 },
+        'planetmalone.com',
+      ),
     ),
     h(
       'div',
@@ -158,12 +189,12 @@ export async function renderOg({ title, titleSize, stacked = false, subtitle, fa
         {
           flexDirection: stacked ? 'column' : 'row',
           flexWrap: 'wrap',
-          columnGap: 0.22 * titleSize,
-          fontFamily: 'Bricolage Display',
-          fontWeight: 800,
+          columnGap: 0.2 * titleSize,
+          fontFamily: 'Big Shoulders',
+          fontWeight: 900,
           fontSize: titleSize,
           lineHeight: stacked ? 0.86 : 0.95,
-          letterSpacing: -0.05 * titleSize, // Satori ignores em units
+          letterSpacing: 0.005 * titleSize, // Satori ignores em units
         },
         ...title.split(' ').map((word) => h('div', {}, word)),
       ),

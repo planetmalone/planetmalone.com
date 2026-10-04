@@ -62,9 +62,9 @@ const { education, volunteer } = profile;
                   'grid-cols-[minmax(0,1fr)_28px] md:grid-cols-[104px_minmax(0,1fr)_28px]',
                 ]}
               >
-                <span class="pt-0.75 text-sm text-ink2 tabular-nums max-md:hidden">{dates}</span>
+                <span class="pt-0.75 font-mono text-sm text-ink2 max-md:hidden">{dates}</span>
                 <span class="grid gap-1">
-                  <span class="text-caption text-ink2 tabular-nums md:hidden">{dates}</span>
+                  <span class="font-mono text-caption text-ink2 md:hidden">{dates}</span>
                   <span class="text-lg font-bold">
                     {role.title}
                     {role.company && <span class="font-normal text-ink2"> · {role.company}</span>}

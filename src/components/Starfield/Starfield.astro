@@ -1,0 +1,26 @@
+---
+/**
+ * The hero's stars: a far and a near layer that drift slowly up and to the left,
+ * and shift a little against the mouse (parallax), the near layer more than the
+ * far. Anything else in the same parent with `data-parallax="<px>"` moves too
+ * (the hero's planet and ring). <pm-starfield> (./pmStarfield.ts) does the
+ * mouse part; the drift is CSS. Both stop when Motion is off.
+ *
+ * Each layer overhangs the hero, so neither the drift nor the parallax ever
+ * shows an edge: the inner sheet is larger than the layer by exactly the
+ * distance it slides per loop.
+ */
+---
+
+<pm-starfield class="pointer-events-none absolute inset-0" aria-hidden="true">
+  <span class="absolute -inset-6 overflow-hidden" data-parallax="2">
+    <span class="absolute top-0 left-0 h-[calc(100%+260px)] w-[calc(100%+1020px)] starfield-far animate-drift-far motion-reduce:animate-none"></span>
+  </span>
+  <span class="absolute -inset-6 overflow-hidden" data-parallax="4">
+    <span class="absolute top-0 left-0 h-[calc(100%+180px)] w-[calc(100%+660px)] starfield-near animate-drift-near motion-reduce:animate-none"></span>
+  </span>
+</pm-starfield>
+
+<script>
+  import './pmStarfield';
+</script>

@@ -8,7 +8,7 @@ export const getStaticPaths = (async () => {
   const [profile, cases] = await Promise.all([getSingleton('profile'), getCases()]);
   const home: OgContent = {
     title: profile.name,
-    titleSize: 120,
+    titleSize: 150,
     stacked: true,
     subtitle: profile.og.tagline,
     facts: profile.proof.map((p) => p.value),
@@ -20,7 +20,7 @@ export const getStaticPaths = (async () => {
       props: {
         og: {
           title: c.data.title,
-          titleSize: 76,
+          titleSize: 96,
           subtitle: `${c.data.company} · ${formatYearsCompact(c.data.years)} · Case study`,
           facts: c.data.tags,
         } satisfies OgContent,

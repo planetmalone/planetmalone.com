@@ -6,7 +6,7 @@
 interface Props {
   as?: 'p' | 'h3' | 'div';
   size?: 'xs' | 'sm' | 'md';
-  tone?: 'accent' | 'muted' | 'glass';
+  tone?: 'accent' | 'muted' | 'glass' | 'field';
 }
 
 const { as: Tag = 'p', size = 'sm', tone = 'accent' }: Props = Astro.props;
@@ -15,9 +15,9 @@ const sizes = { xs: 'text-xs', sm: 'text-caption', md: 'text-sm' };
 
 <Tag
   class:list={[
-    'font-text font-bold tracking-eyebrow uppercase',
+    'font-mono font-bold tracking-eyebrow uppercase',
     sizes[size],
-    { accent: 'text-accent', muted: 'text-ink2', glass: 'text-ink/80' }[tone],
+    { accent: 'text-accent', muted: 'text-ink2', glass: 'text-ink/80', field: 'text-c-accent' }[tone],
   ]}
 >
   <slot />

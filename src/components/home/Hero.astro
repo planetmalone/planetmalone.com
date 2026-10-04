@@ -6,6 +6,7 @@
 import { Picture } from 'astro:assets';
 import { Button } from '../Button';
 import { Clock } from '../Clock';
+import { Starfield } from '../Starfield';
 import { CopyEmail } from '../CopyEmail';
 import { getSingleton } from '../../utils/content';
 import { timeZoneLabel } from '../../utils/format';
@@ -37,12 +38,14 @@ const besideAvatar = 'lg:max-w-[min(680px,calc(100%-460px))]';
       its near half in front, so the ring wraps around the planet. Each half is
       the same ellipse, clipped in its own (rotated) coordinates.
     */}
-    <div class:list={[ring, '[clip-path:inset(0_0_50%_0)]']} aria-hidden="true"></div>
+    <Starfield />
+    <div class:list={[ring, '[clip-path:inset(0_0_50%_0)]']} data-parallax="6" aria-hidden="true"></div>
     <div
       class="absolute -right-12 -bottom-24 size-70 rounded-full bg-field-deep md:-right-10 md:-bottom-27.5 md:size-115 lg:size-145"
+      data-parallax="6"
       aria-hidden="true"
     ></div>
-    <div class:list={[ring, '[clip-path:inset(50%_0_0_0)]']} aria-hidden="true"></div>
+    <div class:list={[ring, '[clip-path:inset(50%_0_0_0)]']} data-parallax="6" aria-hidden="true"></div>
 
     <div class="relative mt-auto grid grid-cols-[minmax(0,1fr)] gap-5 md:max-w-[calc(100%-300px)] lg:max-w-none">
       <p class="flex w-fit items-center gap-2 rounded-pill bg-on-field px-3.5 py-1.5 text-sm font-semibold text-field-btn-ink">

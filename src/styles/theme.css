@@ -12,42 +12,44 @@
   /* Color */
   --color-*: initial;
   --color-transparent: transparent;
-  --color-bg: light-dark(#f7f2ea, #16120e);
-  --color-surface: light-dark(#fffbf5, #201a15);
-  --color-sunken: light-dark(#efe7db, #2a231c);
-  --color-line: light-dark(#e3d8c8, #362d25);
-  --color-ink: light-dark(#231c15, #f4ece0);
-  --color-ink2: light-dark(#5e5246, #b9ac9b);
-  --color-ink3: light-dark(#3a3027, #e6dccd);
+  /* Mission control: deep-space navies, a Persimmon "sun" accent, aurora mint. */
+  --color-bg: light-dark(#f4f5fb, #070b1a);
+  --color-surface: light-dark(#ffffff, #0f1530);
+  --color-sunken: light-dark(#e7eaf5, #1a2246);
+  --color-line: light-dark(#dde1f0, #232c52);
+  --color-ink: light-dark(#0b1030, #eef1ff);
+  --color-ink2: light-dark(#4c5378, #9aa3c7);
+  --color-ink3: light-dark(#1f2547, #dce1f7);
   --color-accent: light-dark(#be441b, #ff8a5b);
-  --color-field: light-dark(#c4461c, #ff8a5b);
-  --color-field-deep: light-dark(#a93a14, #f2774a);
-  --color-on-field: light-dark(#fff6ec, #16120e);
-  --color-field-btn-ink: light-dark(#231c15, #f4ece0);
-  --color-btn: light-dark(#231c15, #f4ece0);
-  --color-btn-ink: light-dark(#fffbf5, #16120e);
-  --color-green: light-dark(#2f5a3a, #8fcb9c);
-  --color-green-tint: light-dark(#e1ebdd, #1e3324);
-  --color-green-dot: light-dark(#3f7a4a, #2f7a45);
-  --color-metric: #8fcb9c;
-  --color-dark-card: light-dark(#231c15, #2a231c);
-  --color-dark-card-ink: light-dark(#f7f2ea, #f4ece0);
-  --color-dark-card-2: light-dark(#d9cdbc, #b9ac9b);
+  /* The hero field is deep space in both themes. */
+  --color-field: #141a3f;
+  --color-field-deep: light-dark(#232a5e, #2a2165);
+  --color-on-field: #eef1ff;
+  --color-field-btn-ink: #0b1030;
+  --color-btn: light-dark(#0b1030, #eef1ff);
+  --color-btn-ink: light-dark(#f4f5fb, #070b1a);
+  --color-green: light-dark(#127a5a, #7df9c2);
+  --color-green-tint: light-dark(#dcf3ea, #0f2e2a);
+  --color-green-dot: light-dark(#1f9d6e, #2fd39a);
+  --color-metric: #7df9c2;
+  --color-dark-card: #141a3f;
+  --color-dark-card-ink: #eef1ff;
+  --color-dark-card-2: light-dark(#b6bee0, #9aa3c7);
   --color-c-accent: #ff8a5b;
-  --color-c-accent-ink: #231c15;
-  --color-dark-card-line: #5a4c3f;
-  --color-draft-bg: light-dark(#fbeadf, #3a2418);
-  --color-draft-ink: light-dark(#6e2a10, #ffc9ae);
-  --color-stripe: light-dark(#e8dfd1, #332a22);
+  --color-c-accent-ink: #0b1030;
+  --color-dark-card-line: #34406e;
+  --color-draft-bg: light-dark(#fdebe4, #2e1f2a);
+  --color-draft-ink: light-dark(#7a2a10, #ffc9ae);
+  --color-stripe: light-dark(#e2e6f3, #1a2246);
   --color-paper: #fff;
   --color-print-accent: #8f3212;
   --color-print-rule: #cfc3b2;
   --color-glass-edge: light-dark(rgb(255 255 255 / 0.7), rgb(255 255 255 / 0.12));
-  --color-overlay: light-dark(rgb(35 28 21 / 0.45), rgb(0 0 0 / 0.6));
+  --color-overlay: light-dark(rgb(11 16 48 / 0.45), rgb(0 0 0 / 0.6));
   --color-logo-planet: light-dark(#c4461c, #ff8a5b);
-  --color-logo-outline: light-dark(#2a1f18, #16120e);
-  --color-logo-ring: light-dark(#2a1f18, #f4ece0);
-  --color-logo-moon: light-dark(#3f7a4a, #8fcb9c);
+  --color-logo-outline: light-dark(#0b1030, #070b1a);
+  --color-logo-ring: light-dark(#0b1030, #eef1ff);
+  --color-logo-moon: light-dark(#1f9d6e, #7df9c2);
 
   /* Radius */
   --radius-*: initial;
@@ -89,60 +91,60 @@
   --text-2xl: 24px;
   --text-card-title: 24px;
   --text-card-title--line-height: 1.12;
-  --text-card-title--letter-spacing: -0.02em;
+  --text-card-title--letter-spacing: 0.005em;
   --text-footer-title: 26px;
-  --text-footer-title--letter-spacing: -0.02em;
+  --text-footer-title--letter-spacing: 0.005em;
   --text-proof: 32px;
-  --text-proof--letter-spacing: -0.02em;
+  --text-proof--letter-spacing: 0.005em;
   --text-h2: 36px;
-  --text-h2--letter-spacing: -0.03em;
+  --text-h2--letter-spacing: 0.005em;
   --text-contact: 56px;
   --text-contact--line-height: 1;
-  --text-contact--letter-spacing: -0.04em;
+  --text-contact--letter-spacing: 0.005em;
   --text-population: 64px;
   --text-population--line-height: 1;
-  --text-population--letter-spacing: -0.04em;
+  --text-population--letter-spacing: 0.005em;
   --text-resume-name: 48px;
   --text-resume-name--line-height: 1;
-  --text-resume-name--letter-spacing: -0.04em;
+  --text-resume-name--letter-spacing: 0.005em;
   --text-page-lead: 19px;
   --text-page-lead--line-height: 1.5;
   --text-case-h2: 32px;
-  --text-case-h2--letter-spacing: -0.025em;
+  --text-case-h2--letter-spacing: 0.005em;
   --text-quote: 32px;
   --text-quote--line-height: 1.15;
-  --text-quote--letter-spacing: -0.02em;
+  --text-quote--letter-spacing: 0.005em;
   --text-budget: 34px;
   --text-budget--line-height: 1;
   --text-outcome: 36px;
   --text-outcome--line-height: 1;
-  --text-outcome--letter-spacing: -0.03em;
+  --text-outcome--letter-spacing: 0.005em;
   /* Page H1s: Now, Uses, Colophon (72px); case study (76px / 40px); 404 (104px / 64px). */
   --text-page-title: 72px;
   --text-page-title--line-height: 0.95;
-  --text-page-title--letter-spacing: -0.045em;
+  --text-page-title--letter-spacing: 0.005em;
   --text-case-title: 76px;
   --text-case-title--line-height: 0.98;
-  --text-case-title--letter-spacing: -0.045em;
+  --text-case-title--letter-spacing: 0.005em;
   --text-case-title-sm: 40px;
   --text-case-title-sm--line-height: 0.98;
-  --text-case-title-sm--letter-spacing: -0.045em;
+  --text-case-title-sm--letter-spacing: 0.005em;
   --text-lost: 104px;
   --text-lost--line-height: 0.9;
-  --text-lost--letter-spacing: -0.05em;
+  --text-lost--letter-spacing: 0.005em;
   --text-lost-sm: 64px;
   --text-lost-sm--line-height: 0.9;
-  --text-lost-sm--letter-spacing: -0.05em;
+  --text-lost-sm--letter-spacing: 0.005em;
   /* Hero name: 120px from 1180px, 88px from 900px, 60px on mobile. */
   --text-hero: 120px;
   --text-hero--line-height: 0.9;
-  --text-hero--letter-spacing: -0.045em;
+  --text-hero--letter-spacing: 0.005em;
   --text-hero-md: 88px;
   --text-hero-md--line-height: 0.9;
-  --text-hero-md--letter-spacing: -0.045em;
+  --text-hero-md--letter-spacing: 0.005em;
   --text-hero-sm: 60px;
   --text-hero-sm--line-height: 0.9;
-  --text-hero-sm--letter-spacing: -0.045em;
+  --text-hero-sm--letter-spacing: 0.005em;
 
   /* Uppercase eyebrow labels */
   --tracking-eyebrow: 0.08em;
@@ -157,6 +159,24 @@
     }
     to {
       transform: scaleX(1.15);
+    }
+  }
+
+  /*
+   * The hero's stars drifting up and to the left (Starfield.astro): three tiles
+   * across for every one up, about 15°. Whole tiles, so each loop is seamless.
+   * Near stars move about 4px/s, far ones about 2px/s.
+   */
+  --animate-drift-near: drift-near 170s linear infinite;
+  --animate-drift-far: drift-far 480s linear infinite;
+  @keyframes drift-near {
+    to {
+      transform: translate(-660px, -180px);
+    }
+  }
+  @keyframes drift-far {
+    to {
+      transform: translate(-1020px, -260px);
     }
   }
 
@@ -198,7 +218,8 @@
 /* Tokens that point at runtime variables: Astro's font stacks and the responsive gutters. */
 @theme inline {
   /* Astro's Fonts API includes metric-matched fallbacks in these stacks. */
-  --font-display: var(--font-bricolage);
+  --font-display: var(--font-big-shoulders);
+  --font-mono: var(--font-space-mono);
   --font-text: var(--font-atkinson);
   --spacing-gutter: var(--gutter);
   --spacing-gutter-sm: var(--gutter-sm);

@@ -63,9 +63,10 @@ const canonical = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Ast
     <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
-    <meta name="theme-color" content="#F7F2EA" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#16120E" media="(prefers-color-scheme: dark)" />
-    <Font cssVariable="--font-bricolage" preload />
+    <meta name="theme-color" content="#F4F5FB" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#070B1A" media="(prefers-color-scheme: dark)" />
+    <Font cssVariable="--font-big-shoulders" preload />
+    <Font cssVariable="--font-space-mono" preload={[{ weight: '700' }]} />
     <Font cssVariable="--font-atkinson" preload={[{ style: 'normal' }]} />
   </head>
   <body>

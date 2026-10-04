@@ -3,16 +3,16 @@
        dark-mode mark (logo-mark-dark.svg) when the browser is dark. -->
   <style>
     .planet { fill: #c4461c; }
-    .outline { stroke: #2a1f18; }
-    .texture { stroke: #2a1f18; opacity: .45; }
-    .ring { stroke: #2a1f18; }
-    .moon { fill: #3f7a4a; }
+    .outline { stroke: #0b1030; }
+    .texture { stroke: #0b1030; opacity: .45; }
+    .ring { stroke: #0b1030; }
+    .moon { fill: #1f9d6e; }
     @media (prefers-color-scheme: dark) {
       .planet { fill: #ff8a5b; }
-      .outline { stroke: #16120e; }
-      .texture { stroke: #16120e; opacity: .35; }
-      .ring { stroke: #f4ece0; }
-      .moon { fill: #8fcb9c; }
+      .outline { stroke: #070b1a; }
+      .texture { stroke: #070b1a; opacity: .35; }
+      .ring { stroke: #eef1ff; }
+      .moon { fill: #7df9c2; }
     }
   </style>
   <defs>
