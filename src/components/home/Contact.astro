@@ -1,6 +1,7 @@
 ---
 import { Button } from '../Button';
 import { CopyEmail } from '../CopyEmail';
+import { Doodle } from '../Doodle';
 import { SectionHeading } from '../SectionHeading';
 import { getSingleton } from '../../utils/content';
 
@@ -8,10 +9,11 @@ const profile = await getSingleton('profile');
 ---
 
 <section
-  class="grid scroll-mt-[90px] gap-5.5 rounded-field bg-dark-card px-5.5 py-7 text-dark-card-ink md:p-11"
+  class="relative grid scroll-mt-[90px] gap-5.5 rounded-field bg-dark-card px-5.5 py-7 text-dark-card-ink md:p-11"
   id="contact"
   aria-labelledby="contact-heading"
 >
+  <Doodle name="planet" class="absolute top-5 right-4 w-24 text-on-field/70 md:top-6 md:right-8 md:w-56" />
   <SectionHeading id="contact-heading" size="xl">
     Say hello<span class="text-c-accent">.</span>
   </SectionHeading>

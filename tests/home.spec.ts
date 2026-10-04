@@ -25,6 +25,14 @@ test.describe('Home', () => {
     await expect.poll(() => home.rocketDistanceTo('us-army'), { timeout: 5000 }).toBeLessThan(50);
   });
 
+  test('the census dragon ducks out of view and pops up in it', async ({ home, page }) => {
+    await expect(home.dragon).toHaveAttribute('ducked', '');
+    await home.section('about').scrollIntoViewIfNeeded();
+    await expect(home.dragon).not.toHaveAttribute('ducked');
+    await page.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+    await expect(home.dragon).toHaveAttribute('ducked', '');
+  });
+
   test('bio switcher shows one length at a time', async ({ home }) => {
     expect(await home.visibleBios()).toEqual(['short']);
     await home.chooseBioLength('Way too long');

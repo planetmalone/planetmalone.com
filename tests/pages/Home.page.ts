@@ -13,6 +13,7 @@ export class HomePage extends Site {
   readonly clock: Locator;
   readonly resume: Locator;
   readonly caseCardLinks: Locator;
+  readonly dragon: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -26,6 +27,7 @@ export class HomePage extends Site {
     this.clock = page.locator('pm-clock time');
     this.resume = page.locator('.resume');
     this.caseCardLinks = page.locator('#impact h3 a');
+    this.dragon = page.locator('pm-dragon');
   }
 
   goto() {

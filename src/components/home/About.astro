@@ -6,6 +6,8 @@
  * reads well without JS. The switcher needs JS, so it's hidden without it;
  * <pm-bio> (./pmBio.ts) swaps the bios.
  */
+import { Doodle } from '../Doodle';
+import { Dragon } from '../Dragon';
 import { Eyebrow } from '../Eyebrow';
 import { SectionHeading } from '../SectionHeading';
 import { SegmentedControl } from '../SegmentedControl';
@@ -62,7 +64,9 @@ const prose = [
         ))}
       </div>
 
-      <div class="grid content-start gap-3 rounded-card border bg-surface p-5.5 tabular-nums">
+      <div class="relative mt-14 grid content-start gap-3 self-start rounded-card bg-surface p-5.5 tabular-nums">
+        <Doodle name="frame" class="text-ink" />
+        <Dragon class="absolute right-5 bottom-[calc(100%-6px)] w-28" />
         <Eyebrow as="h3">{population.title}</Eyebrow>
         <p class="font-display text-population font-extrabold">{countPopulation(population.residents)}</p>
         <dl class="grid grid-cols-[1fr_auto] gap-y-1.5 text-ui">
