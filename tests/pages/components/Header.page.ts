@@ -1,6 +1,9 @@
 import type { Locator, Page } from '@playwright/test';
 
-/** The sticky site header: page links, ⌘K button, theme button and mobile Menu. */
+/**
+ * The sticky site header: page links, ⌘K button, theme button and mobile Menu.
+ * On the home page it's clear over the hero (`data-over-hero`), then glass.
+ */
 export class Header {
   readonly root: Locator;
   readonly paletteButton: Locator;
@@ -10,7 +13,7 @@ export class Header {
   readonly currentPage: Locator;
 
   constructor(readonly page: Page) {
-    this.root = page.locator('header').first();
+    this.root = page.locator('[data-site-header]');
     this.paletteButton = page.locator('[data-open-palette]');
     this.themeButton = page.locator('[data-theme-toggle]');
     this.menuButton = page.locator('[data-menu-open]');

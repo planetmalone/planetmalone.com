@@ -34,14 +34,6 @@ test.describe('Keyboard', () => {
     expect(missing).toEqual([]);
   });
 
-  test('role cards open from the keyboard', async ({ home, page }) => {
-    await home.goto();
-    const summary = home.roleSummary('Principal Frontend Architect');
-    await summary.focus();
-    await page.keyboard.press('Enter');
-    await expect(summary.locator('..')).toHaveAttribute('open', '');
-  });
-
   test('the mobile menu traps focus and closes with Escape', async ({ home, page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await home.goto();

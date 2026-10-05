@@ -34,7 +34,8 @@ export class PmPalette extends HTMLElement {
       const i = this.#visible.indexOf(this.#optionAt(e)!);
       if (i >= 0 && i !== this.#index) this.#select(i, false);
     });
-    this.#listen(this.#dialog, 'close', () => paletteOpen.set(false));
+    // The close event arrives a moment late: ignore it if the palette has been reopened since.
+    this.#listen(this.#dialog, 'close', () => this.#dialog.open || paletteOpen.set(false));
     // Clicks on the backdrop land on the dialog element itself.
     this.#listen(this.#dialog, 'click', (e) => e.target === this.#dialog && this.#dialog.close());
     this.#listen(document, 'keydown', (e) => this.#onShortcut(e as KeyboardEvent));
@@ -168,7 +169,9 @@ function go(href: string) {
 
 function isTyping() {
   const el = document.activeElement as HTMLElement | null;
-  return !!el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName));
+  // Focus can linger in the palette's input for a moment after its dialog closes.
+  if (!el || el.closest('dialog:not([open])')) return false;
+  return el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName);
 }
 
 if (!customElements.get('pm-palette')) customElements.define('pm-palette', PmPalette);

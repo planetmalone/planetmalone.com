@@ -1,32 +1,16 @@
 ---
 /**
- * About: the bio-length switcher, the population census and hobby photos.
- *
- * All four bios are server-rendered and only "Short" is visible, so the page
- * reads well without JS. The switcher needs JS, so it's hidden without it;
- * <pm-bio> (./pmBio.ts) swaps the bios.
+ * About: the bio, the population census and hobby photos.
  */
+import { Picture } from 'astro:assets';
 import { Doodle } from '../Doodle';
 import { Dragon } from '../Dragon';
 import { Eyebrow } from '../Eyebrow';
 import { SectionHeading } from '../SectionHeading';
-import { SegmentedControl } from '../SegmentedControl';
 import { getSingleton } from '../../utils/content';
 import { countPopulation } from '../../utils/format';
 
-const { bios, population, hobbies } = await getSingleton('about');
-
-const lengths = [
-  { value: 'facts', label: bios.facts.label },
-  { value: 'short', label: bios.short.label },
-  { value: 'long', label: bios.long.label },
-  { value: 'way', label: bios.way.label },
-];
-const prose = [
-  { key: 'short', paragraphs: bios.short.paragraphs },
-  { key: 'long', paragraphs: bios.long.paragraphs },
-  { key: 'way', paragraphs: bios.way.paragraphs },
-];
+const { bio, population, hobbies } = await getSingleton('about');
 ---
 
 <section
@@ -34,73 +18,61 @@ const prose = [
   id="about"
   aria-labelledby="about-heading"
 >
-  <pm-bio class="contents" length="short">
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <SectionHeading id="about-heading">About</SectionHeading>
-      <SegmentedControl
-        name="bio"
-        legend="Bio length"
-        options={lengths}
-        checked="short"
-        size="md"
-        class="needs-js"
-        data-bio-options
-      />
-    </div>
+  <SectionHeading id="about-heading">About</SectionHeading>
 
-    <div class="grid gap-7 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
-      <div class="text-lg/[1.6]" aria-live="polite" data-bio>
-        <ul class="grid list-disc gap-2 pl-5" data-bio-length="facts" hidden>
-          {bios.facts.items.map((item) => (
-            <li>{item}</li>
-          ))}
-        </ul>
-        {prose.map((b) => (
-          <div class="grid gap-3.5" data-bio-length={b.key} hidden={b.key !== 'short'}>
-            {b.paragraphs.map((p) => (
-              <p>{p}</p>
-            ))}
-          </div>
-        ))}
-      </div>
-
-      <div class="relative mt-14 grid content-start gap-3 self-start rounded-card bg-surface p-5.5 tabular-nums">
-        <Doodle name="frame" class="text-ink" />
-        <Dragon class="absolute right-5 bottom-[calc(100%-6px)] w-28" />
-        <Eyebrow as="h3">{population.title}</Eyebrow>
-        <p class="font-display text-population font-extrabold">{countPopulation(population.residents)}</p>
-        <dl class="grid grid-cols-[1fr_auto] gap-y-1.5 text-ui">
-          {population.residents.map((r) => (
-            <>
-              <dt>{r.label}</dt>
-              <dd class="font-bold">{r.count}</dd>
-            </>
-          ))}
-        </dl>
-        <p class="text-caption text-ink2">{population.caption}</p>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-3.5 md:grid-cols-4">
-      {hobbies.map((h) => (
-        <figure class="grid gap-2">
-          {/* Placeholder until Sean supplies the photo */}
-          <div
-            class="grid aspect-4/3 place-items-center rounded-photo bg-[repeating-linear-gradient(135deg,var(--color-sunken)_0_10px,var(--color-stripe)_10px_20px)] p-2 text-center text-xs text-ink2"
-            role="img"
-            aria-label={h.photoDraft}
-          >
-            {h.photoDraft}
-          </div>
-          <figcaption class="text-sm/[1.4]">
-            <b>{h.name}</b> {h.caption}
-          </figcaption>
-        </figure>
+  <div class="grid gap-7 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+    <div class="grid gap-3.5 text-lg/[1.6]">
+      {bio.map((p) => (
+        <p>{p}</p>
       ))}
     </div>
-  </pm-bio>
-</section>
 
-<script>
-  import './pmBio';
-</script>
+    <div class="relative mt-14 grid content-start gap-3 self-start rounded-card bg-surface p-5.5 tabular-nums">
+      <Doodle name="frame" class="text-ink" />
+      <Dragon class="absolute right-5 bottom-[calc(100%-6px)] w-28" />
+      <Eyebrow as="h3">{population.title}</Eyebrow>
+      <p class="font-display text-population font-extrabold">{countPopulation(population.residents)}</p>
+      <dl class="grid grid-cols-[1fr_auto] gap-y-1.5 text-ui">
+        {population.residents.map((r) => (
+          <>
+            <dt>{r.label}</dt>
+            <dd class="font-bold">{r.count}</dd>
+          </>
+        ))}
+      </dl>
+      <p class="text-caption text-ink2">{population.caption}</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-[repeat(2,minmax(0,1fr))] gap-x-5 gap-y-7 md:grid-cols-[repeat(4,minmax(0,1fr))] md:gap-x-8">
+    {hobbies.map((h) => (
+      <figure class="grid grid-cols-[minmax(0,1fr)] content-start gap-2">
+        {/* A fixed 4:3 frame: the photo covers it, cropped to fit; until then, a striped placeholder. */}
+        <div class="relative aspect-4/3 w-full overflow-hidden rounded-photo bg-[repeating-linear-gradient(135deg,var(--color-sunken)_0_10px,var(--color-stripe)_10px_20px)]">
+          {h.photo ? (
+            <Picture
+              src={h.photo}
+              alt={h.photoDraft.replace(/^Photo: /, '')}
+              formats={['avif', 'webp']}
+              widths={[340, 680]}
+              sizes="(max-width: 899px) 50vw, 300px"
+              class="absolute inset-0 size-full object-cover"
+              pictureAttributes={{ class: 'contents' }}
+            />
+          ) : (
+            <span
+              class="absolute inset-0 grid place-items-center p-2 text-center text-xs text-ink2"
+              role="img"
+              aria-label={h.photoDraft}
+            >
+              {h.photoDraft}
+            </span>
+          )}
+        </div>
+        <figcaption class="text-sm/[1.4]">
+          <b>{h.name}</b> {h.caption}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+</section>

@@ -1,126 +1,180 @@
 ---
 /**
- * Experience: the scenic route (FlightPath), the role cards and education.
- *
- * Role cards are <details> sharing a `name`, so the browser keeps one open at a
- * time with no JS; the first is open on load. <pm-experience>
- * (./pmExperience.ts) publishes the open role, and the flight path shows it.
+ * Experience: the journey so far, oldest first, down a wavy flight path. Each
+ * role is a planet on the path (the degree, a satellite), with its start year
+ * on one side and the role on the other, swapping sides down the page on
+ * desktop (on phones the path runs down the left). As you scroll,
+ * <pm-experience> (./pmExperience.ts) draws the path through the planets and
+ * flies the rocket to the planet you've reached, turning around when you scroll
+ * back up. The path and rocket are decoration, hidden from screen readers;
+ * without JS the roles still read top to bottom.
  */
+import { Image } from 'astro:assets';
 import { Chip } from '../Chip';
-import { FlightPath } from '../FlightPath';
+import { Planet } from '../Planet';
 import { SectionHeading } from '../SectionHeading';
 import { getRoles, getSingleton } from '../../utils/content';
 import { formatYears } from '../../utils/format';
 
-const [experience, roles, profile] = await Promise.all([
-  getSingleton('experience'),
-  getRoles(),
-  getSingleton('profile'),
-]);
-const currentRole = roles[0]?.id;
-// The flight path runs oldest to newest.
-const route = roles
-  .map((r) => ({ id: r.id, stage: r.data.stage, name: r.data.company ?? r.data.title }))
-  .reverse();
-const { education, volunteer } = profile;
+const [roles, profile] = await Promise.all([getRoles(), getSingleton('profile')]);
+const { education } = profile;
+
+type Stop = {
+  id: string;
+  start: number;
+  dates: string;
+  title: string;
+  company?: string | undefined;
+  /** The one-line description: a role's scope, or the degree's honors. */
+  note?: string | undefined;
+  tech: string[];
+  caseStudy?: string | undefined;
+  satellite?: boolean;
+};
+
+// Oldest first, with the degree slotted in by year as a satellite.
+const stops: Stop[] = [...roles].reverse().map(({ id, data }) => ({
+  id,
+  start: data.years.start,
+  dates: formatYears(data.years),
+  title: data.title,
+  company: data.company,
+  tech: data.tech,
+  note: data.scope,
+  caseStudy: data.caseStudy?.id,
+}));
+const school: Stop = {
+  id: 'ut-dallas',
+  start: education.year,
+  dates: String(education.year),
+  title: education.degree,
+  company: education.school,
+  note: education.honors,
+  tech: [],
+  satellite: true,
+};
+const at = stops.findIndex((s) => s.start >= education.year);
+stops.splice(at < 0 ? stops.length : at, 0, school);
+
+// Company logos, by stop id: src/assets/logos/<id>.svg (or .png, .webp, .jpg).
+const logoFiles = import.meta.glob<{ default: ImageMetadata }>('../../assets/logos/*.{svg,png,webp,jpg}', {
+  eager: true,
+});
+const logos = Object.fromEntries(
+  Object.entries(logoFiles).map(([path, mod]) => [
+    path
+      .split('/')
+      .pop()!
+      .replace(/\.\w+$/, ''),
+    mod.default,
+  ]),
+);
 ---
 
 <section class="grid scroll-mt-[90px] gap-6" id="experience" aria-labelledby="experience-heading">
-  <pm-experience class="contents" default-role={currentRole}>
-    <SectionHeading id="experience-heading">Experience</SectionHeading>
+  <SectionHeading id="experience-heading">Experience</SectionHeading>
 
-    {/* Sticks under the 65px header while the role cards scroll beneath it */}
-    <div class="sticky top-[65px] z-10 -my-3 bg-bg py-3">
-      <FlightPath
-        label={experience.routeLabel}
-        stages={experience.stages}
-        roles={route}
-        current={currentRole}
-      />
-    </div>
+  <pm-experience class="relative block">
+    <svg class="pointer-events-none absolute inset-0 size-full overflow-visible" aria-hidden="true">
+      <path
+        class="fill-none stroke-ink2/45 [stroke-dasharray:2_9]"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        data-path
+      ></path>
+    </svg>
 
-    <ol class="grid gap-2.5">
-      {roles.map(({ id, data: role }, i) => {
-        const dates = formatYears(role.years);
+    <ol class="relative grid">
+      {stops.map((stop, i) => {
+        // Even stops put the role on the right of the path, odd ones on the left (desktop).
+        const right = i % 2 === 0;
+        const logo = logos[stop.id];
         return (
-          <li>
-            <details
+          <li
+            class="group grid grid-cols-[80px_minmax(0,1fr)] items-center gap-x-4 py-20 md:grid-cols-[minmax(0,1fr)_300px_minmax(0,1fr)] md:gap-x-6 md:py-32"
+            data-stop={stop.id}
+          >
+            <span
               class:list={[
-                'group rounded-tile border bg-surface transition-colors duration-150 open:border-ink hover:border-accent',
-                // Animate the height as the card opens and closes
-                'details-content:h-0 details-content:overflow-clip open:details-content:h-auto',
-                'details-content:transition-[height,content-visibility] details-content:transition-discrete details-content:duration-200 details-content:ease-standard',
+                'grid place-items-center transition-[scale] duration-300 ease-standard group-data-current:scale-125 md:col-start-2 md:row-start-1',
+                right ? '-translate-x-4.5 md:-translate-x-27' : 'translate-x-4.5 md:translate-x-27',
               ]}
-              name="role"
-              open={i === 0}
-              data-stage={role.stage}
-              data-role={id}
+              data-planet
             >
-              <summary
-                class:list={[
-                  'grid cursor-pointer list-none items-start gap-4.5 rounded-tile px-5 py-4.5 [&::-webkit-details-marker]:hidden',
-                  'grid-cols-[minmax(0,1fr)_28px] md:grid-cols-[104px_minmax(0,1fr)_28px]',
-                ]}
-              >
-                <span class="pt-0.75 font-mono text-sm text-ink2 max-md:hidden">{dates}</span>
-                <span class="grid gap-1">
-                  <span class="font-mono text-caption text-ink2 md:hidden">{dates}</span>
-                  <span class="text-lg font-bold">
-                    {role.title}
-                    {role.company && <span class="font-normal text-ink2"> · {role.company}</span>}
-                  </span>
-                  <span class="text-ui/[1.45] text-ink2">{role.scope}</span>
-                </span>
-                <span
+              <Planet look={stop.satellite ? 'satellite' : i} size={52} />
+            </span>
+            <p
+              class:list={[
+                'font-display text-hero-sm font-bold text-ink2/45 max-md:hidden md:row-start-1',
+                right ? 'md:col-start-1 md:text-right' : 'md:col-start-3',
+              ]}
+              aria-hidden="true"
+            >
+              {stop.start}
+            </p>
+            <div
+              class:list={[
+                'grid gap-2 md:row-start-1',
+                right ? 'md:col-start-3' : 'md:col-start-1 md:justify-items-end md:text-right',
+              ]}
+            >
+              <p class="font-mono text-sm text-ink2">{stop.dates}</p>
+              <h3 class="text-card-title font-bold text-pretty">{stop.title}</h3>
+              {(stop.company || logo) && (
+                <p
                   class:list={[
-                    'grid size-7 place-items-center rounded-full border font-bold text-accent',
-                    'group-open:border-btn group-open:bg-btn group-open:text-btn-ink',
+                    'flex items-center gap-2.5 text-lg text-ink2',
+                    { 'md:flex-row-reverse': !right },
                   ]}
-                  aria-hidden="true"
                 >
-                  <span class="group-open:hidden">+</span>
-                  <span class="hidden group-open:inline">−</span>
-                </span>
-              </summary>
-
-              <div class="grid gap-3.5 px-5 pb-5 md:pl-35.5">
-                <ul class="grid list-[circle] gap-1.5 pl-4.5 leading-normal">
-                  {role.wins.map((w) => (
-                    <li>{w}</li>
+                  {logo && <Image src={logo} alt="" height={28} class="h-7 w-auto" />}
+                  {stop.company}
+                </p>
+              )}
+              {stop.note && <p class="max-w-110 text-ui/normal text-ink3">{stop.note}</p>}
+              {stop.tech.length > 0 && (
+                <ul class:list={['flex flex-wrap gap-1.5', { 'md:justify-end': !right }]} aria-label="Tech">
+                  {stop.tech.map((t) => (
+                    <Chip as="li" kind="tech">
+                      {t}
+                    </Chip>
                   ))}
                 </ul>
-                {role.tech.length > 0 && (
-                  <ul class="flex flex-wrap gap-1.5" aria-label="Tech">
-                    {role.tech.map((t) => (
-                      <Chip as="li" kind="tech">
-                        {t}
-                      </Chip>
-                    ))}
-                  </ul>
-                )}
-                {role.aside && <p class="text-sm text-accent italic">{role.aside}</p>}
-                {role.caseStudy && (
-                  <a class="text-ui font-bold" href={`/work/${role.caseStudy.id}`}>
-                    Read the case study →
-                  </a>
-                )}
-              </div>
-            </details>
+              )}
+              {stop.caseStudy && (
+                <a class="text-ui font-bold" href={`/work/${stop.caseStudy}`}>
+                  Read the case study →
+                </a>
+              )}
+            </div>
           </li>
         );
       })}
     </ol>
 
-    <div class="grid gap-4.5 text-ui/normal md:grid-cols-2">
-      <p>
-        <b>{education.degree}</b>, {education.school}, {education.year}
-        <span class="block text-ink2">{education.honors}</span>
-      </p>
-      <p>
-        <b>{volunteer.org}</b>, {volunteer.since} - present
-        <span class="block text-ink2">{volunteer.note}</span>
-      </p>
-    </div>
+    {/* The rocket, pointing right; <pm-experience> places and turns it. */}
+    <span class="pointer-events-none absolute top-0 left-0 z-1 print:hidden" aria-hidden="true" data-rocket>
+      <svg viewBox="0 0 40 22" width="40" height="22" class="block overflow-visible">
+        <path class="origin-[8px_11px] animate-flicker fill-accent" d="M8 7 L-2 11 L8 15 Z"></path>
+        <path
+          class="origin-[8px_11px] animate-flicker fill-c-accent [animation-delay:-0.15s]"
+          d="M8 9 L2 11 L8 13 Z"
+        ></path>
+        <path
+          class="fill-surface stroke-ink"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+          d="M8 5 H25 C32 5 37 8 39 11 C37 14 32 17 25 17 H8 Z"
+        ></path>
+        <path
+          class="fill-accent stroke-ink"
+          stroke-width="1.6"
+          stroke-linejoin="round"
+          d="M11 5 L7 0 L17 5 Z M11 17 L7 22 L17 17 Z"
+        ></path>
+        <circle class="fill-green stroke-ink" stroke-width="1.6" cx="27" cy="11" r="3"></circle>
+      </svg>
+    </span>
   </pm-experience>
 </section>
 

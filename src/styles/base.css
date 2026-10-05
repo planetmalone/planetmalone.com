@@ -131,6 +131,11 @@
   navigation: auto;
 }
 
+/* The starfield's drift stops while the page is left (PageTransitions.astro). */
+html[data-leaving] pm-starfield * {
+  animation: none !important;
+}
+
 @page resume {
   size: letter;
   margin: 64px 72px;
@@ -180,4 +185,66 @@
     radial-gradient(circle at 310px 230px, var(--star) 1.4px, transparent 2px),
     radial-gradient(circle at 150px 40px, var(--star) 1px, transparent 1.6px);
   background-size: 340px 260px;
+}
+
+/*
+ * The hero's horizon (Hero.astro): the page's own color rising as a planet's
+ * curve, edged with a thin Persimmon atmosphere that tapers toward the sides,
+ * and a soft glow above it (Persimmon, with a hint of mint further out).
+ */
+@utility horizon {
+  border-radius: 50%;
+  background: var(--color-bg);
+  border-top: 2px solid color-mix(in oklab, var(--color-c-accent) 85%, transparent);
+}
+
+/*
+ * Light mode: the planet's surface (the horizon and the strip of it below the
+ * fold, Hero.astro) starts in dark mode's night color, matching the sky, and
+ * brightens through a dusky indigo to the page over the strip's height of
+ * scrolling, so it matches the page by the time the hero's bottom edge shows.
+ * Dark mode's page is already night.
+ */
+@utility planet-dawn {
+  @supports (animation-timeline: scroll()) {
+    animation: planet-dawn linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 25svh;
+  }
+  @variant dark {
+    animation: none;
+  }
+}
+@keyframes planet-dawn {
+  from {
+    background-color: #070b1a;
+  }
+  50% {
+    background-color: #3c4796;
+  }
+}
+@utility horizon-glow {
+  border-radius: 50%;
+  box-shadow:
+    0 0 50px 8px color-mix(in oklab, var(--color-c-accent) 40%, transparent),
+    0 0 140px 40px color-mix(in oklab, var(--color-metric) 10%, transparent);
+}
+
+/*
+ * Fades out and drifts up over the first 60% of a screen of scrolling: the
+ * hero's words, as the hero gives way to the page. Only where
+ * scroll-driven animations exist; elsewhere it simply stays.
+ */
+@utility scroll-fade {
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 60svh;
+  }
+}
+@keyframes scroll-fade {
+  to {
+    opacity: 0;
+    translate: 0 -40px;
+  }
 }

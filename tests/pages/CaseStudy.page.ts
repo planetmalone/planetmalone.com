@@ -5,11 +5,13 @@ import { Site } from './Site.page';
 export class CaseStudyPage extends Site {
   readonly title: Locator;
   readonly neighborTitles: Locator;
+  readonly backHome: Locator;
 
   constructor(page: Page) {
     super(page);
     this.title = page.locator('main h1');
     this.neighborTitles = page.locator('nav[aria-label="More case studies"] b');
+    this.backHome = page.getByRole('link', { name: '← Back to Planet Malone' });
   }
 
   goto(slug: string) {

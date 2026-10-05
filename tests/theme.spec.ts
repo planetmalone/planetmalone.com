@@ -48,9 +48,7 @@ test.describe('Theme and motion', () => {
       expect(await home.page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior)).toBe(
         'auto',
       );
-      expect(await home.roleCards.first().evaluate((el) => getComputedStyle(el).transitionDuration)).toBe(
-        '0s',
-      );
+      expect(await home.header.root.evaluate((el) => getComputedStyle(el).transitionDuration)).toBe('0s');
     });
   });
 

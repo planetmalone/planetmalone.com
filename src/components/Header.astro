@@ -7,9 +7,11 @@ import { pages, sections, type PageKey } from '../data/site';
 
 interface Props {
   current?: PageKey | undefined;
+  /** Starts transparent over a full-screen hero, then turns to glass once the hero's horizon clears it. */
+  overHero?: boolean;
 }
 
-const { current } = Astro.props;
+const { current, overHero = false } = Astro.props;
 
 const menuItems = [
   ...sections.map((s) => ({ label: s.label, href: `/#${s.id}`, current: false })),
@@ -19,7 +21,18 @@ const menuItems = [
 
 <SkipLink />
 
-<header class="sticky top-0 z-20 border-b-1 bg-bg print:hidden">
+<header
+  class:list={[
+    // Glassmorphism: a faint white fill, heavy blur, a thin light edge and a soft shadow.
+    'sticky top-0 z-20 border-b border-glass-edge bg-surface/20 text-ink shadow-glass backdrop-blur-xl backdrop-saturate-150 print:hidden',
+    'transition-[background-color,border-color,box-shadow] duration-300 dark:bg-ink/6',
+    '[@media(prefers-reduced-transparency:reduce)]:not-data-over-hero:bg-surface',
+    // Over the hero: clear, with dark-theme colors so it reads on the navy.
+    'data-over-hero:border-transparent data-over-hero:bg-transparent data-over-hero:shadow-none data-over-hero:backdrop-filter-none data-over-hero:scheme-dark',
+  ]}
+  data-over-hero={overHero ? '' : undefined}
+  data-site-header
+>
   <div class="mx-auto flex max-w-page items-center justify-between gap-3 px-gutter py-2.5">
     <a
       class="flex min-h-11 items-center gap-2.5 text-ink no-underline"
@@ -101,7 +114,12 @@ const menuItems = [
 <script>
   import { theme } from '../stores/theme';
   import { paletteOpen } from '../stores/palette';
+  import { overHero } from '../stores/hero';
   import { toggleThemeFrom } from '../utils/themeReveal';
+
+  // Over the home hero: the server marks it; the hero's horizon updates it once it knows.
+  const header = document.querySelector<HTMLElement>('[data-site-header]')!;
+  overHero.subscribe((over) => over !== undefined && header.toggleAttribute('data-over-hero', over));
 
   // Theme toggle: light ↔ dark, with a circular reveal from the click point.
   const themeBtn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]')!;

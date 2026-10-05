@@ -18,6 +18,17 @@ test.describe('Other routes', () => {
     await notFound.palette.expectOpen();
   });
 
+  test('back to Planet Malone lands on Selected impact, with the cards in view', async ({
+    caseStudy,
+    home,
+    page,
+  }) => {
+    await caseStudy.goto('micro-frontend-platform');
+    await caseStudy.backHome.click();
+    await expect(page).toHaveURL(/\/#impact$/);
+    await expect(home.caseCardLinks.filter({ hasText: 'Micro-frontend platform' })).toBeInViewport();
+  });
+
   test('home card → case study morphs exactly one title', async ({ home, caseStudy, page }) => {
     await page.addInitScript(() =>
       addEventListener('pagereveal', (e) => {

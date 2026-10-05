@@ -12,25 +12,25 @@
   /* Color */
   --color-*: initial;
   --color-transparent: transparent;
-  /* Mission control: deep-space navies, a Persimmon "sun" accent, aurora mint. */
-  --color-bg: light-dark(#f4f5fb, #070b1a);
+  /*
+   * Mission control: deep-space navies, a Persimmon "sun" accent, aurora mint.
+   * Light mode's page is a soft "moon dust" gray-blue, dimmer than white.
+   */
+  --color-bg: light-dark(#dde1ec, #070b1a);
   --color-surface: light-dark(#ffffff, #0f1530);
-  --color-sunken: light-dark(#e7eaf5, #1a2246);
-  --color-line: light-dark(#dde1f0, #232c52);
+  --color-sunken: light-dark(#d2d7e5, #1a2246);
+  --color-line: light-dark(#c8cfe0, #232c52);
   --color-ink: light-dark(#0b1030, #eef1ff);
   --color-ink2: light-dark(#4c5378, #9aa3c7);
   --color-ink3: light-dark(#1f2547, #dce1f7);
-  --color-accent: light-dark(#be441b, #ff8a5b);
+  --color-accent: light-dark(#a53a15, #ff8a5b);
   /* The hero field is deep space in both themes. */
   --color-field: #141a3f;
-  --color-field-deep: light-dark(#232a5e, #2a2165);
   --color-on-field: #eef1ff;
   --color-field-btn-ink: #0b1030;
   --color-btn: light-dark(#0b1030, #eef1ff);
   --color-btn-ink: light-dark(#f4f5fb, #070b1a);
-  --color-green: light-dark(#127a5a, #7df9c2);
-  --color-green-tint: light-dark(#dcf3ea, #0f2e2a);
-  --color-green-dot: light-dark(#1f9d6e, #2fd39a);
+  --color-green: light-dark(#10694c, #7df9c2);
   --color-metric: #7df9c2;
   --color-dark-card: #141a3f;
   --color-dark-card-ink: #eef1ff;
@@ -40,7 +40,7 @@
   --color-dark-card-line: #34406e;
   --color-draft-bg: light-dark(#fdebe4, #2e1f2a);
   --color-draft-ink: light-dark(#7a2a10, #ffc9ae);
-  --color-stripe: light-dark(#e2e6f3, #1a2246);
+  --color-stripe: light-dark(#cdd3e3, #1a2246);
   --color-paper: #fff;
   --color-print-accent: #8f3212;
   --color-print-rule: #cfc3b2;
@@ -70,6 +70,7 @@
   --shadow-dialog: 0 24px 60px rgb(0 0 0 / 0.35);
   --shadow-menu: 0 20px 50px rgb(0 0 0 / 0.3);
   --shadow-toast: 0 12px 30px rgb(0 0 0 / 0.25);
+  --shadow-glass: 0 8px 32px rgb(11 16 48 / 0.1);
 
   /* Layout: one breakpoint (900px), plus a hero step at 1180px */
   --breakpoint-*: initial;
@@ -98,8 +99,6 @@
   --text-card-title--letter-spacing: 0.005em;
   --text-footer-title: 26px;
   --text-footer-title--letter-spacing: 0.005em;
-  --text-proof: 32px;
-  --text-proof--letter-spacing: 0.005em;
   --text-h2: 36px;
   --text-h2--letter-spacing: 0.005em;
   --text-contact: 56px;
@@ -196,6 +195,22 @@
     to {
       opacity: 0;
       transform: translate(-50%, -50%) scale(2.4);
+    }
+  }
+
+  /* The hero's horizon atmosphere, slowly breathing. */
+  --animate-glow: glow 4s ease-in-out infinite alternate;
+  @keyframes glow {
+    from {
+      opacity: 0.6;
+    }
+  }
+
+  /* The hero's status light, softly blinking. */
+  --animate-pulse: pulse 2.4s ease-in-out infinite;
+  @keyframes pulse {
+    50% {
+      opacity: 0.3;
     }
   }
 

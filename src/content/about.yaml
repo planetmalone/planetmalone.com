@@ -1,25 +1,7 @@
-bios:
-  facts:
-    label: Just the facts
-    items:
-      - Staff Frontend Engineer at Aspira. 18+ years in tech; led teams up to 50+.
-      - B.S. Computer Science, UT Dallas (4.0, Summa Cum Laude). U.S. Army · 2003-2011 · Honorable discharge.
-      - Dallas-Fort Worth, remote, Central Time.
-  short:
-    label: Short
-    paragraphs:
-      - &intro Sean is a frontend engineer and engineering leader in Dallas-Fort Worth. He builds design systems and frontend platforms, and has led teams of up to 50+ people. Today he is a Staff Frontend Engineer at Aspira.
-  long:
-    label: Long
-    paragraphs:
-      - *intro
-      - &route 'He took the scenic route: the U.S. Army, a CS degree from UT Dallas, consulting, directing a 50-person practice, then back to hands-on Staff work by choice. He volunteers with Dallas Area Habitat for Humanity and has framed two homes. Off the clock: 3D modeling and printing, woodworking, cooking and board games.'
-  way:
-    label: Way too long
-    paragraphs:
-      - *intro
-      - *route
-      - He lives with his wife, two daughters, three cats, two dogs, two mice and a bearded dragon, which makes him the most outnumbered stakeholder in the house. He has 3D-printed several things he could have bought for $4. He will explain the rules of any board game, thoroughly, while you are already playing it.
+bio:
+  - Sean is a frontend engineer and engineering leader in Dallas-Fort Worth. He builds design systems and frontend platforms, and has led teams of up to 50+ people. Today he is a Staff Frontend Engineer at Aspira.
+  - 'He took the scenic route: the U.S. Army, a CS degree from UT Dallas, consulting, directing a 50-person practice, then back to hands-on Staff work by choice. He volunteers with Dallas Area Habitat for Humanity and has framed two homes. Off the clock: 3D modeling and printing, woodworking, cooking and board games.'
+  - He lives with his wife, two daughters, three cats, two dogs, two mice and a bearded dragon, which makes him the most outnumbered stakeholder in the house. He has 3D-printed several things he could have bought for $4. He will explain the rules of any board game, thoroughly, while you are already playing it.
 
 population:
   title: Population of Planet Malone

@@ -20,6 +20,8 @@ interface Props {
   type?: 'website' | 'article';
   /** Keeps the page out of search results and the sitemap's canonical set (the 404). */
   noindex?: boolean;
+  /** The page opens on a full-screen hero (home): the header starts out transparent over it. */
+  overHero?: boolean;
 }
 
 const profile = await getSingleton('profile');
@@ -31,6 +33,7 @@ const {
   imageAlt = `${profile.name}: ${profile.og.tagline}`,
   type = 'website',
   noindex = false,
+  overHero = false,
 } = Astro.props;
 const { email } = profile;
 // build.format 'file' reports built paths as /work/x.html and /index.html; canonicals use the clean URL.
@@ -63,10 +66,10 @@ const canonical = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Ast
     <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <slot name="head" />
-    <meta name="theme-color" content="#F4F5FB" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#DDE1EC" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#070B1A" media="(prefers-color-scheme: dark)" />
     <Font cssVariable="--font-big-shoulders" preload />
-    <Font cssVariable="--font-space-mono" preload={[{ weight: '700' }]} />
+    <Font cssVariable="--font-space-mono" preload />
     <Font cssVariable="--font-atkinson" preload={[{ style: 'normal' }]} />
   </head>
   <body>
@@ -77,7 +80,7 @@ const canonical = new URL(Astro.url.pathname.replace(/(index)?\.html$/, ''), Ast
         <feDisplacementMap in="SourceGraphic" scale="2.6"></feDisplacementMap>
       </filter>
     </svg>
-    <Header current={current} />
+    <Header current={current} overHero={overHero} />
     <main id="main" tabindex="-1" class="outline-none">
       <slot />
     </main>

@@ -8,7 +8,6 @@ wins:
   - Builds from 30+ min to under 5 min
   - Frontend end-to-end coverage from 0% to 80%+ across 7 apps
 tech: [Remix, SSR, AWS, Playwright, Nx]
-stage: staff
 caseStudy: micro-frontend-platform
 print:
   - 'Micro-frontend platform (Remix/SSR, BFF on AWS) for 5 teams and 50+ engineers; Architecture Committee'

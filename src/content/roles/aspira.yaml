@@ -8,7 +8,6 @@ wins:
   - Made the case for moving from shadcn/Radix to React Aria Components, then led the migration
   - Started the AI agent-skills program, now used by ~20 engineers
 tech: [React 19, TypeScript, React Aria, Tailwind, Figma, Claude Code]
-stage: staff
 caseStudy: nextgen-design-system
 print:
   - 'Owns the design system and accessibility for NextGen, a ground-up platform rebuild'

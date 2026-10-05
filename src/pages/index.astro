@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
-import Rail from '../components/home/Rail.astro';
 import Impact from '../components/home/Impact.astro';
 import Lead from '../components/home/Lead.astro';
 import Experience from '../components/home/Experience.astro';
@@ -41,21 +40,18 @@ const structuredData = {
 };
 ---
 
-<BaseLayout current="work">
+<BaseLayout current="work" overHero>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <div class="print:hidden">
     <Hero />
-    <div class="mx-auto grid max-w-page gap-16 px-gutter pt-18 md:grid-cols-[220px_minmax(0,1fr)]">
-      <Rail />
-      <div class="flex min-w-0 flex-col gap-24">
-        <Impact />
-        <Lead />
-        <Experience />
-        <Built />
-        <Skills />
-        <About />
-        <Contact />
-      </div>
+    <div class="mx-auto flex max-w-page flex-col gap-24 px-gutter pt-18">
+      <Impact />
+      <Lead />
+      <Experience />
+      <Built />
+      <Skills />
+      <About />
+      <Contact />
     </div>
   </div>
   {/* Ctrl+P on the home page prints the résumé, not the page. */}

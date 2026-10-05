@@ -6,7 +6,7 @@ budgets:
   - { value: '0', label: 'layout shift, trackers, cookies' }
 rows:
   - label: Framework
-    value: 'Astro, static-first, styled with Tailwind. No UI framework: the interactive pieces (the theme toggle, ⌘K, the bio switcher and the role cards) are small custom elements that share state through Nano Stores.'
+    value: 'Astro, static-first, styled with Tailwind. No UI framework: the interactive pieces (the theme toggle, ⌘K, the Experience flight path and the census dragon) are small custom elements that share state through Nano Stores.'
   - label: Type
     value: Big Shoulders Display for headings, Space Mono for labels, Atkinson Hyperlegible Next for text. All self-hosted WOFF2 with size-adjusted fallbacks.
   - label: Color

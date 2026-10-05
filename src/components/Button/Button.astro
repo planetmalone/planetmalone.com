@@ -3,12 +3,12 @@
  * A pill button, or a link styled as one when `href` is set. Every other
  * attribute (data-*, aria-*, class) passes through to the element.
  *
- *   <Button variant="solid" href="/resume-staff.pdf">Résumé · Staff</Button>
+ *   <Button variant="dark-outline" href="/resume-staff.pdf">Résumé · Staff</Button>
  *   <Button variant="ghost" size="sm" data-open-palette>⌘K</Button>
  */
 import type { HTMLAttributes } from 'astro/types';
 
-type Variant = 'solid' | 'outline' | 'ghost' | 'field' | 'field-outline' | 'accent' | 'dark-outline';
+type Variant = 'ghost' | 'field' | 'field-outline' | 'accent' | 'dark-outline';
 
 type Size = 'sm' | 'md' | 'lg';
 
@@ -24,8 +24,6 @@ const { variant, size = 'md', href, bold = true, class: className, ...attrs } = 
 const base = 'inline-flex items-center justify-center gap-1 rounded-pill no-underline';
 
 const variants: Record<Variant, string> = {
-  solid: 'bg-btn text-btn-ink',
-  outline: 'border border-ink bg-transparent text-ink',
   ghost: 'border bg-transparent hover:border-ink', // Text color inherits, so callers can set it
   field: 'bg-on-field text-field-btn-ink',
   'field-outline': 'border border-on-field bg-transparent text-on-field',

@@ -1,19 +1,23 @@
 ---
+/**
+ * Contact: the dark "Say hello" card, with illustrated Sean waving from its
+ * bottom edge.
+ */
+import { Picture } from 'astro:assets';
 import { Button } from '../Button';
 import { CopyEmail } from '../CopyEmail';
-import { Doodle } from '../Doodle';
 import { SectionHeading } from '../SectionHeading';
 import { getSingleton } from '../../utils/content';
+import wave from '../../assets/illos/illo-wave.png';
 
 const profile = await getSingleton('profile');
 ---
 
 <section
-  class="relative grid scroll-mt-[90px] gap-5.5 rounded-field bg-dark-card px-5.5 py-7 text-dark-card-ink md:p-11"
+  class="relative grid scroll-mt-[90px] gap-5.5 rounded-field bg-dark-card px-5.5 pt-7 text-dark-card-ink md:p-11 md:pr-72"
   id="contact"
   aria-labelledby="contact-heading"
 >
-  <Doodle name="planet" class="absolute top-5 right-4 w-24 text-on-field/70 md:top-6 md:right-8 md:w-56" />
   <SectionHeading id="contact-heading" size="xl">
     Say hello<span class="text-c-accent">.</span>
   </SectionHeading>
@@ -25,7 +29,7 @@ const profile = await getSingleton('profile');
     >
       {profile.email}
     </a>
-    <CopyEmail variant="accent" />
+    <CopyEmail />
   </div>
   <div class="flex flex-wrap gap-2.5 text-ui">
     <Button variant="dark-outline" href={profile.links.linkedin}>
@@ -40,4 +44,15 @@ const profile = await getSingleton('profile');
       </Button>
     ))}
   </div>
+  <Picture
+    src={wave}
+    formats={['avif', 'webp']}
+    widths={[320, 560]}
+    sizes="(max-width: 899px) 160px, 260px"
+    alt="Illustrated Sean waving"
+    class="block h-auto w-full"
+    pictureAttributes={{
+      class: 'block w-40 justify-self-end md:absolute md:right-8 md:bottom-0 md:w-65',
+    }}
+  />
 </section>

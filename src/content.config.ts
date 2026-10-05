@@ -30,7 +30,6 @@ const draftableRow = z
   .object({ label: z.string(), value: z.string().optional(), draft: z.string().optional() })
   .refine((r) => r.value || r.draft, 'A row needs a value, a draft, or both');
 const tag = z.enum(['Strategy', 'People', 'Delivery', 'Craft']);
-const stage = z.enum(['army', 'degree', 'lead', 'director', 'staff']);
 
 const cases = defineCollection({
   loader: glob({ pattern: '*.yaml', base: `${base}/cases` }),
@@ -87,7 +86,6 @@ const roles = defineCollection({
     aside: z.string().optional(),
     /** The print résumé's denser lines. Without them, print uses the scope and wins. */
     print: z.array(z.string()).min(1).optional(),
-    stage,
     caseStudy: reference('cases').optional(),
   }),
 });
@@ -120,14 +118,6 @@ const profile = singleton(
   }),
 );
 
-const experience = singleton(
-  'experience',
-  z.object({
-    routeLabel: z.string(),
-    stages: z.array(z.object({ id: stage, label: z.string() })).length(5),
-  }),
-);
-
 const lead = singleton(
   'lead',
   z.object({
@@ -155,32 +145,32 @@ const skills = singleton(
   z.object({ groups: z.array(z.object({ label: z.string(), items: z.array(z.string()).min(1) })).length(3) }),
 );
 
-const about = singleton(
-  'about',
-  z.object({
-    bios: z.object({
-      facts: z.object({ label: z.string(), items: z.array(z.string()) }),
-      short: z.object({ label: z.string(), paragraphs: z.array(z.string()) }),
-      long: z.object({ label: z.string(), paragraphs: z.array(z.string()) }),
-      way: z.object({ label: z.string(), paragraphs: z.array(z.string()) }),
+// Declared directly, not with `singleton`, for the photos' `image()` helper.
+const about = defineCollection({
+  loader: glob({ pattern: 'about.yaml', base }),
+  schema: ({ image }) =>
+    z.object({
+      /** The bio, as paragraphs. */
+      bio: z.array(z.string()).min(1),
+      population: z.object({
+        title: z.string(),
+        residents: z.array(z.object({ label: z.string(), count: z.number().int().positive() })),
+        caption: z.string(),
+      }),
+      hobbies: z
+        .array(
+          z.object({
+            name: z.string(),
+            caption: z.string(),
+            /** Describes the photo Sean will supply; shown in the placeholder until then, and its alt text after. */
+            photoDraft: z.string(),
+            /** The photo, relative to this file (e.g. ../assets/hobbies/cooking.jpg); it covers the 4:3 frame. */
+            photo: image().optional(),
+          }),
+        )
+        .length(4),
     }),
-    population: z.object({
-      title: z.string(),
-      residents: z.array(z.object({ label: z.string(), count: z.number().int().positive() })),
-      caption: z.string(),
-    }),
-    hobbies: z
-      .array(
-        z.object({
-          name: z.string(),
-          caption: z.string(),
-          /** Describes the photo Sean will supply; shown in the placeholder until then. */
-          photoDraft: z.string(),
-        }),
-      )
-      .length(4),
-  }),
-);
+});
 
 const now = singleton(
   'now',
@@ -220,7 +210,6 @@ export const collections = {
   cases,
   roles,
   profile,
-  experience,
   lead,
   built,
   skills,

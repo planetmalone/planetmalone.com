@@ -5,11 +5,10 @@
  * wobble would turn to mush. Decoration only, so hidden from screen readers.
  *
  * - frame: a sketched border that fills its positioned parent.
- * - planet: the logo mark as a line drawing, with a few sparkles.
  * - arrow: a small hand-drawn arrow, sized to the text.
  */
 interface Props {
-  name: 'frame' | 'planet' | 'arrow';
+  name: 'frame' | 'arrow';
   class?: string;
 }
 
@@ -30,22 +29,6 @@ const { name, class: className } = Astro.props;
         rx="24"
         class="[height:calc(100%-3px)] [width:calc(100%-9px)] opacity-35"
         stroke-width="1.5"
-      />
-    </g>
-  </svg>
-)}
-
-{name === 'planet' && (
-  <svg class={className} viewBox="0 0 96 80" aria-hidden="true" focusable="false">
-    <g class="fill-none stroke-current" stroke-width="1.6" stroke-linecap="round" filter="url(#rough)">
-      <path d="M24 52 C20 46 36 36 50 32 C64 28 76 30 74 36" />
-      <circle cx="48" cy="44" r="17" class="fill-dark-card" />
-      <path d="M36 38 C42 36 46 40 52 38 M38 50 C44 48 50 52 58 49" class="opacity-50" />
-      <path d="M74 36 C72 42 60 48 46 52 C34 56 26 56 24 52" />
-      <circle cx="70" cy="22" r="3.2" class="fill-metric stroke-metric" />
-      <path
-        class="fill-current stroke-none"
-        d="M14 14 C15 18 15 18 19 19 C15 20 15 20 14 24 C13 20 13 20 9 19 C13 18 13 18 14 14 Z M86 56 C86.6 58.6 86.6 58.6 89 59 C86.6 59.4 86.6 59.4 86 62 C85.4 59.4 85.4 59.4 83 59 C85.4 58.6 85.4 58.6 86 56 Z"
       />
     </g>
   </svg>

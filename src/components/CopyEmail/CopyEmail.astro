@@ -8,17 +8,11 @@
 import { Button } from '../Button';
 import { getSingleton } from '../../utils/content';
 
-interface Props {
-  variant: 'field-outline' | 'outline' | 'accent';
-  size?: 'sm' | 'md' | 'lg';
-}
-
-const { variant, size }: Props = Astro.props;
 const { email } = await getSingleton('profile');
 ---
 
 <pm-copy-email class="contents" email={email}>
-  <Button variant={variant} size={size} href={`mailto:${email}`}>
+  <Button variant="accent" href={`mailto:${email}`}>
     Copy email
   </Button>
 </pm-copy-email>

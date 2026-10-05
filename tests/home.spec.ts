@@ -3,26 +3,51 @@ import { expect, test } from './fixtures';
 test.describe('Home', () => {
   test.beforeEach(async ({ home }) => home.goto());
 
-  test('role cards: one open at a time, the first on load, and the flight path follows', async ({ home }) => {
-    await expect(home.roleCards.first()).toHaveAttribute('open', '');
-    await expect(home.activeMoon).toHaveAttribute('data-moon', 'aspira');
-
-    await home.roleSummary('Technology Practice Director').click();
-    await expect(home.openRoleCards).toHaveCount(1);
-    await expect(home.activeMoon).toHaveAttribute('data-moon', 'stellar-elements');
-
-    await home.roleSummary('Technology Practice Director').click();
-    await expect(home.openRoleCards).toHaveCount(0);
-    await expect(home.activeMoon).toHaveAttribute('data-moon', 'aspira');
+  test('the journey runs oldest first, with the degree as a satellite in its year', async ({ home }) => {
+    await expect(home.stops).toHaveCount(10);
+    expect(await home.stops.evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.stop))).toEqual([
+      'us-army',
+      'epic-solutions',
+      'ut-dallas',
+      'infor',
+      'projekt202',
+      'redibs',
+      'stellar-elements',
+      'apollo',
+      'redteam',
+      'aspira',
+    ]);
   });
 
-  test("the rocket flies to the open role's moon and parks beside it", async ({ home }) => {
-    await home.section('experience').scrollIntoViewIfNeeded();
-    await expect.poll(() => home.rocketDistanceTo('aspira'), { timeout: 8000 }).toBeLessThan(50);
-    await home.roleSummary('RedTeam').click();
-    await expect.poll(() => home.rocketDistanceTo('redteam'), { timeout: 5000 }).toBeLessThan(50);
-    await home.roleSummary('U.S. Army').click();
-    await expect.poll(() => home.rocketDistanceTo('us-army'), { timeout: 5000 }).toBeLessThan(50);
+  test('the rocket flies to the planet nearest the middle, and turns around going back up', async ({
+    home,
+  }) => {
+    await home.centerStop('redteam');
+    await expect(home.currentStop).toHaveAttribute('data-stop', 'redteam');
+    // Parks just short of the planet: above it on the way down...
+    await expect
+      .poll(async () => (await home.rocketFrom('redteam')).distance, { timeout: 5000 })
+      .toBeLessThan(80);
+    expect((await home.rocketFrom('redteam')).dy).toBeLessThan(0);
+
+    await home.centerStop('infor');
+    await expect(home.currentStop).toHaveAttribute('data-stop', 'infor');
+    // ...and below it on the way back up.
+    await expect
+      .poll(async () => (await home.rocketFrom('infor')).distance, { timeout: 5000 })
+      .toBeLessThan(80);
+    expect((await home.rocketFrom('infor')).dy).toBeGreaterThan(0);
+  });
+
+  test('the header is clear over the hero and glass past it, even after a refresh', async ({
+    home,
+    page,
+  }) => {
+    await expect(home.header.root).toHaveAttribute('data-over-hero', '');
+    await home.section('impact').scrollIntoViewIfNeeded();
+    await expect(home.header.root).not.toHaveAttribute('data-over-hero');
+    await page.reload();
+    await expect(home.header.root).not.toHaveAttribute('data-over-hero');
   });
 
   test('the census dragon ducks out of view and pops up in it', async ({ home, page }) => {
@@ -33,29 +58,13 @@ test.describe('Home', () => {
     await expect(home.dragon).toHaveAttribute('ducked', '');
   });
 
-  test('bio switcher shows one length at a time', async ({ home }) => {
-    expect(await home.visibleBios()).toEqual(['short']);
-    await home.chooseBioLength('Way too long');
-    expect(await home.visibleBios()).toEqual(['way']);
-    await home.bioInput('way').press('ArrowLeft');
-    expect(await home.visibleBios()).toEqual(['long']);
-  });
-
-  test('copy email writes the address and confirms everywhere', async ({ home, context, page }) => {
+  test('copy email writes the address and confirms', async ({ home, context, page }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
-    await home.heroCopyEmail.click();
-    await expect(home.copyEmailButtons).toHaveText(['Copied!', 'Copied!', 'Copied!']);
+    await home.copyEmail.click();
+    await expect(home.copyEmail).toHaveText('Copied!');
     await expect(home.toast.message).toHaveText('Copied. Your clipboard is now 12% more Malone.');
     expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('sean@planetmalone.com');
-    await expect(home.copyEmailButtons.first()).toHaveText('Copy email', { timeout: 5000 });
-  });
-
-  test('the rail follows the section being read', async ({ home }) => {
-    await expect(home.currentRailLink).toHaveAttribute('data-rail-link', 'impact');
-    for (const id of ['experience', 'about', 'contact']) {
-      await home.railLink(id).click();
-      await expect(home.currentRailLink).toHaveAttribute('data-rail-link', id);
-    }
+    await expect(home.copyEmail).toHaveText('Copy email', { timeout: 5000 });
   });
 
   test('shows the local time on Planet Malone', async ({ home }) => {

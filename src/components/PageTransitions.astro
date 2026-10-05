@@ -7,7 +7,9 @@
 // - to a case study: that case's title on the page you're leaving (home card
 //   or Previous / Next card) morphs into its H1;
 // - from a case study to home: its H1 morphs into its home card.
-// With Motion off, the transition is skipped.
+// With Motion off, the transition is skipped. Leaving a page also stops the
+// starfield's drift (data-leaving, base.css): while it runs, Chrome can drop the
+// transition. Coming back from the back/forward cache clears it.
 ---
 
 <script is:inline>
@@ -26,11 +28,20 @@
     addEventListener('pageswap', (e) => {
       if (!e.viewTransition) return;
       if (root.dataset.motion === 'off') return e.viewTransition.skipTransition();
+      root.dataset.leaving = '';
       const to = e.activation?.entry?.url;
       name(caseOf(to) ?? (isHome(to) ? caseOf(location.href) : undefined), e.viewTransition);
     });
 
+    addEventListener('pageshow', () => delete root.dataset.leaving);
+
     addEventListener('pagereveal', (e) => {
+      // Land on a section link (like a case study's "Back to Planet Malone", to
+      // #impact) instantly, before the first paint: the transition then starts
+      // with that section on screen, so a case title zooms into its card rather
+      // than the page gliding down afterward.
+      if (location.hash)
+        document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'instant' });
       if (!e.viewTransition) return;
       if (root.dataset.motion === 'off') return e.viewTransition.skipTransition();
       const from = navigation?.activation?.from?.url;
