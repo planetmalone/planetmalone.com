@@ -39,7 +39,10 @@ const horizon =
     always twice the screen's width, so its sides sit a fixed height below the
     peak: 13.4% of its half-height (54px on phones, 80px on desktop).
   */}
-  <pm-horizon class="absolute inset-x-0 bottom-[26px] h-px md:bottom-[39px] flex justify-center" aria-hidden="true"></pm-horizon>
+  <pm-horizon
+    class="absolute inset-x-0 bottom-[26px] h-px md:bottom-[39px] flex justify-center"
+    aria-hidden="true"
+  ></pm-horizon>
 
   <div class="relative mx-auto my-auto grid w-full max-w-page gap-8 px-gutter pt-12 pb-[18svh] scroll-fade">
     <h1 class="text-hero-sm font-extrabold md:text-hero-md lg:text-hero">{profile.name}</h1>
@@ -70,7 +73,8 @@ const horizon =
           aria-hidden="true"
         ></span>
         <span>
-          <span class="text-on-field/65">Local time on Planet Malone:</span> <Clock timeZone={profile.timezone} label="" />
+          <span class="text-on-field/65">Local time on Planet Malone:</span>{' '}
+          <Clock timeZone={profile.timezone} label="" />
         </span>
       </p>
     </div>

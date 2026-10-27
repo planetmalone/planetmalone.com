@@ -11,7 +11,6 @@ export const routes = [
   '/work/ai-assisted-engineering',
   '/work/micro-frontend-platform',
   '/work/fifty-person-practice',
-  '/now',
   '/uses',
   '/colophon',
   '/lost-in-space',

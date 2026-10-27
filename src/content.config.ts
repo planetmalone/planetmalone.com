@@ -172,16 +172,6 @@ const about = defineCollection({
     }),
 });
 
-const now = singleton(
-  'now',
-  z.object({
-    updated: z.coerce.date(),
-    lead: z.string(),
-    rows: z.array(draftableRow),
-    footnote: z.string(),
-  }),
-);
-
 const uses = singleton(
   'uses',
   z.object({
@@ -214,7 +204,6 @@ export const collections = {
   built,
   skills,
   about,
-  now,
   uses,
   colophon,
 };

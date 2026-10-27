@@ -12,17 +12,16 @@ import { Resume } from '../components/Resume';
 import { getRoles, getSingleton } from '../utils/content';
 
 // ProfilePage + Person structured data (schema.org), from the same content as the page.
-const [profile, roles, skills, now] = await Promise.all([
+const [profile, roles, skills] = await Promise.all([
   getSingleton('profile'),
   getRoles(),
   getSingleton('skills'),
-  getSingleton('now'),
 ]);
 const current = roles[0]!.data;
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
-  dateModified: now.updated.toISOString().slice(0, 10),
+  dateModified: new Date().toISOString().slice(0, 10),
   mainEntity: {
     '@type': 'Person',
     name: profile.name,

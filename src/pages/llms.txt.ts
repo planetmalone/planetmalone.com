@@ -9,18 +9,17 @@ import { formatYears, timeZoneLabel } from '../utils/format';
 import { pages } from '../data/site';
 
 export const GET: APIRoute = async ({ site }) => {
-  const [profile, cases, roles, now, uses, colophon] = await Promise.all([
+  const [profile, cases, roles, uses, colophon] = await Promise.all([
     getSingleton('profile'),
     getCases(),
     getRoles(),
-    getSingleton('now'),
     getSingleton('uses'),
     getSingleton('colophon'),
   ]);
   const url = (path: string) => new URL(path, site).href;
   // Only list résumé PDFs that have been added to public/.
   const resumes = profile.resumes.filter((r) => existsSync(`public${r.href}`));
-  const leads: Record<string, string> = { now: now.lead, uses: uses.lead, colophon: colophon.lead };
+  const leads: Record<string, string> = { uses: uses.lead, colophon: colophon.lead };
 
   const body = [
     `# ${profile.name}`,

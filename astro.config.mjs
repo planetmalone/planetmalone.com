@@ -14,6 +14,7 @@ export default defineConfig({
   site: 'https://planetmalone.com',
   trailingSlash: 'never',
   build: { format: 'file' },
+  redirects: { '/now': '/' },
   integrations: [sitemap()],
   vite: { plugins: [tailwindcss()] },
   fonts: [

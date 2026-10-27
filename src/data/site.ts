@@ -9,11 +9,10 @@ export const site = {
   lastUpdated: 'Sep 25, 2026',
 };
 
-export type PageKey = 'work' | 'now' | 'uses' | 'colophon';
+export type PageKey = 'work' | 'uses' | 'colophon';
 
 export const pages: { key: PageKey; label: string; href: string }[] = [
   { key: 'work', label: 'Work', href: '/' },
-  { key: 'now', label: 'Now', href: '/now' },
   { key: 'uses', label: 'Uses', href: '/uses' },
   { key: 'colophon', label: 'Colophon', href: '/colophon' },
 ];
