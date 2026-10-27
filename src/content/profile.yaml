@@ -16,10 +16,9 @@ proof:
   - { value: Teams up to 50+, label: people led }
   - { value: 4 design systems, label: built · 2 design-system teams managed }
 
-# The EM PDF duplicates the Staff one until Sean supplies EM-specific content.
 resumes:
-  - { track: staff, label: Résumé · Staff, href: /resume-staff.pdf, updated: Sep 2026 }
-  - { track: em, label: Résumé · EM, href: /resume-em.pdf, updated: Sep 2026 }
+  - { track: staff, label: Résumé · Staff, href: /resume-staff.pdf, updated: Oct 2026 }
+  - { track: em, label: Résumé · EM, href: /resume-em.pdf, updated: Oct 2026 }
 
 education:
   degree: B.S. Computer Science
