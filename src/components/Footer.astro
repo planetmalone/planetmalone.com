@@ -12,21 +12,6 @@ const themes = [
 
 <footer class="mx-auto grid max-w-page gap-5.5 px-gutter pt-18 pb-12 text-sm text-ink2 print:hidden">
   <p class="font-display text-footer-title font-bold text-ink">Thanks for visiting Planet Malone.</p>
-  <ul class="flex flex-wrap gap-x-3.5 gap-y-2.5" aria-label="This site will not">
-    <li aria-hidden="true">This site will not:</li>
-    <li>
-      <span aria-hidden="true">×</span> track you
-    </li>
-    <li>
-      <span aria-hidden="true">×</span> drain your battery
-    </li>
-    <li>
-      <span aria-hidden="true">×</span> make a sound
-    </li>
-    <li>
-      <span aria-hidden="true">×</span> ask about cookies
-    </li>
-  </ul>
 
   <div class="needs-js flex flex-wrap items-center gap-5 border-y py-4">
     <SegmentedControl name="theme" legend="Theme" options={themes} data-theme-options />
@@ -35,11 +20,9 @@ const themes = [
   </div>
 
   <div class="flex flex-wrap justify-between gap-3">
-    <span>
-      v. {site.version} · Last updated {site.lastUpdated}, by a human, with coffee
-    </span>
+    <span>Last updated {site.lastUpdated}, by a human, with caffeine</span>
     <span class="flex flex-wrap gap-3.5">
-      <a href="/uses">Uses</a>
+      <a href="/uses">My daily drivers</a>
       <a href="/colophon">Built with Astro</a>
     </span>
   </div>

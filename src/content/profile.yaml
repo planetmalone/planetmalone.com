@@ -21,9 +21,6 @@ resumes:
   - { track: staff, label: Résumé · Staff, href: /resume-staff.pdf, updated: Sep 2026 }
   - { track: em, label: Résumé · EM, href: /resume-em.pdf, updated: Sep 2026 }
 
-contact:
-  availability: I reply within a day or two.
-
 education:
   degree: B.S. Computer Science
   school: UT Dallas

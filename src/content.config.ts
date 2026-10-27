@@ -104,7 +104,6 @@ const profile = singleton(
     resumes: z.array(
       z.object({ track: z.enum(['staff', 'em']), label: z.string(), href: z.string(), updated: z.string() }),
     ),
-    contact: z.object({ availability: z.string() }),
     education: z.object({
       degree: z.string(),
       school: z.string(),

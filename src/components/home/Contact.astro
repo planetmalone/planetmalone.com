@@ -1,6 +1,6 @@
 ---
 /**
- * Contact: the dark "Say hello" card, with illustrated Sean waving from its
+ * Contact: the dark "Let's chat" card, with illustrated Sean waving from its
  * bottom edge.
  */
 import { Picture } from 'astro:assets';
@@ -19,9 +19,8 @@ const profile = await getSingleton('profile');
   aria-labelledby="contact-heading"
 >
   <SectionHeading id="contact-heading" size="xl">
-    Say hello<span class="text-c-accent">.</span>
+    Let's chat<span class="text-c-accent">.</span>
   </SectionHeading>
-  <p class="max-w-140 text-lg/normal text-dark-card-2">{profile.contact.availability}</p>
   <div class="flex flex-wrap items-center gap-3">
     <a
       class="text-email font-bold break-all text-dark-card-ink no-underline hover:text-c-accent"
