@@ -38,15 +38,14 @@ const horizon =
     that passes under the header, the whole curve has cleared it. The ellipse is
     always twice the screen's width, so its sides sit a fixed height below the
     peak: 13.4% of its half-height (54px on phones, 80px on desktop).
-    */}
-  <pm-horizon class="absolute inset-x-0 bottom-[26px] h-px md:bottom-[39px] flex justify-center" aria-hidden="true">
-  </pm-horizon>
-  
+  */}
+  <pm-horizon class="absolute inset-x-0 bottom-[26px] h-px md:bottom-[39px] flex justify-center" aria-hidden="true"></pm-horizon>
+
   <div class="relative mx-auto my-auto grid w-full max-w-page gap-8 px-gutter pt-12 pb-[18svh] scroll-fade">
-    {/* A mission-control status readout */}
     <h1 class="text-hero-sm font-extrabold md:text-hero-md lg:text-hero">{profile.name}</h1>
     <p class="max-w-170 text-lg/[1.4] md:text-2xl/[1.4]">{profile.lead}</p>
-    <div class="grid gap-1 font-mono text-md">
+    {/* A mission-control status readout */}
+    <div class="grid gap-1 font-mono text-base">
       <p class="flex items-baseline gap-2.5">
         <span
           class="size-2 flex-none animate-pulse bg-metric motion-reduce:animate-none"
@@ -80,7 +79,7 @@ const horizon =
 {/*
   More planet surface below the fold, so light mode's dawn finishes before the
   hero's edge shows. Dark mode keeps it too, for the same spacing.
-  */}
+*/}
 <div class="h-[25svh] bg-bg planet-dawn print:hidden" aria-hidden="true"></div>
 
 <script>
