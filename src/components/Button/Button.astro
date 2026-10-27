@@ -21,7 +21,7 @@ type Props = (HTMLAttributes<'a'> | HTMLAttributes<'button'>) & {
 
 const { variant, size = 'md', href, bold = true, class: className, ...attrs } = Astro.props;
 
-const base = 'inline-flex items-center justify-center gap-1 rounded-pill no-underline';
+const base = 'inline-flex items-center justify-center gap-1 rounded-control no-underline';
 
 const variants: Record<Variant, string> = {
   ghost: 'border bg-transparent hover:border-ink', // Text color inherits, so callers can set it

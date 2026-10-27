@@ -26,7 +26,7 @@ const now = await getSingleton('now');
       <h1 class="text-page-title font-extrabold">Now</h1>
       <p class="flex flex-wrap items-center gap-2.5 text-ui text-ink2">
         <time
-          class="rounded-pill bg-btn px-3 py-1 font-bold text-btn-ink tabular-nums"
+          class="rounded-control bg-btn px-3 py-1 font-bold text-btn-ink tabular-nums"
           datetime={now.updated.toISOString().slice(0, 10)}
         >
           {formatDate(now.updated)}

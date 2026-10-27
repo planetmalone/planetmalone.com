@@ -47,7 +47,7 @@ const menuItems = [
       <nav class="mr-1.5 flex gap-1 text-ui font-semibold max-md:hidden" aria-label="Pages">
         {pages.map((p) => (
           <a
-            class="rounded-pill px-3 py-2 text-ink no-underline hover:bg-sunken aria-[current=page]:bg-btn aria-[current=page]:text-btn-ink"
+            class="rounded-control px-3 py-2 text-ink no-underline hover:bg-sunken aria-[current=page]:bg-btn aria-[current=page]:text-btn-ink"
             href={p.href}
             aria-current={p.key === current ? 'page' : undefined}
           >

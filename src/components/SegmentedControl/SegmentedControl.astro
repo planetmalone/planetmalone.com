@@ -20,7 +20,7 @@ const { name, legend, options, checked, size = 'sm', class: className, ...attrs 
 ---
 
 <fieldset
-  class:list={['flex max-w-full min-w-0 gap-1 overflow-x-auto rounded-pill bg-sunken p-1', className]}
+  class:list={['flex max-w-full min-w-0 gap-1 overflow-x-auto rounded-control bg-sunken p-1', className]}
   {...attrs}
 >
   <legend class="sr-only">{legend}</legend>
@@ -29,7 +29,7 @@ const { name, legend, options, checked, size = 'sm', class: className, ...attrs 
       <input class="peer sr-only" type="radio" name={name} value={o.value} checked={o.value === checked} />
       <span
         class:list={[
-          'block rounded-pill font-bold whitespace-nowrap text-ink3',
+          'block rounded-chip font-bold whitespace-nowrap text-ink3',
           size === 'sm' ? 'px-3.5 py-1.75 text-caption' : 'px-3.5 py-2 text-sm',
           'peer-checked:bg-btn peer-checked:text-btn-ink',
           'peer-focus-visible:outline-3 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent',

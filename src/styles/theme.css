@@ -58,12 +58,14 @@
   /* Radius */
   --radius-*: initial;
   --radius-pill: 999px;
-  --radius-field: 28px;
-  --radius-card: 20px;
-  --radius-outcome: 18px;
-  --radius-tile: 16px;
-  --radius-photo: 14px;
-  --radius-box: 12px;
+  --radius-control: 6px;
+  --radius-chip: 3px;
+  --radius-field: 10px;
+  --radius-card: 8px;
+  --radius-outcome: 6px;
+  --radius-tile: 6px;
+  --radius-photo: 4px;
+  --radius-box: 6px;
 
   /* Elevation: floating layers only */
   --shadow-*: initial;
