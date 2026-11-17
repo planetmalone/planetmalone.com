@@ -51,11 +51,11 @@ Astro content collections in `src/content/`, all YAML, typed with Zod schemas in
 |---|---|
 | `cases/*.yaml` | 4 case studies: tags, meta, context, scope, decisions, people and quote, outcomes, reflection |
 | `roles/*.yaml` | 9 roles: years, title, company, scope, wins, tech chips, aside, scenic-route stage, case-study link |
-| `profile.yaml` | Name, status pill, hero lead, contact, links, proof strip, résumé PDFs, education, volunteering, print-only headline/summary/closing |
+| `profile.yaml` | Name, status pill, hero lead, contact, links, résumé PDFs, education, volunteering, print-only headline/summary/closing |
 | `experience.yaml` | The scenic-route label and stages |
 | `lead.yaml`, `built.yaml`, `skills.yaml` | How I lead, Built & written, skill groups |
 | `about.yaml` | 4 bio lengths, population census, hobbies |
-| `now.yaml`, `uses.yaml`, `colophon.yaml` | Secondary pages |
+| `uses.yaml`, `colophon.yaml` | Secondary pages |
 
 - **Reading content:** `getSingleton('profile')`, `getCases()`, `getRoles()` and `getCaseNeighbors(slug)` in `src/utils/content.ts`. Display formatting (years, dates, population) is in `src/utils/format.ts`, so content stores facts, not formatted strings.
 - **Drafts** are separate `draft` fields, never placeholder text in a real field. The Draft component adds the "Draft:" label; print omits drafts.
@@ -118,7 +118,7 @@ Each island is a small, self-contained script, and all of them honor the Motion 
   - Prev/next cards that loop
   - The card-title → H1 morph uses the browser's native cross-document View Transitions (`@view-transition`), not Astro's `<ClientRouter />`, so every page stays a normal page load and the islands need no page-swap handling (Sean, 2026-09-28). Chrome, Edge and Safari 18.2+ morph; other browsers navigate normally. A pre-paint hook skips the transition when Motion is off
   - Normal page loads already scroll to the top and reset focus
-- **`/now`, `/uses`, `/colophon`:** built as specified, with the Draft placeholders intact.
+- **`/uses`, `/colophon`:** built as specified, with the Draft placeholders intact.
 - **`404.astro`:** echoes the visitor's bad path in the `<code>` chip, client-side, with a static fallback. Has the astronaut illustration and buttons that open ⌘K.
 
 ## Phase 6: Print and PDFs
@@ -184,7 +184,6 @@ Each island is a small, self-contained script, and all of them honor the Motion 
 ## Open items from the handoff (Sean supplies later; placeholders until then)
 
 - Case-study reflections ("What I'd do differently") and some context details
-- `/uses` items and `/now` "Playing"
+- `/uses` items
 - Hobby photos (4)
 - The EM résumé content
-- Optionally a ~600px astronaut and a /now laptop without the Apple logo (the "confused" illustration is no longer needed)

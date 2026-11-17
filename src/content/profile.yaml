@@ -11,11 +11,6 @@ links:
   github: https://github.com/planetmalone
   site: https://planetmalone.com
 
-proof:
-  - { value: 18+ years, label: in tech }
-  - { value: Teams up to 50+, label: people led }
-  - { value: 4 design systems, label: built · 2 design-system teams managed }
-
 resumes:
   - { track: staff, label: Résumé · Staff, href: /resume-staff.pdf, updated: Oct 2026 }
   - { track: em, label: Résumé · EM, href: /resume-em.pdf, updated: Oct 2026 }

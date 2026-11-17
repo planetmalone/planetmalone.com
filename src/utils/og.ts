@@ -97,11 +97,11 @@ export interface OgContent {
   /** One word per line (the name on home). */
   stacked?: boolean;
   subtitle: string;
-  /** The small bold row: proof points on home, tags on case studies. */
-  facts: string[];
+  /** The small bold row of case-study tags. Home has none. */
+  facts?: string[];
 }
 
-export async function renderOg({ title, titleSize, stacked = false, subtitle, facts }: OgContent) {
+export async function renderOg({ title, titleSize, stacked = false, subtitle, facts = [] }: OgContent) {
   const { fonts, avatar, logo } = await loadAssets();
 
   // The ring is centered on the disc (230px from the right, 190px from the
@@ -199,11 +199,15 @@ export async function renderOg({ title, titleSize, stacked = false, subtitle, fa
         ...title.split(' ').map((word) => h('div', {}, word)),
       ),
       h('div', { fontSize: 30, lineHeight: 1.3, fontWeight: 600 }, subtitle),
-      h(
-        'div',
-        { gap: 22, fontSize: 22, fontWeight: 700 },
-        ...facts.flatMap((f, i) => (i ? [h('div', {}, '·'), h('div', {}, f)] : [h('div', {}, f)])),
-      ),
+      ...(facts.length
+        ? [
+            h(
+              'div',
+              { gap: 22, fontSize: 22, fontWeight: 700 },
+              ...facts.flatMap((f, i) => (i ? [h('div', {}, '·'), h('div', {}, f)] : [h('div', {}, f)])),
+            ),
+          ]
+        : []),
     ),
   );
 

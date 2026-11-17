@@ -62,12 +62,15 @@ const cases = defineCollection({
       draft: z.string().optional(),
     }),
     people: z.object({
-      text: z.string(),
+      text: z.string().optional(),
+      topics: z
+        .array(z.object({ heading: z.string(), text: z.string(), draft: z.string().optional() }))
+        .optional(),
       quote: z.object({ text: z.string(), by: z.string() }).optional(),
       draft: z.string().optional(),
     }),
     outcomes: z.array(stat).length(3),
-    reflection: z.object({ text: z.string().optional(), draft: z.string().optional() }),
+    reflection: z.object({ text: z.string().optional(), draft: z.string().optional() }).optional(),
   }),
 });
 
@@ -100,7 +103,6 @@ const profile = singleton(
     location: z.string(),
     timezone: z.string(),
     links: z.object({ linkedin: z.url(), github: z.url(), site: z.url() }),
-    proof: z.array(stat).length(3),
     resumes: z.array(
       z.object({ track: z.enum(['staff', 'em']), label: z.string(), href: z.string(), updated: z.string() }),
     ),

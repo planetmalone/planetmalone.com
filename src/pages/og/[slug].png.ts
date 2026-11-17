@@ -11,7 +11,6 @@ export const getStaticPaths = (async () => {
     titleSize: 150,
     stacked: true,
     subtitle: profile.og.tagline,
-    facts: profile.proof.map((p) => p.value),
   };
   return [
     { params: { slug: 'home' }, props: { og: home } },

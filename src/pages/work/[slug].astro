@@ -30,13 +30,14 @@ const meta = [
   { label: 'Role', value: data.role },
   { label: data.team.label, value: data.team.value },
 ];
+const reflection = data.reflection?.text || data.reflection?.draft ? data.reflection : undefined;
 const sections = [
   { id: 'cs-context', label: 'Context' },
   { id: 'cs-role', label: 'My role and scope' },
   { id: 'cs-decisions', label: 'Key decisions and trade-offs' },
   { id: 'cs-people', label: 'How I brought people along' },
   { id: 'cs-outcomes', label: 'Outcomes' },
-  { id: 'cs-different', label: "What I'd do differently" },
+  ...(reflection ? [{ id: 'cs-different', label: "What I'd do differently" }] : []),
 ];
 const heading = 'font-display text-case-h2 font-bold';
 ---
@@ -101,7 +102,9 @@ const heading = 'font-display text-case-h2 font-bold';
       <article class="grid max-w-190 gap-13 text-lg/[1.65]">
         <section class="grid scroll-mt-[90px] gap-3" id="cs-context">
           <h2 class={heading}>Context</h2>
-          <p>{data.context.text}</p>
+          {data.context.text.split('\n\n').map((para) => (
+            <p>{para}</p>
+          ))}
           {data.context.draft && <Draft>{data.context.draft}</Draft>}
         </section>
 
@@ -137,7 +140,18 @@ const heading = 'font-display text-case-h2 font-bold';
 
         <section class="grid scroll-mt-[90px] gap-3" id="cs-people">
           <h2 class={heading}>How I brought people along</h2>
-          <p>{data.people.text}</p>
+          {data.people.text?.split('\n\n').map((para) => (
+            <p>{para}</p>
+          ))}
+          {data.people.topics?.map((topic) => (
+            <div class="mt-2 grid gap-3">
+              <h3 class="font-display text-card-title font-bold">{topic.heading}</h3>
+              {topic.text.split('\n\n').map((para) => (
+                <p>{para}</p>
+              ))}
+              {topic.draft && <Draft>{topic.draft}</Draft>}
+            </div>
+          ))}
           {data.people.quote && (
             <blockquote class="mt-2 grid gap-2.5">
               <p class="font-display text-quote font-bold">{data.people.quote.text}</p>
@@ -156,11 +170,13 @@ const heading = 'font-display text-case-h2 font-bold';
           </div>
         </section>
 
-        <section class="grid scroll-mt-[90px] gap-3" id="cs-different">
-          <h2 class={heading}>What I'd do differently</h2>
-          {data.reflection.text && <p>{data.reflection.text}</p>}
-          {data.reflection.draft && <Draft>{data.reflection.draft}</Draft>}
-        </section>
+        {reflection && (
+          <section class="grid scroll-mt-[90px] gap-3" id="cs-different">
+            <h2 class={heading}>What I'd do differently</h2>
+            {reflection.text && <p>{reflection.text}</p>}
+            {reflection.draft && <Draft>{reflection.draft}</Draft>}
+          </section>
+        )}
 
         <CaseNav prev={prev} next={next} />
       </article>
