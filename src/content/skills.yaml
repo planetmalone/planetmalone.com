@@ -27,6 +27,9 @@ groups:
         OKRs,
         Hiring,
         1:1 and career frameworks,
+        Claude Code agent skills,
+        Multi-model verification,
+        AI docs pipelines,
       ]
   - label: Currently exploring
-    items: [Claude Code agent skills, Multi-model verification, AI docs pipelines]
+    items: [One orchestrator agent for multi-session flows (without going crazy)]

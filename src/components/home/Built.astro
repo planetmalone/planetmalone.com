@@ -2,7 +2,7 @@
 import { SectionHeading } from '../SectionHeading';
 import { getSingleton } from '../../utils/content';
 
-const { items, note } = await getSingleton('built');
+const { items } = await getSingleton('built');
 ---
 
 <section class="grid scroll-mt-[90px] gap-5" id="built" aria-labelledby="built-heading">
@@ -16,5 +16,4 @@ const { items, note } = await getSingleton('built');
       </li>
     ))}
   </ul>
-  <p class="text-sm text-ink2">{note}</p>
 </section>

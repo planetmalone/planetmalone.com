@@ -11,7 +11,9 @@ items:
   - name: Claude Code agent skills
     description: 11 of the team's 22 skills, each grounded in a codebase audit.
     kind: Tooling
+  - name: Concept-Based Reviews
+    description: Finding a balance for human reviews in an agentic process.
+    kind: Process
   - name: github.com/planetmalone
     description: Open-source work and this site's source.
     kind: Code
-note: Talks and posts will land here. Currently in draft, which is where most talks live.

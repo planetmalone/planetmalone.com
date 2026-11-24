@@ -138,7 +138,6 @@ const built = singleton(
   'built',
   z.object({
     items: z.array(z.object({ name: z.string(), description: z.string(), kind: z.string() })),
-    note: z.string(),
   }),
 );
 

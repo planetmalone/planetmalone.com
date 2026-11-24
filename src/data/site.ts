@@ -5,7 +5,6 @@ export const site = {
   name: 'Sean Malone',
   siteName: 'Planet Malone',
   title: 'Sean Malone · Planet Malone',
-  lastUpdated: 'Sep 2026',
 };
 
 export type PageKey = 'work' | 'uses' | 'colophon';

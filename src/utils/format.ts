@@ -16,6 +16,10 @@ export const formatYearsCompact = ({ start, end }: Years) =>
 export const formatDate = (date: Date) =>
   date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
+/** Month and year, as in the footer's "Last updated Nov 2026". */
+export const formatMonth = (date: Date) =>
+  date.toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+
 /** A time zone's everyday name: "America/Chicago" → "Central Time". */
 export const timeZoneLabel = (timeZone: string) =>
   new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'longGeneric' })

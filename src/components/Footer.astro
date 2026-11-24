@@ -1,7 +1,10 @@
 ---
 import { SegmentedControl } from './SegmentedControl';
 import { Switch } from './Switch';
-import { site } from '../data/site';
+import { formatMonth } from '../utils/format';
+
+// Static builds stamp the deploy date; every deploy is an update.
+const lastUpdated = formatMonth(new Date());
 
 const themes = [
   { value: 'light', label: 'Light' },
@@ -20,7 +23,7 @@ const themes = [
   </div>
 
   <div class="flex flex-wrap justify-between gap-3">
-    <span>Last updated {site.lastUpdated}, by a human, with caffeine</span>
+    <span>Last updated {lastUpdated}, by a human, with caffeine</span>
     <span class="flex flex-wrap gap-3.5">
       <a href="/uses">My daily drivers</a>
       <a href="/colophon">Built with Astro</a>
