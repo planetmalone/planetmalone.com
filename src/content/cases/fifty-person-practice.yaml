@@ -10,12 +10,14 @@ role: Technology Practice Director
 team: { label: Team, value: 50+ people · 6 managers }
 
 context:
-  text: An app-dev practice of 50+ people serving 4+ enterprise clients.
-  draft: The state of the practice when you took it over.
+  text: |-
+    US Bank became Stellar Elements' largest client to date. The engagement needed a technology director who could mentor senior managers across a multi-team project while still leading the technology hands-on.
+
+    The project needed a quick start, so we staffed it by pulling people from other projects, then recruited externally to fill in the rest. We began with a single core team that started on the design system, the architecture and the SDLC process, none of which the client had experience with.
 
 scope:
   - Directed a 50+ person app-dev practice through 6 managers.
-  - Served 4+ enterprise clients.
+  - Met daily with US Bank's senior leaders on strategy, roadmaps and team structure.
   - "Stayed hands-on: personally built US Bank's design systems."
 
 decisions:
@@ -23,20 +25,18 @@ decisions:
     - label: People
       title: 1:1s for everyone
       body: Made regular 1:1s the baseline across the practice.
-      chosen: true
     - label: Craft
       title: Stay in the code
       body: Kept building, including US Bank's design systems.
-  draft: What you delegated to the 6 managers and what you kept.
+  text: I gave the managers autonomy to run their own teams. We met often, and I stepped in with guidance only when it was needed. I worked with senior architects to build a robust system across several workstreams.
 
 people:
-  text: 1:1 cadence rose from under 50% to 100%.
-  draft: Career frameworks, hiring, or other people processes you introduced.
+  text: |-
+    I set up the 1:1 process in Lattice with career tracking built in, and made sure the managers followed it. 1:1 cadence rose from under 50% to 100%. I met weekly with my directs and every other week with skip-levels, and coached the managers on being present, attentive and nurturing with their teams.
+
+    I created the practice's OKR template and planning process, and set its long-term growth plans. I owned hiring, from writing the reqs through interviews and offers. On US Bank, I ran a weekly dependency meeting with all the team leads to clear blockers between teams. And I gave a lot of talks: lunch-and-learns, new-hire orientations and sessions for clients.
 
 outcomes:
   - { value: 50+, label: people in the practice }
   - { value: <50% → 100%, label: 1:1 cadence }
   - { value: '6', label: managers led }
-
-reflection:
-  draft: Your reflection goes here. Two or three sentences, specific.

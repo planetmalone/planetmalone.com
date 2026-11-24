@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { value, label, size = 'md' }: Props = Astro.props;
+// Big Shoulders has no "→" glyph, so the fallback font's arrow renders small and low.
+const parts = value.split(/\s*→\s*/);
 ---
 
 <div
@@ -19,7 +21,26 @@ const { value, label, size = 'md' }: Props = Astro.props;
   ]}
 >
   <p class:list={['font-display font-extrabold text-metric', size === 'md' ? 'text-outcome' : 'text-budget']}>
-    {value}
+    {parts.map((part, i) => (
+      <>
+        {i > 0 && (
+          <>
+            <svg
+              class="mx-[0.12em] inline-block h-[0.42em] w-[0.56em] align-[0.14em]"
+              viewBox="0 0 24 18"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.25"
+              aria-hidden="true"
+            >
+              <path d="M1 9h19M13 2l7 7-7 7" />
+            </svg>
+            <span class="sr-only">to</span>
+          </>
+        )}
+        <span class="whitespace-nowrap">{part}</span>
+      </>
+    ))}
   </p>
   <p class:list={['text-dark-card-2', size === 'md' ? 'text-ui' : 'text-sm']}>{label}</p>
 </div>

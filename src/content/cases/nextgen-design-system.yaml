@@ -10,8 +10,10 @@ role: Staff Frontend Engineer, design-system owner
 team: { label: Team, value: Six-engineer migration epic }
 
 context:
-  text: NextGen is a ground-up rebuild of the platform. It needed one design system that design and engineering could both trust, and components that were accessible by default.
-  draft: Add the starting state (component count, where the old components came from, known accessibility gaps).
+  text: |-
+    NextGen is a ground-up rebuild of the platform. It needed one design system that design and engineering could both trust, and components that were accessible by default.
+
+    The design system had no design yet. Our Principal Product Designer was focused on high-level design strategy, so I took it on. I'd worked on design systems as an engineer and helped out on the design side, and I did a ton of research on how designers build them well. The old kit was only 12 shadcn/Radix components, so I started small: I designed those 12 in Figma, then we migrated them to React Aria. After that I grew the system into the full set, with design tokens and a color palette.
 
 scope:
   - 'Authored the Figma design system: tokens, oklch palette, full React Aria component set.'
@@ -22,12 +24,11 @@ decisions:
   cards:
     - label: Before
       title: shadcn / Radix
-      body: Behavior and styling copied into the codebase.
+      body: Behavior and styling copied into the codebase, with inconsistent styles and duplicate components.
     - label: Chose
       title: React Aria Components
       body: Accessibility and internationalization behavior maintained upstream; the team owns the styling layer.
       chosen: true
-  draft: The trade-offs you weighed.
 
 people:
   text: Established the rule that design handoffs must match the design system.
@@ -41,4 +42,4 @@ outcomes:
   - { value: 1 rule, label: design handoffs match the system }
 
 reflection:
-  draft: Your reflection goes here. Two or three sentences, specific.
+  text: I'd make a case for more time on the design side. I was designing the system while engineers were already building features, which felt a bit like building the train while it was moving. Even a few extra weeks of runway would have given me enough buffer to stay ahead.

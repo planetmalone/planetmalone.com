@@ -10,8 +10,12 @@ role: Senior Engineering Architect / Principal FE
 team: { label: Reach, value: 5 teams · 50+ engineers }
 
 context:
-  text: Five teams shipping into one product needed a shared frontend platform.
-  draft: What the frontend looked like before (stack, deploy process, pain points).
+  text: |-
+    As RedTeam grew and acquired other companies, the "platform" became a hodgepodge of disconnected experiences built in AngularJS, Angular, Vue, JSPs and PHP. Users had to log into multiple applications, and data was rarely shared between them. It had become more trouble than it was worth.
+
+    Delivery was just as scattered. Builds took 30+ minutes and deployed across Azure, AWS and homegrown solutions.
+
+    A new platform was a long time coming. To stay competitive, RedTeam needed one unified product, and five teams needed a shared frontend to ship it on.
 
 scope:
   - 'Designed the micro-frontend platform: Remix/SSR with a backend-for-frontend (BFF) on AWS.'
@@ -26,17 +30,18 @@ decisions:
     - label: Data
       title: Backend-for-frontend on AWS
       body: One BFF layer between the apps and backend services.
-      chosen: true
-  draft: The alternatives you considered and what you gave up.
+  text: We started on Next.js, but its support for server components caused issue after issue, so we moved to Remix and later to React Router.
 
 people:
-  text: Served on the Architecture Committee.
-  draft: How the five teams were onboarded.
+  text: |-
+    A core team built the new platform, and the other teams came from the legacy applications. We used the strangler fig pattern: the platform integrated the legacy apps at the browser, through routing and strategic iframes. From there, the legacy teams ported their apps to the new platform one feature at a time.
+
+    As Principal Frontend Engineer and architect, I got the teams up to speed on the new stack and mentored them as they ported their features over.
 
 outcomes:
   - { value: 5-6 s → near-instant, label: page loads }
   - { value: 30+ → <5 min, label: build times }
-  - { value: 0% → 80%+, label: 'frontend e2e coverage, 7 apps' }
+  - { value: 0% → >80%, label: 'frontend e2e coverage, 7 apps' }
 
 reflection:
-  draft: Your reflection goes here. Two or three sentences, specific.
+  text: I decided against module federation because I worried it would be too complex for the legacy teams to pick up. That was a mistake. It would have made things easier.

@@ -59,6 +59,7 @@ const cases = defineCollection({
           }),
         )
         .length(2),
+      text: z.string().optional(),
       draft: z.string().optional(),
     }),
     people: z.object({

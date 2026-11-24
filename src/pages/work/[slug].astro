@@ -135,6 +135,9 @@ const heading = 'font-display text-case-h2 font-bold';
               </div>
             ))}
           </div>
+          {data.decisions.text?.split('\n\n').map((para) => (
+            <p>{para}</p>
+          ))}
           {data.decisions.draft && <Draft>{data.decisions.draft}</Draft>}
         </section>
 
