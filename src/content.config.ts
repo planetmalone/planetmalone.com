@@ -167,6 +167,10 @@ const about = defineCollection({
             photoDraft: z.string(),
             /** The photo, relative to this file (e.g. ../assets/hobbies/cooking.jpg); it covers the 4:3 frame. */
             photo: image().optional(),
+            /** Shown under the photo when it opens larger. */
+            photoCaption: z.string().optional(),
+            /** A 4:3 version for the card when the photo doesn't crop well (e.g. a portrait shot); the modal still shows `photo`. */
+            photoCard: image().optional(),
           }),
         )
         .length(4),

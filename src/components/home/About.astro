@@ -2,10 +2,10 @@
 /**
  * About: the bio, the population census and hobby photos.
  */
-import { Picture } from 'astro:assets';
 import { Doodle } from '../Doodle';
 import { Dragon } from '../Dragon';
 import { Eyebrow } from '../Eyebrow';
+import { Lightbox } from '../Lightbox';
 import { SectionHeading } from '../SectionHeading';
 import { getSingleton } from '../../utils/content';
 import { countPopulation } from '../../utils/format';
@@ -50,14 +50,13 @@ const { bio, population, hobbies } = await getSingleton('about');
         {/* A fixed 4:3 frame: the photo covers it, cropped to fit; until then, a striped placeholder. */}
         <div class="relative aspect-4/3 w-full overflow-hidden rounded-photo bg-[repeating-linear-gradient(135deg,var(--color-sunken)_0_10px,var(--color-stripe)_10px_20px)]">
           {h.photo ? (
-            <Picture
+            <Lightbox
               src={h.photo}
               alt={h.photoDraft.replace(/^Photo: /, '')}
-              formats={['avif', 'webp']}
+              caption={h.photoCaption}
+              thumb={h.photoCard}
               widths={[340, 680]}
               sizes="(max-width: 899px) 50vw, 300px"
-              class="absolute inset-0 size-full object-cover"
-              pictureAttributes={{ class: 'contents' }}
             />
           ) : (
             <span

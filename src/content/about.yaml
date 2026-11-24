@@ -17,16 +17,31 @@ hobbies:
   - {
       name: 3D printing.,
       caption: Mostly brackets for other brackets.,
-      photoDraft: 'Photo: a print in progress',
+      photoDraft: 'Photo: a 3D-printed Pinewood Derby trophy',
+      photo: ../assets/hobbies/3d-printing.jpg,
+      photoCaption: "Trophies I made for my daughter's Scout Pinewood Derby.",
+      photoCard: ../assets/hobbies/3d-printing-card.jpg,
     }
   - {
       name: Woodworking.,
       caption: 'Measure twice, cut once, sand for a week.',
-      photoDraft: 'Photo: workshop project',
+      photoDraft: 'Photo: a coffee table with a dark-to-light striped wood top',
+      photo: ../assets/hobbies/woodworking.jpg,
+      photoCaption: 'Coffee table I built for a friend.',
+      photoCard: ../assets/hobbies/woodworking-card.jpg,
     }
-  - { name: Cooking., caption: The family rates it. Harshly., photoDraft: 'Photo: something delicious' }
+  - {
+      name: Cooking.,
+      caption: The family rates it. Harshly.,
+      photoDraft: 'Photo: me with a roast turkey I cooked',
+      photo: ../assets/hobbies/cooking.jpg,
+      photoCaption: Turkey!!!,
+      photoCard: ../assets/hobbies/cooking-card.jpg,
+    }
   - {
       name: Board games.,
       caption: Reads the whole rulebook. Out loud.,
-      photoDraft: 'Photo: game night table',
+      photoDraft: 'Photo: three zombie superhero miniatures I painted',
+      photo: ../assets/hobbies/board-games.jpg,
+      photoCaption: 'Some minis I painted for one of my favorite games, Marvel Zombies.',
     }
