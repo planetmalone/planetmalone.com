@@ -119,15 +119,28 @@ const logos = Object.fromEntries(
               ]}
             >
               <p class="font-mono text-sm text-ink2">{stop.dates}</p>
-              <h3 class="text-card-title font-bold text-pretty">{stop.title}</h3>
-              {(stop.company || logo) && (
+              {stop.company ? (
+                <h3 class="text-card-title font-bold text-pretty">{stop.title}</h3>
+              ) : (
+                // No company line (the Army), so the logo sits beside the title.
+                <h3
+                  class:list={[
+                    'flex items-center gap-2.5 text-card-title font-bold text-pretty',
+                    { 'md:flex-row-reverse': !right },
+                  ]}
+                >
+                  {logo && <Image src={logo} alt="" height={28} class="h-7 w-auto rounded-control" />}
+                  {stop.title}
+                </h3>
+              )}
+              {stop.company && (
                 <p
                   class:list={[
                     'flex items-center gap-2.5 text-lg text-ink2',
                     { 'md:flex-row-reverse': !right },
                   ]}
                 >
-                  {logo && <Image src={logo} alt="" height={28} class="h-7 w-auto" />}
+                  {logo && <Image src={logo} alt="" height={28} class="h-7 w-auto rounded-control" />}
                   {stop.company}
                 </p>
               )}
