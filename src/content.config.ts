@@ -185,7 +185,13 @@ const uses = singleton(
       z.object({
         title: z.string(),
         items: z.array(
-          z.object({ name: z.string(), note: z.string().optional(), draft: z.boolean().default(false) }),
+          z.object({
+            name: z.string(),
+            note: z.string().optional(),
+            url: z.url().optional(),
+            links: z.array(z.object({ text: z.string(), url: z.url() })).optional(),
+            draft: z.boolean().default(false),
+          }),
         ),
       }),
     ),

@@ -18,13 +18,25 @@ const uses = await getSingleton('uses');
           <h2 class="text-card-title font-bold">{g.title}</h2>
           <ul>
             {g.items.map((item) => (
-              <li class="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-t border-sunken py-2.5">
-                <span>
-                  <b>{item.name}</b> {item.note && <span class="text-ink2">{item.note}</span>}
-                </span>
-                {item.draft && (
-                  <span class="self-center text-xs font-bold text-accent print:hidden">Draft</span>
+              <li class="flex items-baseline justify-between gap-3 border-t border-sunken py-2.5">
+                <b>{item.name}</b>
+                {item.links ? (
+                  <span class="text-right">
+                    {item.links.map((l, i) => (
+                      <>
+                        {i > 0 && <span class="text-ink2"> + </span>}
+                        <a href={l.url}>{l.text}</a>
+                      </>
+                    ))}
+                  </span>
+                ) : item.url ? (
+                  <a class="text-right" href={item.url}>
+                    {item.note}
+                  </a>
+                ) : (
+                  item.note && <span class="text-right text-accent">{item.note}</span>
                 )}
+                {item.draft && <span class="text-xs font-bold text-accent print:hidden">Draft</span>}
               </li>
             ))}
           </ul>

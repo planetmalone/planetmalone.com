@@ -2,22 +2,49 @@ lead: The tools on my desk and in the garage. No affiliate links.
 groups:
   - title: Desk
     items:
-      - { name: Computer, draft: true }
-      - { name: Monitor, draft: true }
-      - { name: Keyboard, draft: true }
-      - { name: Chair, draft: true }
+      - { name: Computer, note: MacBook Pro, url: 'https://www.apple.com/macbook-pro/' }
+      - {
+          name: Monitor,
+          note: 'Dell 49" curved',
+          url: 'https://www.tomshardware.com/reviews/dell-ultrasharp-u4919dw-curved-monitor,6001.html',
+        }
+      - {
+          name: Mouse,
+          note: Logitech MX Ergo,
+          url: 'https://www.logitech.com/en-us/shop/p/mx-ergo-wireless-trackball-mouse.910-005178',
+        }
+      - { name: Keyboard, note: Meletrix BOOG75 HE, url: 'https://meletrix.com/products/boog75-he-module' }
+      - { name: Chair, note: Secretlab Titan, url: 'https://secretlab.co/titan' }
   - title: Software
     items:
-      - { name: Editor, draft: true }
-      - { name: Claude Code, note: 'agent skills, reviewed line by line' }
-      - { name: Figma, note: design system source of truth }
-      - { name: Storybook, note: 'every component, every state' }
+      - { name: IDE, note: WebStorm, url: 'https://www.jetbrains.com/webstorm/' }
+      - { name: ADE, note: Orca, url: 'https://orca.dev/' }
+      - name: Design
+        links:
+          - { text: Figma, url: 'https://www.figma.com/' }
+          - { text: Claude Design, url: 'https://claude.com/product/design' }
+      - name: Agents
+        links:
+          - { text: Claude, url: 'https://claude.com/product/claude-code' }
+          - { text: Codex, url: 'https://openai.com/codex/' }
   - title: Workshop
     items:
-      - { name: 3D printer, draft: true }
-      - { name: 3D modeling software, draft: true }
-      - { name: Favorite woodworking tool, draft: true }
-  - title: Kitchen & table
+      - { name: 3D printer, note: Bambu Lab X1C, url: 'https://bambulab.com/en/x1' }
+      - {
+          name: 3D modeling software,
+          note: Autodesk Fusion,
+          url: 'https://www.autodesk.com/products/fusion-360/overview',
+        }
+      - {
+          name: Favorite woodworking tool,
+          note: Clamps,
+          url: 'https://www.familyhandyman.com/article/types-of-clamps-and-what-theyre-used-for/',
+        }
+  - title: Kitchen
     items:
-      - { name: Go-to cooking tool, draft: true }
-      - { name: Most-played board game, draft: true }
+      - {
+          name: Go-to cooking tool,
+          note: Sous vide,
+          url: 'https://anovaculinary.com/products/anova-precision-cooker-3',
+        }
+      - { name: Favorite dish, note: Prime rib, url: 'https://en.wikipedia.org/wiki/Standing_rib_roast' }
