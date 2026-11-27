@@ -22,6 +22,7 @@ const { education } = profile;
 type Stop = {
   id: string;
   start: number;
+  current?: boolean;
   dates: string;
   title: string;
   company?: string | undefined;
@@ -36,6 +37,7 @@ type Stop = {
 const stops: Stop[] = [...roles].reverse().map(({ id, data }) => ({
   id,
   start: data.years.start,
+  current: data.years.end === undefined,
   dates: formatYears(data.years),
   title: data.title,
   company: data.company,
@@ -110,7 +112,7 @@ const logos = Object.fromEntries(
               ]}
               aria-hidden="true"
             >
-              {stop.start}
+              {stop.current ? 'Now' : stop.start}
             </p>
             <div
               class:list={[
